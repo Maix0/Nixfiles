@@ -1,9 +1,5 @@
 { config, pkgs, lib, ... }:
 
-let
-  ashmem = config.boot.kernelPackages.callPackage ./anbox.nix { name = "ashmem"; };
-  binder = config.boot.kernelPackages.callPackage ./anbox.nix { name = "binder"; };
-in
 {
   xdg = {
     portal = {
