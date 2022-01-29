@@ -139,9 +139,7 @@ in
       }];
       input = {
         "${localinfo.keyboard}" = {
-          xkb_layout = "us";
-          xkb_variant = "dvp";
-          xkb_options = "compose:102";
+          xkb_layout = "fr";
         };
         "${localinfo.touchpad}" = {
           dwt = "disable";

@@ -85,14 +85,6 @@ in
     unzip
   ];
 
-  services = {
-    syncthing = {
-      enable = true;
-      tray = {
-        enable = true;
-      };
-    };
-  };
 
   programs = {
     home-manager = {
@@ -109,7 +101,7 @@ in
 
     git = {
       enable = true;
-      userName = "Quentin Boyer";
+      userName = "Maieul Boyer";
       userEmail = localinfo.email;
       delta = {
         enable = true;

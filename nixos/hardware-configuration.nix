@@ -5,28 +5,32 @@
 
 {
   imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "rtsx_usb_sdmmc" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "iomem=relaxed" ];
 
   fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/95baa216-c7f1-418d-be70-cd1d4102c837";
-      fsType = "btrfs";
+    { device = "/dev/disk/by-uuid/d3fb0c16-4c06-4f82-a14f-a525f99eecff";
+      fsType = "ext4";
     };
 
   fileSystems."/home" =
-    {
-      device = "/dev/disk/by-uuid/50e43b17-10c8-4bbe-893a-c709172867db";
-      fsType = "btrfs";
+    { device = "/dev/disk/by-uuid/3817d9d6-f634-4011-af1c-f7bb306a5aac";
+      fsType = "ext4";
     };
 
-  swapDevices = [
-  ];
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/E50B-9F01";
+      fsType = "vfat";
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/a2fdbf3a-edda-4e40-96bb-3b28b456d50e"; }
+    ];
+
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
