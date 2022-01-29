@@ -172,7 +172,7 @@
 
   outputs = { home-manager, nixpkgs, ... }@inputs: {
     nixosConfigurations = {
-      ZeNixLaptop = nixpkgs.lib.nixosSystem rec {
+      ZeMaix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = [
           ({ pkgs, ... }: {
