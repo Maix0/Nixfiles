@@ -186,7 +186,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.traxys = import ./home.nix;
+            home-manager.users.maix = import ./home.nix;
             home-manager.extraSpecialArgs = {
               dotacat = inputs.dotacat;
               rnix-lsp = inputs.rnix-lsp;

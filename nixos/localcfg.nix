@@ -1,6 +1,16 @@
 { config, pkgs, ... }:
 
 {
+  boot = {
+    loader = {
+      grub = {
+        enable = true;
+        version = 2;
+        device = "/dev/disk/by-uuid/E50B-9F01";
+      };
+    };
+  };
+
   networking = {
     hostName = "ZeMaix";
     interfaces = {

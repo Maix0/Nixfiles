@@ -41,7 +41,7 @@
 
   outputs = { home-manager, nixpkgs, ... }@inputs: {
     nixosConfigurations = {
-      ZeNixLaptop = nixpkgs.lib.nixosSystem rec {
+      ZeMaix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = [
           ({ pkgs, ... }: {
@@ -55,7 +55,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.traxys = import ./home.nix;
+            home-manager.users.maix = import ./home.nix;
             home-manager.extraSpecialArgs = {
               dotacat = inputs.dotacat;
               rnix-lsp = inputs.rnix-lsp;
