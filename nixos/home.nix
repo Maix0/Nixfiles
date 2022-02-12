@@ -5,5 +5,5 @@
     <home-manager/nixos>
   ];
   home-manager.useGlobalPkgs = true;
-  home-manager.users.traxys = (import /etc/nixos/traxys/home.nix);
+  home-manager.users.maix = (import /etc/nixos/maix/home.nix);
 }

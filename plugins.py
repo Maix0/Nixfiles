@@ -10,6 +10,7 @@ plugins = [
     "nvim-lua/plenary.nvim",
     "bluz71/vim-moonfly-colors",
     "hrsh7th/vim-vsnip",
+    "hrsh7th/cmp-vsnip",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-calc",
@@ -32,6 +33,7 @@ plugins = [
     "nathom/filetype.nvim",
     "tweekmonster/startuptime.vim",
     "kyazdani42/nvim-tree.lua",
+    "Chiel92/vim-autoformat",
 ]
 
 inputs = ""

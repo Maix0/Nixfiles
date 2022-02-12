@@ -774,6 +774,7 @@
         "telescope.nvim": "telescope.nvim",
         "vim-Grammalecte": "vim-Grammalecte",
         "vim-LanguageTool": "vim-LanguageTool",
+        "vim-autoformat": "vim-autoformat",
         "vim-headerguard": "vim-headerguard",
         "vim-matchup": "vim-matchup",
         "vim-moonfly-colors": "vim-moonfly-colors",
@@ -873,6 +874,22 @@
       "original": {
         "owner": "dpelle",
         "repo": "vim-LanguageTool",
+        "type": "github"
+      }
+    },
+    "vim-autoformat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1636319658,
+        "narHash": "sha256-B4E5bN8thLkhRbLj4vBbgYHDOWRPv/0s3zJKCFampdM=",
+        "owner": "Chiel92",
+        "repo": "vim-autoformat",
+        "rev": "bb11f30377985e45e2eecef570856d42dbabb8b0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Chiel92",
+        "repo": "vim-autoformat",
         "type": "github"
       }
     },

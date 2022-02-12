@@ -14,6 +14,20 @@ require("nvim-tree").setup({
 	},
 })
 
+local nvim_lsp = require('lspconfig')
+
+local configs = require('lspconfig/configs')
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+for _, lsp in ipairs({"rust_analyzer", "csharp_ls"}) do
+    nvim_lsp[lsp].setup{capabilities = capabilities}
+end
+
+
+
+
+
 vim.o.number = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
@@ -25,7 +39,10 @@ vim.o.hidden = true
 
 vim.g.tex_flavor = "latex"
 
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
+
+
+
 
 vim.g.indentLine_concealcursor = "inc"
 vim.g.indentLine_conceallevel = 2
@@ -84,6 +101,8 @@ require("filetype").setup({
 		},
 	},
 })
+
+
 
 --autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 

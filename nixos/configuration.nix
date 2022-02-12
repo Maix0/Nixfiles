@@ -46,6 +46,7 @@
   fonts.enableDefaultFonts = true;
   fonts = {
     fonts = with pkgs; [
+	  liberation_ttf
       (nerdfonts.override { fonts = [ "Hack" ]; })
       dejavu_fonts
     ];
@@ -68,6 +69,8 @@
     '';
   };
 
+
+
   networking.networkmanager.enable = true;
   programs.noisetorch.enable = true;
 
@@ -81,7 +84,8 @@
     dates = "weekly";
     options = "--delete-older-than 14d"; # Ajuste comme tu veux, tu peux utiliser +5 pour garder les 5 dernières, etc.
   };
-
+	
+  sound.enable = true;	
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

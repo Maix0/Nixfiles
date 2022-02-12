@@ -5,7 +5,8 @@ let
 in
 {
   home.packages = with pkgs; [
-    bitwarden
+    foot
+	bitwarden
     firefox-wayland
     /* firefox */
     thunderbird-wayland
@@ -22,6 +23,17 @@ in
     sway
     xdg_utils
   ];
+	
+  # xdg.mime.defaultApplications = { "text/x-csharp" = "nvim-unity.desktop"; };
+  xdg.desktopEntries = {
+	nvim-unity = {
+		name = "nvim-unity";
+		exec = "/home/maix/bin/nvim-unity %f";
+		terminal = true;
+		mimeType = ["text/x-csharp"];
+
+	};
+  };
 
   gtk = {
     enable = true;
@@ -66,7 +78,7 @@ in
       settings = [
         {
           layer = "top";
-          position = "bottom";
+          position = "top";
           modules-left = [
             "network#wifi"
             "sway/workspaces"
@@ -130,6 +142,8 @@ in
 
   };
 
+
+
   wayland.windowManager.sway = {
     enable = true;
     config = {
@@ -151,7 +165,7 @@ in
         size = 13.0;
       };
       window = {
-        titlebar = true;
+        titlebar = false;
       };
       startup = [
         { command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
@@ -160,7 +174,7 @@ in
         { command = "wdumpkeys >> ~/.keydump"; }
       ];
       menu = "${pkgs.wofi}/bin/wofi --show drun,run --allow-images";
-      terminal = "${pkgs.kitty}/bin/kitty";
+      terminal = "${pkgs.foot}/bin/foot";
       keybindings =
         let
           mod = config.wayland.windowManager.sway.config.modifier;
@@ -174,33 +188,34 @@ in
           ws6 = "6";
           ws7 = "7";
           ws8 = "8";
-          ws9 = "";
-          ws10 = "";
+          ws9 = "";
+          ws10 = "";
         in
         {
           "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png";
-          "${mod}+Shift+semicolon" = "kill";
-          "${mod}+e" = "exec ${menu}";
+          "${mod}+Shift+A" = "kill";
+          "${mod}+d" = "exec ${menu}";
           "${mod}+Return" = "exec ${terminal}";
-          "${mod}+Shift+e" =
+          "${mod}+Shift+E" =
             "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
 
-          "${mod}+u" = "fullscreen toggle";
-          "${mod}+comma" = "layout tabbed";
-          "${mod}+p" = "mode resize";
+          "${mod}+f" = "fullscreen toggle";
+          "${mod}+z" = "layout tabbed";
+          "${mod}+c" = "layout toggle split";
+          "${mod}+r" = "mode resize";
 
-          "${mod}+h" = "focus left";
-          "${mod}+t" = "focus down";
-          "${mod}+n" = "focus up";
-          "${mod}+s" = "focus right";
+          "${mod}+j" = "focus left";
+          "${mod}+k" = "focus down";
+          "${mod}+l" = "focus up";
+          "${mod}+m" = "focus right";
           "${mod}+Left" = "focus left";
           "${mod}+Down" = "focus down";
           "${mod}+Up" = "focus up";
           "${mod}+Right" = "focus right";
-          "${mod}+Shift+H" = "move left";
-          "${mod}+Shift+T" = "move down";
-          "${mod}+Shift+N" = "move up";
-          "${mod}+Shift+S" = "move right";
+          "${mod}+Shift+J" = "move left";
+          "${mod}+Shift+K" = "move down";
+          "${mod}+Shift+L" = "move up";
+          "${mod}+Shift+M" = "move right";
           "${mod}+Shift+Left" = "move left";
           "${mod}+Shift+Down" = "move down";
           "${mod}+Shift+Up" = "move up";
@@ -208,32 +223,38 @@ in
 
           # Workspaces
           "${mod}+ampersand" = "workspace ${ws1}";
-          "${mod}+bracketleft" = "workspace ${ws2}";
-          "${mod}+braceleft" = "workspace ${ws3}";
-          "${mod}+braceright" = "workspace ${ws4}";
+          "${mod}+less" = "workspace ${ws1}";
+          "${mod}+eacute" = "workspace ${ws2}";
+          "${mod}+Control_L" = "workspace ${ws2}";
+          "${mod}+quotedbl" = "workspace ${ws3}";
+          "${mod}+apostrophe" = "workspace ${ws4}";
           "${mod}+parenleft" = "workspace ${ws5}";
-          "${mod}+equal" = "workspace ${ws6}";
-          "${mod}+asterisk" = "workspace ${ws7}";
-          "${mod}+parenright" = "workspace ${ws8}";
+          "${mod}+minus" = "workspace ${ws6}";
+          "${mod}+egrave" = "workspace ${ws7}";
+          "${mod}+underscore" = "workspace ${ws8}";
           "${mod}+w" = "workspace ${ws9}";
-          "${mod}+m" = "workspace ${ws10}";
+          "${mod}+x" = "workspace ${ws10}";
           "${mod}+Shift+ampersand" = "move container to workspace ${ws1}";
-          "${mod}+Shift+bracketleft" = "move container to workspace ${ws2}";
-          "${mod}+Shift+braceleft" = "move container to workspace ${ws3}";
-          "${mod}+Shift+braceright" = "move container to workspace ${ws4}";
+          "${mod}+Shift+greater" = "move container to workspace ${ws1}";
+          "${mod}+Shift+eacute" = "move container to workspace ${ws2}";
+          "${mod}+Shift+Control_L" = "move container to workspace ${ws2}";
+          "${mod}+Shift+quotedbl" = "move container to workspace ${ws3}";
+          "${mod}+Shift+apostrophe" = "move container to workspace ${ws4}";
           "${mod}+Shift+parenleft" = "move container to workspace ${ws5}";
-          "${mod}+Shift+equal" = "move container to workspace ${ws6}";
-          "${mod}+Shift+asterisk" = "move container to workspace ${ws7}";
-          "${mod}+Shift+parenright" = "move container to workspace ${ws8}";
-          "${mod}+Shift+w" = "move container to workspace ${ws9}";
-          "${mod}+Shift+m" = "move container to workspace ${ws10}";
+          "${mod}+Shift+minus" = "move container to workspace ${ws6}";
+          "${mod}+Shift+egrave" = "move container to workspace ${ws7}";
+          "${mod}+Shift+underscore" = "move container to workspace ${ws8}";
+          "${mod}+Shift+W" = "move container to workspace ${ws9}";
+          "${mod}+Shift+X" = "move container to workspace ${ws10}";
+		  "${mod}+Shift+Space" = "floating toggle";
 
-          "${mod}+Shift+J" = "reload";
-          "${mod}+Shift+p" = "restart";
-          "${mod}+Shift+l" = "exec ${pkgs.swaylock-fancy}/bin/swaylock-fancy";
+          "${mod}+Shift+C" = "reload";
+          "${mod}+Shift+R" = "restart";
+          "${mod}+Shift+N" = "exec ${pkgs.swaylock-fancy}/bin/swaylock-fancy";
         };
-    };
-
+		output = {"*" = {bg = "${localinfo.homeDir}/wallpaper.jpg fill";};};
+	};
+	
   };
 
   home.file = {
