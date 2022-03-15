@@ -45,7 +45,6 @@ in
   };
 
   home.packages = with pkgs; [
-   	foot
     astyle
 	nodejs
 	dotnet-sdk
@@ -111,7 +110,8 @@ in
       enable = true;
       userName = "Maieul Boyer";
       userEmail = localinfo.email;
-      delta = {
+      lfs.enable = true;
+	  delta = {
         enable = true;
         options = {
           line-numbers = true;
@@ -179,7 +179,18 @@ in
         ns = "nix-shell";
       };
     };
+
+	foot = {
+		enable = true;
+		settings = {
+			colors = {
+				alpha = "0.80";
+			};
+		};
+	};
   };
+
+
   home.file = {
     ".config/nvim" = {
       source = ./nvim;

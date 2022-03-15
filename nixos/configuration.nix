@@ -42,7 +42,21 @@
   };
   programs.adb.enable = true;
   programs.dconf.enable = true;
+	
+  hardware.opengl.extraPackages = with pkgs; [
+   	rocm-opencl-icd
+   	rocm-opencl-runtime
+  	amdvlk
+  ];
 
+  hardware.opengl.enable = true;
+
+  hardware.opengl.driSupport = true;
+  # For 32 bit applications
+  hardware.opengl.driSupport32Bit = true;
+
+  
+	
   fonts.enableDefaultFonts = true;
   fonts = {
     fonts = with pkgs; [
@@ -69,6 +83,7 @@
     '';
   };
 
+  
 
 
   networking.networkmanager.enable = true;

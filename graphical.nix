@@ -5,7 +5,6 @@ let
 in
 {
   home.packages = with pkgs; [
-    foot
 	bitwarden
     firefox-wayland
     /* firefox */
@@ -16,9 +15,9 @@ in
     signal-desktop
     libreoffice-fresh
     feh
-    (tor-browser-bundle-bin.override {
-      useHardenedMalloc = false;
-    })
+    # (tor-browser-bundle-bin.override {
+    #  useHardenedMalloc = false;
+    # })
 
     sway
     xdg_utils
@@ -61,6 +60,7 @@ in
     XDG_CURRENT_DESKTOP = "sway";
     BROWSER = "firefox";
     LIBSEAT_BACKEND = "logind";
+  	_JAVA_AWT_WM_NONREPARENTING=1;
   };
 
   programs = {
