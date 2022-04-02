@@ -104,6 +104,8 @@ require("filetype").setup({
 
 
 
+
+
 --autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
 vim.cmd([[

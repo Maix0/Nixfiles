@@ -15,6 +15,7 @@ in
     signal-desktop
     libreoffice-fresh
     feh
+	alacritty
     # (tor-browser-bundle-bin.override {
     #  useHardenedMalloc = false;
     # })

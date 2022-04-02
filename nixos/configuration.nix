@@ -75,7 +75,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   /* nixpkgs.config.allowBroken = true; */
-  virtualisation.waydroid.enable = true;
+  virtualisation.docker.enable = true;
 
   security.pam.services.swaylock = {
     text = ''

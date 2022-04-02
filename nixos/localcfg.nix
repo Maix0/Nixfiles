@@ -39,12 +39,13 @@
         uid = 1000;
         isNormalUser = true;
         home = "/home/maix";
-        extraGroups = [ "wheel" "networkmanager" "adbusers" "audio" ];
+        extraGroups = [ "wheel" "networkmanager" "adbusers" "audio" "docker" ];
         shell = pkgs.zsh;
       };
       localtimed.group = "localtimed";
     };
     groups.localtimed = { };
+	groups.docker = {};
   };
 
   # Set your time zone.

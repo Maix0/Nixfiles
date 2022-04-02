@@ -55,7 +55,8 @@ in
 	bitwarden-cli
     rustup
     neovim-nightly
-    rust-analyzer
+ 	python39Packages.jedi-language-server   
+ 	rust-analyzer
     clang-tools
     nodePackages.vscode-json-languageserver
     nodePackages.bash-language-server
@@ -90,6 +91,9 @@ in
     cargo-flamegraph
     linuxPackages_latest.perf
     unzip
+	docker
+	docker-ls
+	docker-gc
   ];
 
 
