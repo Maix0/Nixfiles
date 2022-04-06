@@ -19,6 +19,8 @@
     '';
   };
 
+  # boot.extraModulePackages = [ ashmem binder ];
+  # boot.kernelModules = [ "ashmem_linux" "binder_linux" ];
 
   nixpkgs.config = {
     allowUnfree = true;

@@ -73,7 +73,7 @@
     };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
   /* nixpkgs.config.allowBroken = true; */
   virtualisation.docker.enable = true;
 
@@ -93,7 +93,7 @@
     8080
   ];
 
-  nix.autoOptimiseStore = true;
+  nix.settings.auto-optimise-store = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -109,9 +109,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.05"; # Did you read the comment?
 }
-
-
-
-
-
-
