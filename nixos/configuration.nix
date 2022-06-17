@@ -37,10 +37,6 @@
       pulse.enable = true;
     };
     localtimed.enable = true;
-<<<<<<< HEAD
-=======
-	geoclue2.enable = true;
->>>>>>> 9d7e1172ba612e06676d429483765214d144c40e
     fwupd.enable = true;
     postgresql = {
       enable = true;
@@ -48,8 +44,6 @@
   };
   programs.adb.enable = true;
   programs.dconf.enable = true;
-<<<<<<< HEAD
-	
   hardware.opengl.extraPackages = with pkgs; [
    	# rocm-opencl-icd
    	# rocm-opencl-runtime
@@ -64,21 +58,15 @@
 
 	hardware.bluetooth.enable = true;
 	services.blueman.enable = true;
-=======
   programs.nix-ld.enable = true;
->>>>>>> 9d7e1172ba612e06676d429483765214d144c40e
 
   
 	
   fonts.enableDefaultFonts = true;
   fonts = {
     fonts = with pkgs; [
-<<<<<<< HEAD
 	  liberation_ttf
       (nerdfonts.override { fonts = [ "Hack" ]; })
-=======
-      (nerdfonts.override {fonts = ["Hack"];})
->>>>>>> 9d7e1172ba612e06676d429483765214d144c40e
       dejavu_fonts
     ];
     fontconfig = {
@@ -91,25 +79,16 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages;
-<<<<<<< HEAD
   /* nixpkgs.config.allowBroken = true; */
-  virtualisation.docker.enable = true;
-=======
   /*
    nixpkgs.config.allowBroken = true;
    */
-  virtualisation.waydroid.enable = true;
->>>>>>> 9d7e1172ba612e06676d429483765214d144c40e
 
   virtualisation = {
     waydroid.enable = true;
     libvirtd = {
       enable = true;
       qemu.swtpm.enable = true;
-      qemu.ovmf = {
-        enable = true;
-        package = pkgs.OVMFFull;
-      };
     };
     podman = {
       enable = true;

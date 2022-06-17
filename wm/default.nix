@@ -50,17 +50,17 @@
     font = {
       name = "Hack Nerd Font";
       style = "Regular";
-      size = 12.0;
+      size = 13.0;
     };
     bar = {
-      font = {
+	  font = {
         name = "Hack Nerd Font Mono";
         style = "Regular";
-        size = 11.0;
+        size = 13.0;
       };
     };
 
-    wallpaper = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png";
+    wallpaper = "/home/maix/wallpaper.jpg"; #""${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png";
 
     printScreen = {
       enable = true;
@@ -69,7 +69,7 @@
 
     menu = {
       enable = true;
-      keybind = "${mod}+e";
+      keybind = "${mod}+d";
     };
 
     exit = {
@@ -79,7 +79,7 @@
 
     notifications = {
       enable = true;
-      font = "hack nerd font 10";
+      font = "hack nerd font 14";
       defaultTimeout = 7000;
     };
 
@@ -87,14 +87,11 @@
       {command = "signal-desktop";}
       {command = "discord";}
       {command = "firefox";}
-      {command = "element-desktop";}
+      {command = "spotify";}
+	  {command = "element-desktop";}
       {command = "thunderbird";}
       {command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
       {command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
-      {
-        command = "${pkgs.kdeconnect}/libexec/kdeconnectd";
-        always = true;
-      }
     ];
 
     workspaces = {
@@ -102,22 +99,20 @@
       definitions = {
         "1:" = {key = "ampersand";};
         "2:" = {
-          key = "bracketleft";
-          output = "DP-0";
+          key = "eacute";
         };
-        "3:" = {key = "braceleft";};
-        "4" = {key = "braceright";};
+        "3:" = {key = "quotedbl";};
+        "4" = {key = "apostrophe";};
         "5" = {key = "parenleft";};
-        "6" = {key = "equal";};
-        "7" = {key = "asterisk";};
+        "6" = {key = "minus";};
+        "7" = {key = "egrave";};
         "" = {
-          key = "parenright";
+          key = "less";
           output = "HDMI-0";
           assign = ["Spotify"];
         };
         "" = {
           key = "w";
-          output = "HDMI-0";
           assign = [
             "Element"
             "Signal"
@@ -125,8 +120,7 @@
           ];
         };
         "" = {
-          key = "m";
-          output = "HDMI-0";
+          key = "x";
           assign = ["Thunderbird"];
         };
       };
@@ -154,15 +148,17 @@
       "${mod}+Shift+Up" = "move up";
 
       # Layout
-      "${mod}+u" = "fullscreen toggle";
-      "${mod}+comma" = "layout tabbed";
+      "${mod}+f" = "fullscreen toggle";
+      "${mod}+z" = "layout tabbed";
+	  "${mod}+c" = "layout toggle split";
 
       # Misc
-      "${mod}+Shift+colon" = "kill";
-      "${mod}+Shift+J" = "reload";
+      "${mod}+Shift+a" = "kill";
+      "${mod}+Shift+R" = "reload";
       "${mod}+Return" = "exec ${config.terminal.command}";
       "${mod}+p" = "mode resize";
       "${mod}+Shift+P" = "restart";
+	  
     };
   };
 }

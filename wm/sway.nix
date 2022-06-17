@@ -52,7 +52,7 @@ in {
         settings = [
           {
             layer = "top";
-            position = "bottom";
+            position = "top";
             modules-left = [
               "network#wifi"
               "sway/workspaces"
@@ -68,7 +68,6 @@ in {
               "clock"
               "tray"
             ];
-            modules = {
               "sway/workspaces" = {
                 persistent_workspaces = {
                   "" = [];
@@ -105,7 +104,6 @@ in {
               "clock" = {
                 format-alt = "{:%a, %d. %b  %H:%M}";
               };
-            };
           }
         ];
       };
@@ -126,7 +124,7 @@ in {
         bars = [
           {
             command = "waybar";
-          }
+		  }
         ];
         input = let
           inputs = config.extraInfo.inputs;
@@ -136,9 +134,7 @@ in {
               then {
                 name = inputs.keyboard;
                 value = {
-                  xkb_layout = "us";
-                  xkb_variant = "dvp";
-                  xkb_options = "compose:102";
+                  xkb_layout = "fr";
                 };
               }
               else null
@@ -156,7 +152,7 @@ in {
           builtins.listToAttrs inputsCfg;
         fonts = common.mkFont cfg.font;
         window = {
-          titlebar = true;
+          titlebar = false;
         };
         keybindings = common.keybindings;
         workspaceOutputAssign = common.workspaceOutputAssign;

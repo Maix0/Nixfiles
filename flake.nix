@@ -19,27 +19,18 @@
       zsh-maix = {
         url = "github:Maix0/zsh-flake";
       };
+      nix-alien.url = "github:thiagokokada/nix-alien";
+      nix-ld.url = "github:Mic92/nix-ld/main";
+      xdg-ninja = {
+      	url = "github:traxys/xdg-ninja";
+      	flake = false;
+      };
     };
-    nix-alien.url = "github:thiagokokada/nix-alien";
-    nix-ld.url = "github:Mic92/nix-ld/main";
-    nvim-traxys = {
-      url = "github:traxys/nvim-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    zsh-traxys = {
-      url = "github:traxys/zsh-flake";
-    };
-    xdg-ninja = {
-      url = "github:traxys/xdg-ninja";
-      flake = false;
-    };
-  };
-
   outputs = {
     home-manager,
     nixpkgs,
     ...
-  } @ inputs: {
+  } @ inputs : {
     nixosConfigurations = {
       ZeMaix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
