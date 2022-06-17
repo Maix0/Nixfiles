@@ -1,6 +1,12 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  ashmem = config.boot.kernelPackages.callPackage ./anbox.nix {name = "ashmem";};
+  binder = config.boot.kernelPackages.callPackage ./anbox.nix {name = "binder";};
+in {
   xdg = {
     portal = {
       enable = true;
@@ -26,11 +32,13 @@
     allowUnfree = true;
   };
 
-  /* nixpkgs.config.packageOverrides = pkgs: {
-    steam = pkgs.steam.override {
-    nativeOnly = true;
-    };
-    }; */
+  /*
+    nixpkgs.config.packageOverrides = pkgs: {
+   steam = pkgs.steam.override {
+   nativeOnly = true;
+   };
+   };
+   */
 
   programs.steam.enable = true;
 }

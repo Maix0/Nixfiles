@@ -1,6 +1,8 @@
-{ pkgs, config, ... }:
-
 {
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = with pkgs; [
 	bitwarden
     firefox-wayland
@@ -10,7 +12,7 @@
 
     # IM
     element-desktop
-    (discord.override { nss = pkgs.nss; })
+    (discord.override {nss = pkgs.nss;})
     signal-desktop
 
     # Mail

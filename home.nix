@@ -1,17 +1,15 @@
-{ config
-, pkgs
-, lib
-, ...
-}:
-
-let
-  rustVersion = (pkgs.rustChannelOf { channel = "stable"; }).rust;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  rustVersion = (pkgs.rustChannelOf {channel = "stable";}).rust;
   rsPlatform = pkgs.makeRustPlatform {
     cargo = rustVersion;
     rustc = rustVersion;
   };
-in
-{
+in {
   home.packages = with pkgs; [
     bitwarden-cli
     nodePackages.vscode-json-languageserver
@@ -24,7 +22,6 @@ in
     bintools
     httpie
     sqlx-cli
-    direnv
     codespell
     ripgrep
     file
@@ -34,7 +31,9 @@ in
     linuxPackages.perf
     unzip
     tokei
-	gcc11
+    gcc11
+    nix-alien
+	xdg-ninja
   ];
 
   services = {
@@ -44,6 +43,12 @@ in
   };
 
   programs = {
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableZshIntegration = true;
+    };
+
     home-manager = {
       enable = true;
     };
@@ -64,6 +69,12 @@ in
     "bin" = {
       source = ./scripts;
       recursive = true;
+    };
+  };
+
+  programs.zsh = {
+    shellAliases = {
+      new-direnv = "nix flake new -t github:nix-community/nix-direnv";
     };
   };
 
