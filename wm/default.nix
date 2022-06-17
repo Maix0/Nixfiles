@@ -22,7 +22,6 @@
     MOZ_ENABLE_WAYLAND = "1";
     XDG_CURRENT_DESKTOP = "sway";
     LIBSEAT_BACKEND = "logind";
-    LIBSEAT_BACKEND = "logind";
   	_JAVA_AWT_WM_NONREPARENTING=1;
 
   };
@@ -32,36 +31,20 @@
     kind = "foot";
 
     colors = {
-      background = "000000";
-      foreground = "ffffff";
-      alpha = "0.80";
-      black = {
-        normal = "000000";
-        bright = "545454";
-      };
-      red = { normal = "ff5555"; };
-      green = { normal = "55ff55"; };
-      yellow = { normal = "ffff55"; };
-      blue = { normal = "5555ff"; };
-      magenta = { normal = "ff55ff"; };
-      cyan = { normal = "55ffff"; };
-      white = {
-        normal = "bbbbbb";
-        bright = "ffffff";
-      };
-
+      alpha = 0.80;
+      background = "0F0F0F";
       selectionForeground = "000000";
     };
     font = {
       family = "Hack Nerd Font Mono";
-      size = 7;
+      size = 9;
     };
   };
 
   programs = {
     mako = {
       enable = true;
-      font = "hack nerd font 10";
+      font = "hack nerd font 12";
       margin = "20,20,5,5";
       ignoreTimeout = true;
       defaultTimeout = 7000;
@@ -89,44 +72,42 @@
             "clock"
             "tray"
           ];
-          modules = {
-            "sway/workspaces" = {
-              persistent_workspaces = {
-                "" = [ ];
-                "" = [ ];
-                "1:" = [ ];
-              };
-              numeric-first = true;
-            };
-            "network#wifi" = {
-              interface = "wlp1s0";
-              format-wifi = "{essid} ({signalStrength}%) ";
-            };
-            cpu = {
-              format = "﬙ {load}";
-            };
-            memory = {
-              format = " {used:.0f}G/{total:.0f}G";
-            };
-            "sway/window" = {
-              max-length = 50;
-            };
-            "disk#home" = {
-              path = "/home";
-              format = " {free}";
-            };
-            "disk#root" = {
-              path = "/";
-              format = " {percentage_free}%";
-            };
-            "battery" = {
-              format = "{capacity}% {icon}";
-              format-icons = [ "" "" "" "" "" ];
-            };
-            "clock" = {
-              format-alt = "{:%a, %d. %b  %H:%M}";
-            };
-          };
+	   "sway/workspaces" = {
+		  persistent_workspaces = {
+			"" = [ ];
+			"" = [ ];
+			"1:" = [ ];
+		  };
+		  numeric-first = true;
+		};
+		"network#wifi" = {
+		  interface = "wlp1s0";
+		  format-wifi = "{essid} ({signalStrength}%) ";
+		};
+		cpu = {
+		  format = "﬙ {load}";
+		};
+		memory = {
+		  format = " {used:.0f}G/{total:.0f}G";
+		};
+		"sway/window" = {
+		  max-length = 50;
+		};
+		"disk#home" = {
+		  path = "/home";
+		  format = " {free}";
+		};
+		"disk#root" = {
+		  path = "/";
+		  format = " {percentage_free}%";
+		};
+		"battery" = {
+		  format = "{capacity}% {icon}";
+		  format-icons = [ "" "" "" "" "" ];
+		};
+		"clock" = {
+		  format-alt = "{:%a, %d. %b  %H:%M}";
+		};
         }
       ];
     };
@@ -148,7 +129,6 @@
               value =
                 {
                   xkb_layout = "fr";
-                  xkb_variant = "fr";
                 };
 
             } else null)
@@ -165,7 +145,7 @@
         size = 13.0;
       };
       window = {
-        titlebar = true;
+        titlebar = false;
       };
       startup = [
         { command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
@@ -251,6 +231,7 @@
           "${mod}+Shift+R" = "restart";
           "${mod}+Shift+N" = "exec ${pkgs.swaylock-fancy}/bin/swaylock-fancy";
         };
+        output = {"*" = {bg = "${config.home.homeDirectory}/wallpaper.jpg fill";};};
     };
 
   };

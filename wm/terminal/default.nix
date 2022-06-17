@@ -40,10 +40,10 @@ in
         cyan = mkColorPair;
         white = mkColorPair;
         alpha = mkOption {
-            type = types.nullOr types.addCheck types.float (f: f >= 0.0 && f <= 1.0) // {
+            type = types.nullOr (types.addCheck types.float (f: f >= 0.0 && f <= 1.0) // {
                 name = "alpha";
                 description = "a float between 0.0 and 1.0 (both included)";
-            };
+            });
             description = "the alpha of the background";
         };
 

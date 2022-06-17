@@ -13,19 +13,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    astyle
-	nodejs
-	dotnet-sdk
-    neovim-remote
-	mono
-	blender
-	omnisharp-roslyn
-	bitwarden-cli
-    rustup
-    neovim-nightly
- 	python39Packages.jedi-language-server   
- 	rust-analyzer
-    clang-tools
+    bitwarden-cli
     nodePackages.vscode-json-languageserver
     exa
     python3
@@ -45,12 +33,15 @@ in
     cargo-flamegraph
     linuxPackages.perf
     unzip
-	docker
-	docker-ls
-	docker-gc
-  tokei
+    tokei
+	gcc11
   ];
 
+  services = {
+    syncthing = {
+      enable = true;
+    };
+  };
 
   programs = {
     home-manager = {
@@ -69,8 +60,6 @@ in
       enable = true;
     };
   };
-
-
   home.file = {
     "bin" = {
       source = ./scripts;
@@ -86,5 +75,5 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.11";
+  home.stateVersion = "22.05";
 }

@@ -34,7 +34,7 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-    localtime.enable = true;
+    localtimed.enable = true;
     fwupd.enable = true;
     postgresql = {
       enable = true;
@@ -44,8 +44,8 @@
   programs.dconf.enable = true;
 	
   hardware.opengl.extraPackages = with pkgs; [
-   	rocm-opencl-icd
-   	rocm-opencl-runtime
+   	# rocm-opencl-icd
+   	# rocm-opencl-runtime
   	amdvlk
   ];
 
@@ -54,6 +54,9 @@
   hardware.opengl.driSupport = true;
   # For 32 bit applications
   hardware.opengl.driSupport32Bit = true;
+
+	hardware.bluetooth.enable = true;
+	services.blueman.enable = true;
 
   
 	
@@ -107,5 +110,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.05"; # Did you read the comment?
+  system.stateVersion = "22.05"; # Did you read the comment?
 }

@@ -47,7 +47,7 @@ in
             regular7 = colorCfgNormal cCfg.white;
             bright7 = colorCfgBright cCfg.white;
 
-            alpha = if cfg.alpha != null then "${cfg.alpha}" else "0.O";
+            alpha = if cfg.colors.alpha != null then "${toString cfg.colors.alpha}" else "0.0";
 
             selection-foreground = colorCfg cCfg.selectionForeground;
           };

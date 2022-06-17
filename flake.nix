@@ -13,11 +13,11 @@
         flake = false;
       };
       nvim-maix = {
-        url = "github:maix/nvim-flake";
+        url = "github:Maix0/nvim-flake";
         inputs.nixpkgs.follows = "nixpkgs";
       };
-      zsh-mauix = {
-        url = "github:maix/zsh-flake";
+      zsh-maix = {
+        url = "github:Maix0/zsh-flake";
       };
     };
 

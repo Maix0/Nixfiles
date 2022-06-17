@@ -21,7 +21,7 @@
     }
   '';
  */
-
+ boot.kernelParams = ["i8042.reset" "i8042.nomux" "i8042.nopnp" "i8042.noloop"];
  boot.loader.systemd-boot.enable = true;
  boot.loader.efi.canTouchEfiVariables = true;
 
@@ -42,8 +42,11 @@
         extraGroups = [ "wheel" "networkmanager" "adbusers" "audio" "docker" ];
         shell = pkgs.zsh;
       };
-      localtimed.group = "localtimed";
-    };
+      localtimed = {
+		group = "localtimed";
+		isSystemUser = true;
+      };
+	};
     groups.localtimed = { };
 	groups.docker = {};
   };
