@@ -7,19 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-<<<<<<< HEAD
     nix-alien.url = "github:thiagokokada/nix-alien";
     nix-ld.url = "github:Mic92/nix-ld/main";
-    nvim-traxys = {
-      url = "github:traxys/nvim-flake";
-=======
-    nixpkgs-mozilla = {
-      url = "github:mozilla/nixpkgs-mozilla";
-      flake = false;
-    };
     nvim-maix = {
       url = "github:Maix0/nvim-flake";
->>>>>>> traxys-master
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zsh-maix = {
