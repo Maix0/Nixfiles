@@ -7,15 +7,26 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+<<<<<<< HEAD
     nix-alien.url = "github:thiagokokada/nix-alien";
     nix-ld.url = "github:Mic92/nix-ld/main";
     nvim-traxys = {
       url = "github:traxys/nvim-flake";
+=======
+    nixpkgs-mozilla = {
+      url = "github:mozilla/nixpkgs-mozilla";
+      flake = false;
+    };
+    nvim-maix = {
+      url = "github:Maix0/nvim-flake";
+>>>>>>> traxys-master
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zsh-traxys = {
-      url = "github:traxys/zsh-flake";
+    zsh-maix = {
+      url = "github:Maix0/zsh-flake";
     };
+    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-ld.url = "github:Mic92/nix-ld/main";
     xdg-ninja = {
       url = "github:traxys/xdg-ninja";
       flake = false;
@@ -27,20 +38,19 @@
       flake = false;
     };
   };
-
   outputs = {
     home-manager,
     nixpkgs,
     ...
   } @ inputs: {
     nixosConfigurations = {
-      ZeNixLaptop = nixpkgs.lib.nixosSystem rec {
+      ZeMaix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = [
           ({pkgs, ...}: {
             nixpkgs.overlays = [
               inputs.rust-overlay.overlays.default
-              inputs.nvim-traxys.overlay."${system}"
+              inputs.nvim-maix.overlay."${system}"
               inputs.nix-alien.overlay
               (final: prev: {
                 xdg-ninja = with pkgs;
@@ -70,7 +80,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.traxys = {
+            home-manager.users.maix = {
               config,
               lib,
               pkgs,
@@ -84,8 +94,8 @@
                 ./wm
                 ./rustdev.nix
                 ./git
-                inputs.zsh-traxys.home-managerModule."${system}"
-                inputs.nvim-traxys.home-managerModule."${system}"
+                inputs.zsh-maix.home-managerModule."${system}"
+                inputs.nvim-maix.home-managerModule."${system}"
               ];
             };
             # Optionally, use home-manager.extraSpecialArgs to pass

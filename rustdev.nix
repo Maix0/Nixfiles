@@ -11,6 +11,7 @@
   home.packages = with pkgs; [
     pkgs.rust-bin.stable.latest.default
     cargo-edit
+    cargo-expand
   ];
 
   home.file = {

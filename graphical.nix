@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    # Browser
+    bitwarden
     firefox-wayland
     (tor-browser-bundle-bin.override {
       useHardenedMalloc = false;
@@ -32,7 +32,11 @@
     # Misc progs
     bitwarden
     libreoffice-fresh
-    kdeconnect
+    feh
+    alacritty
+    # (tor-browser-bundle-bin.override {
+    #  useHardenedMalloc = false;
+    # })
 
     # Misc utils
     wl-clipboard
@@ -40,8 +44,15 @@
     feh
   ];
 
-  /* environment.pathsToLink = [ "/share/hunspell" "/share/myspell" "/share/hyphen" ];
-    environment.variables.DICPATH = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen"; */
+  # xdg.mime.defaultApplications = { "text/x-csharp" = "nvim-unity.desktop"; };
+  xdg.desktopEntries = {
+    nvim-unity = {
+      name = "nvim-unity";
+      exec = "/home/maix/bin/nvim-unity %f";
+      terminal = true;
+      mimeType = ["text/x-csharp"];
+    };
+  };
 
   home.sessionVariables = {
     BROWSER = "firefox";

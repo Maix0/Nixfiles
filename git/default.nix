@@ -6,7 +6,7 @@
 }: {
   programs.git = {
     enable = true;
-    userName = "traxys";
+    userName = "Maieul BOYER";
     userEmail = config.extraInfo.email;
     delta = {
       enable = true;

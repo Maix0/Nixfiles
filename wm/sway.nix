@@ -52,7 +52,7 @@ in {
         settings = [
           {
             layer = "top";
-            position = "bottom";
+            position = "top";
             modules-left = [
               "network#wifi"
               "sway/workspaces"
@@ -68,43 +68,41 @@ in {
               "clock"
               "tray"
             ];
-            modules = {
-              "sway/workspaces" = {
-                persistent_workspaces = {
-                  "" = [];
-                  "" = [];
-                  "1:" = [];
-                };
-                numeric-first = true;
+            "sway/workspaces" = {
+              persistent_workspaces = {
+                "" = [];
+                "" = [];
+                "1:" = [];
               };
-              "network#wifi" = {
-                interface = "wlp1s0";
-                format-wifi = "{essid} ({signalStrength}%) ";
-              };
-              cpu = {
-                format = "﬙ {load}";
-              };
-              memory = {
-                format = " {used:.0f}G/{total:.0f}G";
-              };
-              "sway/window" = {
-                max-length = 50;
-              };
-              "disk#home" = {
-                path = "/home";
-                format = " {free}";
-              };
-              "disk#root" = {
-                path = "/";
-                format = " {percentage_free}%";
-              };
-              "battery" = {
-                format = "{capacity}% {icon}";
-                format-icons = ["" "" "" "" ""];
-              };
-              "clock" = {
-                format-alt = "{:%a, %d. %b  %H:%M}";
-              };
+              numeric-first = true;
+            };
+            "network#wifi" = {
+              interface = "wlp1s0";
+              format-wifi = "{essid} ({signalStrength}%) ";
+            };
+            cpu = {
+              format = "﬙ {load}";
+            };
+            memory = {
+              format = " {used:.0f}G/{total:.0f}G";
+            };
+            "sway/window" = {
+              max-length = 50;
+            };
+            "disk#home" = {
+              path = "/home";
+              format = " {free}";
+            };
+            "disk#root" = {
+              path = "/";
+              format = " {percentage_free}%";
+            };
+            "battery" = {
+              format = "{capacity}% {icon}";
+              format-icons = ["" "" "" "" ""];
+            };
+            "clock" = {
+              format-alt = "{:%a, %d. %b  %H:%M}";
             };
           }
         ];
@@ -136,9 +134,7 @@ in {
               then {
                 name = inputs.keyboard;
                 value = {
-                  xkb_layout = "us";
-                  xkb_variant = "dvp";
-                  xkb_options = "compose:102";
+                  xkb_layout = "fr";
                 };
               }
               else null
@@ -156,7 +152,7 @@ in {
           builtins.listToAttrs inputsCfg;
         fonts = common.mkFont cfg.font;
         window = {
-          titlebar = true;
+          titlebar = false;
         };
         keybindings = common.keybindings;
         workspaceOutputAssign = common.workspaceOutputAssign;

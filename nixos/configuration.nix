@@ -23,10 +23,10 @@
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "dvorak-programmer";
+    keyMap = "fr";
   };
-  
-  environment.pathsToLink = [ "/share/zsh" ];
+
+  environment.pathsToLink = ["/share/zsh"];
   security.rtkit.enable = true;
   services = {
     flatpak.enable = true;
@@ -37,7 +37,6 @@
       pulse.enable = true;
     };
     localtimed.enable = true;
-	geoclue2.enable = true;
     fwupd.enable = true;
     postgresql = {
       enable = true;
@@ -45,11 +44,26 @@
   };
   programs.adb.enable = true;
   programs.dconf.enable = true;
+  hardware.opengl.extraPackages = with pkgs; [
+    # rocm-opencl-icd
+    # rocm-opencl-runtime
+    amdvlk
+  ];
+
+  hardware.opengl.enable = true;
+
+  hardware.opengl.driSupport = true;
+  # For 32 bit applications
+  hardware.opengl.driSupport32Bit = true;
+
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
   programs.nix-ld.enable = true;
 
   fonts.enableDefaultFonts = true;
   fonts = {
     fonts = with pkgs; [
+      liberation_ttf
       (nerdfonts.override {fonts = ["Hack"];})
       dejavu_fonts
     ];
@@ -66,17 +80,22 @@
   /*
    nixpkgs.config.allowBroken = true;
    */
-  virtualisation.waydroid.enable = true;
+  /*
+   nixpkgs.config.allowBroken = true;
+   */
 
   virtualisation = {
     waydroid.enable = true;
     libvirtd = {
       enable = true;
       qemu.swtpm.enable = true;
+<<<<<<< HEAD
       qemu.ovmf = {
         enable = true;
         packages = [pkgs.OVMFFull];
       };
+=======
+>>>>>>> traxys-master
     };
     podman = {
       enable = true;
@@ -131,11 +150,12 @@
     options = "--delete-older-than 14d"; # Ajuste comme tu veux, tu peux utiliser +5 pour garder les 5 dernières, etc.
   };
 
+  sound.enable = true;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.05"; # Did you read the comment?
+  system.stateVersion = "22.05"; # Did you read the comment?
 }
