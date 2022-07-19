@@ -68,42 +68,42 @@ in {
               "clock"
               "tray"
             ];
-              "sway/workspaces" = {
-                persistent_workspaces = {
-                  "" = [];
-                  "" = [];
-                  "1:" = [];
-                };
-                numeric-first = true;
+            "sway/workspaces" = {
+              persistent_workspaces = {
+                "" = [];
+                "" = [];
+                "1:" = [];
               };
-              "network#wifi" = {
-                interface = "wlp1s0";
-                format-wifi = "{essid} ({signalStrength}%) ";
-              };
-              cpu = {
-                format = "﬙ {load}";
-              };
-              memory = {
-                format = " {used:.0f}G/{total:.0f}G";
-              };
-              "sway/window" = {
-                max-length = 50;
-              };
-              "disk#home" = {
-                path = "/home";
-                format = " {free}";
-              };
-              "disk#root" = {
-                path = "/";
-                format = " {percentage_free}%";
-              };
-              "battery" = {
-                format = "{capacity}% {icon}";
-                format-icons = ["" "" "" "" ""];
-              };
-              "clock" = {
-                format-alt = "{:%a, %d. %b  %H:%M}";
-              };
+              numeric-first = true;
+            };
+            "network#wifi" = {
+              interface = "wlp1s0";
+              format-wifi = "{essid} ({signalStrength}%) ";
+            };
+            cpu = {
+              format = "﬙ {load}";
+            };
+            memory = {
+              format = " {used:.0f}G/{total:.0f}G";
+            };
+            "sway/window" = {
+              max-length = 50;
+            };
+            "disk#home" = {
+              path = "/home";
+              format = " {free}";
+            };
+            "disk#root" = {
+              path = "/";
+              format = " {percentage_free}%";
+            };
+            "battery" = {
+              format = "{capacity}% {icon}";
+              format-icons = ["" "" "" "" ""];
+            };
+            "clock" = {
+              format-alt = "{:%a, %d. %b  %H:%M}";
+            };
           }
         ];
       };
@@ -124,7 +124,7 @@ in {
         bars = [
           {
             command = "waybar";
-		  }
+          }
         ];
         input = let
           inputs = config.extraInfo.inputs;

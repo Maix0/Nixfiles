@@ -25,11 +25,11 @@
     font = "Lat2-Terminus16";
     keyMap = "fr";
   };
-  
-  environment.pathsToLink = [ "/share/zsh" ];
+
+  environment.pathsToLink = ["/share/zsh"];
   security.rtkit.enable = true;
   services = {
-  	flatpak.enable = true;
+    flatpak.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -45,9 +45,9 @@
   programs.adb.enable = true;
   programs.dconf.enable = true;
   hardware.opengl.extraPackages = with pkgs; [
-   	# rocm-opencl-icd
-   	# rocm-opencl-runtime
-  	amdvlk
+    # rocm-opencl-icd
+    # rocm-opencl-runtime
+    amdvlk
   ];
 
   hardware.opengl.enable = true;
@@ -56,17 +56,15 @@
   # For 32 bit applications
   hardware.opengl.driSupport32Bit = true;
 
-	hardware.bluetooth.enable = true;
-	services.blueman.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
   programs.nix-ld.enable = true;
 
-  
-	
   fonts.enableDefaultFonts = true;
   fonts = {
     fonts = with pkgs; [
-	  liberation_ttf
-      (nerdfonts.override { fonts = [ "Hack" ]; })
+      liberation_ttf
+      (nerdfonts.override {fonts = ["Hack"];})
       dejavu_fonts
     ];
     fontconfig = {
@@ -79,7 +77,9 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages;
-  /* nixpkgs.config.allowBroken = true; */
+  /*
+   nixpkgs.config.allowBroken = true;
+   */
   /*
    nixpkgs.config.allowBroken = true;
    */
@@ -110,9 +110,6 @@
       '';
     };
   };
-
-  
-
 
   networking.networkmanager.enable = true;
   programs.noisetorch.enable = true;
@@ -145,8 +142,8 @@
     dates = "weekly";
     options = "--delete-older-than 14d"; # Ajuste comme tu veux, tu peux utiliser +5 pour garder les 5 dernières, etc.
   };
-	
-  sound.enable = true;	
+
+  sound.enable = true;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

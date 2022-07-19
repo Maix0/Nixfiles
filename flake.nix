@@ -1,36 +1,35 @@
 {
   description = "NixOS configuration";
 
-  inputs =
-    {
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-      home-manager = {
-        url = "github:nix-community/home-manager";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-      nixpkgs-mozilla = {
-        url = "github:mozilla/nixpkgs-mozilla";
-        flake = false;
-      };
-      nvim-maix = {
-        url = "github:Maix0/nvim-flake";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-      zsh-maix = {
-        url = "github:Maix0/zsh-flake";
-      };
-      nix-alien.url = "github:thiagokokada/nix-alien";
-      nix-ld.url = "github:Mic92/nix-ld/main";
-      xdg-ninja = {
-      	url = "github:traxys/xdg-ninja";
-      	flake = false;
-      };
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-mozilla = {
+      url = "github:mozilla/nixpkgs-mozilla";
+      flake = false;
+    };
+    nvim-maix = {
+      url = "github:Maix0/nvim-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zsh-maix = {
+      url = "github:Maix0/zsh-flake";
+    };
+    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-ld.url = "github:Mic92/nix-ld/main";
+    xdg-ninja = {
+      url = "github:traxys/xdg-ninja";
+      flake = false;
+    };
+  };
   outputs = {
     home-manager,
     nixpkgs,
     ...
-  } @ inputs : {
+  } @ inputs: {
     nixosConfigurations = {
       ZeMaix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";

@@ -21,8 +21,7 @@
     MOZ_ENABLE_WAYLAND = "1";
     XDG_CURRENT_DESKTOP = "sway";
     LIBSEAT_BACKEND = "logind";
-  	_JAVA_AWT_WM_NONREPARENTING=1;
-
+    _JAVA_AWT_WM_NONREPARENTING = 1;
   };
 
   terminal = {
@@ -53,7 +52,7 @@
       size = 13.0;
     };
     bar = {
-	  font = {
+      font = {
         name = "Hack Nerd Font Mono";
         style = "Regular";
         size = 13.0;
@@ -88,7 +87,7 @@
       {command = "discord";}
       {command = "firefox";}
       {command = "spotify";}
-	  {command = "element-desktop";}
+      {command = "element-desktop";}
       {command = "thunderbird";}
       {command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
       {command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
@@ -150,7 +149,7 @@
       # Layout
       "${mod}+f" = "fullscreen toggle";
       "${mod}+z" = "layout tabbed";
-	  "${mod}+c" = "layout toggle split";
+      "${mod}+c" = "layout toggle split";
 
       # Misc
       "${mod}+Shift+a" = "kill";
@@ -158,7 +157,6 @@
       "${mod}+Return" = "exec ${config.terminal.command}";
       "${mod}+p" = "mode resize";
       "${mod}+Shift+P" = "restart";
-	  
     };
   };
 }

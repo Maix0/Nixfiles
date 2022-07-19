@@ -49,10 +49,13 @@ in {
           regular7 = colorCfgNormal cCfg.white;
           bright7 = colorCfgBright cCfg.white;
 
-            alpha = if cfg.colors.alpha != null then "${toString cfg.colors.alpha}" else "0.0";
+          alpha =
+            if cfg.colors.alpha != null
+            then "${toString cfg.colors.alpha}"
+            else "0.0";
 
-            selection-foreground = colorCfg cCfg.selectionForeground;
-          };
+          selection-foreground = colorCfg cCfg.selectionForeground;
+        };
         main = {
           font = "${cfg.font.family}:size=${toString cfg.font.size}";
         };

@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-	bitwarden
+    bitwarden
     firefox-wayland
     (tor-browser-bundle-bin.override {
       useHardenedMalloc = false;
@@ -27,7 +27,7 @@
     bitwarden
     libreoffice-fresh
     feh
-	  alacritty
+    alacritty
     # (tor-browser-bundle-bin.override {
     #  useHardenedMalloc = false;
     # })
@@ -37,16 +37,15 @@
     xdg_utils
     feh
   ];
-	
+
   # xdg.mime.defaultApplications = { "text/x-csharp" = "nvim-unity.desktop"; };
   xdg.desktopEntries = {
-	nvim-unity = {
-		name = "nvim-unity";
-		exec = "/home/maix/bin/nvim-unity %f";
-		terminal = true;
-		mimeType = ["text/x-csharp"];
-
-	};
+    nvim-unity = {
+      name = "nvim-unity";
+      exec = "/home/maix/bin/nvim-unity %f";
+      terminal = true;
+      mimeType = ["text/x-csharp"];
+    };
   };
 
   home.sessionVariables = {

@@ -33,7 +33,7 @@ in {
     tokei
     gcc11
     nix-alien
-	xdg-ninja
+    xdg-ninja
   ];
 
   services = {
