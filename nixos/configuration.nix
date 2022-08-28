@@ -37,10 +37,7 @@
       pulse.enable = true;
     };
     localtimed.enable = true;
-<<<<<<< HEAD
-=======
     geoclue2.enable = true;
->>>>>>> upstream/master
     fwupd.enable = true;
     postgresql = {
       enable = true;
@@ -82,17 +79,11 @@
 
   boot.kernelPackages = pkgs.linuxPackages;
   /*
-<<<<<<< HEAD
    nixpkgs.config.allowBroken = true;
    */
   /*
    nixpkgs.config.allowBroken = true;
    */
-=======
-  nixpkgs.config.allowBroken = true;
-  */
-  virtualisation.waydroid.enable = true;
->>>>>>> upstream/master
 
   virtualisation = {
     waydroid.enable = true;
