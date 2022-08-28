@@ -15,15 +15,21 @@ with builtins; {
 
     extraInfo.inputs = {
       keyboard = mkOption {
-        type = types.nullOr types.str;
+        type = types.listOf types.str;
         description = "Sway keyboard identifier";
-        default = null;
+        default = [];
       };
       touchpad = mkOption {
         type = types.nullOr types.str;
         description = "Sway touchpad identifier";
         default = null;
       };
+    };
+
+    extraInfo.outputs = mkOption {
+      type = types.attrsOf (types.attrsOf types.str);
+      description = "Description of the outputs";
+      default = {};
     };
   };
 }

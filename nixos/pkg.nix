@@ -14,7 +14,6 @@ in {
         xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
       ];
-      gtkUsePortal = true;
     };
   };
 
@@ -33,12 +32,12 @@ in {
   };
 
   /*
-    nixpkgs.config.packageOverrides = pkgs: {
-   steam = pkgs.steam.override {
-   nativeOnly = true;
-   };
-   };
-   */
+   nixpkgs.config.packageOverrides = pkgs: {
+  steam = pkgs.steam.override {
+  nativeOnly = true;
+  };
+  };
+  */
 
   programs.steam.enable = true;
 }

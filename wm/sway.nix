@@ -129,28 +129,29 @@ in {
         ];
         input = let
           inputs = config.extraInfo.inputs;
-          inputsCfg = [
-            (
-              if inputs.keyboard != null
-              then {
-                name = inputs.keyboard;
+          inputsCfg =
+            [
+              (
+                if inputs.touchpad != null
+                then {
+                  name = inputs.touchpad;
+                  value = {dwt = "disable";};
+                }
+                else null
+              )
+            ]
+            ++ (
+              builtins.map (k: {
+                name = k;
                 value = {
                   xkb_layout = "fr";
                 };
-              }
-              else null
-            )
-            (
-              if inputs.touchpad != null
-              then {
-                name = inputs.touchpad;
-                value = {dwt = "disable";};
-              }
-              else null
-            )
-          ];
+              })
+              inputs.keyboard
+            );
         in
           builtins.listToAttrs inputsCfg;
+        output = config.extraInfo.outputs;
         fonts = common.mkFont cfg.font;
         window = {
           titlebar = false;
