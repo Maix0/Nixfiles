@@ -33,7 +33,7 @@ with builtins; let
   };
 in {
   mkFont = mod: {
-    names = [mod.name];
+    names = mod.name;
     style = mod.style;
     size = mod.size;
   };

@@ -9,7 +9,6 @@
     (tor-browser-bundle-bin.override {
       useHardenedMalloc = false;
     })
-
     # IM
     element-desktop
     (discord.override {nss = pkgs.nss;})

@@ -4,7 +4,6 @@
   ...
 }: {
   /*
-<<<<<<< HEAD
    boot.loader.grub.version 				 = 2;
    boot.loader.grub.enable                = true;
    boot.loader.grub.copyKernels           = true;
@@ -35,50 +34,14 @@
       wlp1s0.useDHCP = true;
     };
   };
-=======
-   services.xserver = {
-     enable = true;
-     videoDrivers = [ "nvidia" ];
-  layout = "us";
-  xkbVariant = "dvp";
-  libinput.enable = true;
-     desktopManager.session = [
-       {
-         name = "home-manager";
-         start = ''
-  		${pkgs.runtimeShell} $HOME/.hm-xsession-dbg&
-  		waitPID=$!
-  	'';
-       }
-     ];
-   };
-  */
-  hardware.opentabletdriver.enable = true;
->>>>>>> upstream/master
 
   users = {
     users = {
       maix = {
         uid = 1000;
         isNormalUser = true;
-<<<<<<< HEAD
         home = "/home/maix";
         extraGroups = ["wheel" "networkmanager" "adbusers" "audio" "docker"];
-=======
-        home = "/home/traxys";
-        extraGroups = [
-          "wheel"
-          "networkmanager"
-          "adbusers"
-          "libvirtd"
-          "kvm"
-          "qemu-libvirtd"
-          "docker"
-          "http"
-          "scanner"
-          "lp"
-        ];
->>>>>>> upstream/master
         shell = pkgs.zsh;
       };
       localtimed = {
@@ -93,19 +56,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
-<<<<<<< HEAD
-=======
-  services.printing = {
-    enable = true;
-    drivers = [pkgs.hplip pkgs.gutenprint pkgs.cnijfilter2];
-  };
-  hardware.sane.enable = true;
-  services.avahi = {
-    nssmdns = true;
-    enable = true;
-  };
-
->>>>>>> upstream/master
   hardware.opengl = {
     enable = true;
   };

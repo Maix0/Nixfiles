@@ -34,7 +34,7 @@
       selectionForeground = "000000";
     };
     font = {
-      family = "Hack Nerd Font Mono";
+      family = ["Hack1"];
       size = 8;
     };
   };
@@ -47,13 +47,13 @@
     modifier = "Mod4";
 
     font = {
-      name = "Hack Nerd Font";
+      name = ["Hack2"];
       style = "Regular";
       size = 13.0;
     };
     bar = {
       font = {
-        name = "Hack Nerd Font Mono";
+        name = ["Hack3"];
         style = "Regular";
         size = 13.0;
       };
@@ -87,7 +87,6 @@
       {command = "discord";}
       {command = "firefox";}
       {command = "spotify";}
-      {command = "element-desktop";}
       {command = "thunderbird";}
       {command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
       {command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";}

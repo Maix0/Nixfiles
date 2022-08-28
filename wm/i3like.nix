@@ -27,7 +27,7 @@ with lib; {
 
       font = {
         name = mkOption {
-          type = types.str;
+          type = types.listOf types.str;
           description = "Font to use";
         };
         style = mkOption {
@@ -43,7 +43,7 @@ with lib; {
       bar = {
         font = {
           name = mkOption {
-            type = types.str;
+            type = types.listOf types.str;
             description = "Font to use for the bar";
           };
           style = mkOption {

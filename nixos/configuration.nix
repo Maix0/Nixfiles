@@ -65,9 +65,12 @@
   fonts = {
     fonts = with pkgs; [
       liberation_ttf
-      (nerdfonts.override {fonts = ["Hack"];})
+      roboto-mono
       dejavu_fonts
+      hack-font
+      otf-font-awesome
     ];
+    fontDir.enable = true;
     fontconfig = {
       defaultFonts = {
         serif = ["DejaVu"];

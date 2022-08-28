@@ -3,13 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
-  rustVersion = (pkgs.rustChannelOf {channel = "stable";}).rust;
-  rsPlatform = pkgs.makeRustPlatform {
-    cargo = rustVersion;
-    rustc = rustVersion;
-  };
-in {
+}:
+{
   home.packages = with pkgs; [
     bitwarden-cli
     nodePackages.vscode-json-languageserver
