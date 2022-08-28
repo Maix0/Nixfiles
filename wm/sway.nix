@@ -60,6 +60,7 @@ in {
             ];
             modules-center = ["sway/window"];
             modules-right = [
+	      "pulseaudio"
               "cpu"
               "memory"
               "disk#home"

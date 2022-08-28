@@ -16,8 +16,6 @@
     zsh-maix = {
       url = "github:Maix0/zsh-flake";
     };
-    nix-alien.url = "github:thiagokokada/nix-alien";
-    nix-ld.url = "github:Mic92/nix-ld/main";
     xdg-ninja = {
       url = "github:traxys/xdg-ninja";
       flake = false;

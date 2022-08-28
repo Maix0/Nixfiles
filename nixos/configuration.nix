@@ -89,13 +89,10 @@
     libvirtd = {
       enable = true;
       qemu.swtpm.enable = true;
-<<<<<<< HEAD
       qemu.ovmf = {
         enable = true;
         packages = [pkgs.OVMFFull];
       };
-=======
->>>>>>> traxys-master
     };
     podman = {
       enable = true;
