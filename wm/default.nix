@@ -34,7 +34,7 @@
       selectionForeground = "000000";
     };
     font = {
-      family = ["Hack1"];
+      family = "Hack Nerd Font Mono";
       size = 8;
     };
   };
@@ -47,13 +47,13 @@
     modifier = "Mod4";
 
     font = {
-      name = ["Hack2"];
+      name = ["Hack"];
       style = "Regular";
       size = 13.0;
     };
     bar = {
       font = {
-        name = ["Hack3"];
+        name = ["Hack"];
         style = "Regular";
         size = 13.0;
       };
@@ -135,6 +135,7 @@
       "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify next";
       "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify previous";
 
+      "${mod}+twosuperior" = "ydotool click 0xC1";
       # Focus
       "${mod}+Left" = "focus left";
       "${mod}+Right" = "focus right";

@@ -28,9 +28,11 @@
     tokei
     gcc11
     nix-alien
-	  xdg-ninja
+	xdg-ninja
     bc
     kabalist_cli
+  	wev
+	ydotool
   ];
 
   services = {

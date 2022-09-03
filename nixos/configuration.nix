@@ -67,8 +67,7 @@
       liberation_ttf
       roboto-mono
       dejavu_fonts
-      hack-font
-      otf-font-awesome
+      (nerdfonts.override {fonts = ["Hack"];})
     ];
     fontDir.enable = true;
     fontconfig = {
