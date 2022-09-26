@@ -39,7 +39,7 @@
 
     # Misc utils
     wl-clipboard
-    xdg_utils
+    xdg-utils
     feh
   ];
 

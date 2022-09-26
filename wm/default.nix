@@ -22,6 +22,7 @@
     XDG_CURRENT_DESKTOP = "sway";
     LIBSEAT_BACKEND = "logind";
     _JAVA_AWT_WM_NONREPARENTING = 1;
+    NIXPKGS_ALLOW_UNFREE = 1;
   };
 
   terminal = {
