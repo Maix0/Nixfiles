@@ -21,6 +21,8 @@
     pavucontrol
     vlc
     spotify
+	krita
+	gromit-mpx
 
     # Libreoffice
     libreoffice
@@ -43,18 +45,14 @@
     feh
   ];
 
-  # xdg.mime.defaultApplications = { "text/x-csharp" = "nvim-unity.desktop"; };
-  xdg.desktopEntries = {
-    nvim-unity = {
-      name = "nvim-unity";
-      exec = "/home/maix/bin/nvim-unity %f";
-      terminal = true;
-      mimeType = ["text/x-csharp"];
-    };
-  };
+  /*
+   environment.pathsToLink = [ "/share/hunspell" "/share/myspell" "/share/hyphen" ];
+  environment.variables.DICPATH = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
+  */
 
   home.sessionVariables = {
     BROWSER = "firefox";
+    GTK_USE_PORTAL = 1;
   };
 
   programs = {

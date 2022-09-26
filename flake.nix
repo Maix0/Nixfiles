@@ -26,6 +26,8 @@
       url = "github:traxys/kabalist";
       flake = false;
     };
+    comma.url = "github:nix-community/comma";
+    raclette.url = "github:traxys/raclette";
   };
   outputs = {
     home-manager,
@@ -41,6 +43,7 @@
               inputs.rust-overlay.overlays.default
               inputs.nvim-maix.overlay."${system}"
               inputs.nix-alien.overlay
+              inputs.comma.overlays.default
               (final: prev: {
                 xdg-ninja = with pkgs;
                   stdenv.mkDerivation rec {
@@ -61,6 +64,7 @@
                   cargoBuildOptions = opts: opts ++ ["--package=kabalist_cli"];
                   root = inputs.kabalist;
                 };
+                raclette = inputs.raclette.defaultPackage."${system}";
               })
             ];
           })

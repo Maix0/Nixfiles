@@ -81,11 +81,9 @@
 
   boot.kernelPackages = pkgs.linuxPackages;
   /*
-   nixpkgs.config.allowBroken = true;
-   */
-  /*
-   nixpkgs.config.allowBroken = true;
-   */
+  nixpkgs.config.allowBroken = true;
+  */
+  virtualisation.waydroid.enable = true;
 
   virtualisation = {
     waydroid.enable = true;
