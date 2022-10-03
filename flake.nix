@@ -7,7 +7,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-alien.url = "github:thiagokokada/nix-alien";
+    #nix-alien.url = "github:thiagokokada/nix-alien";
     nix-ld.url = "github:Mic92/nix-ld/main";
     nvim-maix = {
       url = "github:Maix0/nvim-flake";
@@ -42,7 +42,7 @@
             nixpkgs.overlays = [
               inputs.rust-overlay.overlays.default
               inputs.nvim-maix.overlay."${system}"
-              inputs.nix-alien.overlay
+              # inputs.nix-alien.overlay
               inputs.comma.overlays.default
               (final: prev: {
                 xdg-ninja = with pkgs;

@@ -9,7 +9,8 @@
     bitwarden-cli
     nodePackages.vscode-json-languageserver
     exa
-    python3
+    python310
+	python310Packages.setuptools
     topgrade
     rsync
     fd
@@ -27,7 +28,6 @@
     unzip
     tokei
     gcc11
-    nix-alien
     xdg-ninja
     bc
     kabalist_cli
@@ -35,6 +35,7 @@
 	ydotool
     comma
     raclette
+	nodePackages.prettier
   ];
 
   services = {
