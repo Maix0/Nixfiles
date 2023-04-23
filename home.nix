@@ -6,8 +6,6 @@
 }: {
   home.packages = with pkgs; [
     bitwarden-cli
-    quickemu
-    virt-viewer
     nodePackages.vscode-json-languageserver
     exa
     python310
@@ -37,7 +35,7 @@
     comma
     raclette
     nodePackages.prettier
-    aseprite-flake
+
   ];
 
   services = {

@@ -2,111 +2,157 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:/nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
-      url = "git+ssh://git@github.com:/nix-community/home-manager";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #nix-alien.url = "github:thiagokokada/nix-alien";
     nix-ld = {
-      url = "git+ssh://git@github.com:/Mic92/nix-ld";
+      url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
+	    inputs.nixfiles.follows = "/";
     };
     nvim-maix = {
-      url = "git+ssh://git@github.com:/Maix0/nvim-flake";
+      url = "github:Maix0/nvim-maix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixfiles.follows = "/";
     };
     zsh-maix = {
-      url = "git+ssh://git@github.com:/Maix0/zsh-flake";
+      url = "githubr:Maix0/zsh-flake";
     };
     xdg-ninja = {
-      url = "git+ssh://git@github.com:/traxys/xdg-ninja";
+      url = "github:traxys/xdg-ninja";
       flake = false;
     };
-    rust-overlay.url = "git+ssh://git@github.com:/oxalica/rust-overlay";
-    naersk.url = "git+ssh://git@github.com:/nix-community/naersk";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    naersk.url = "github:nix-community/naersk";
+    nur.url = "github:nix-community/NUR";
+
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Extra Package Sources
+    simulationcraft = {
+      url = "github:simulationcraft/simc";
+      flake = false;
+    };
+    oscclip = {
+      url = "github:rumpelsepp/oscclip";
+      flake = false;
+    };
     kabalist = {
-      url = "git+ssh://git@github.com:/traxys/kabalist";
+      url = "github:traxys/kabalist";
       flake = false;
     };
-    comma.url = "git+ssh://git@github.com:/nix-community/comma";
-    raclette.url = "git+ssh://git@github.com:/traxys/raclette";
-    aseprite-flake.url = "git+ssh://git@github.com:/Maix0/aseprite-flake";
-    findex-flake.url = "git+ssh://git@github.com:/Maix0/findex-flake";
+    comma.url = "github:nix-community/comma";
+    raclette.url = "github:traxys/raclette";
+    aseprite-flake.url = "github:Maix0/aseprite-flake";
+    findex-flake.url = "github:Maix0/findex-flake";
 
     tuxedo-nixos = {
-      url = "git+ssh://git@github.com:/blitz/tuxedo-nixos";
+      url = "github:blitz/tuxedo-nixos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     spicetify-nix = {
-      url = "git+ssh://git@github.com:/the-argus/spicetify-nix";
+      url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    roaming_proxy.url = "github:traxys/roaming_proxy";
+    dotacat = {
+      url = "git+https://gitlab.scd31.com/stephen/dotacat.git";
+      flake = false;
+    };
+    zsh-nix-shell = {
+      url = "github:chisui/zsh-nix-shell";
+      flake = false;
+    };
+    powerlevel10k = {
+      url = "github:romkatv/powerlevel10k";
+      flake = false;
+    };
+    fast-syntax-highlighting = {
+      url = "github:zdharma-continuum/fast-syntax-highlighting";
+      flake = false;
     };
   };
 
   outputs = {
+    self,
     home-manager,
     nixpkgs,
     ...
-  } @ inputs: {
+  } @ inputs: let
+    sources =
+      {
+        inherit (inputs) oscclip simulationcraft kabalist dotacat;
+      }
+      // (nixpkgs.legacyPackages.x86_64-linux.callPackage ./_sources/generated.nix {});
+
+    pkgList = system: callPackage:
+      (import ./pkgs/default.nix {
+        inherit sources callPackage;
+        naersk = inputs.naersk.lib."${system}";
+      })
+      // {
+        raclette = inputs.raclette.defaultPackage."${system}";
+        neovimMaix = inputs.nvim-maix.packages."${system}".nvim;
+        roaming_proxy = inputs.roaming_proxy.defaultPackage."${system}";
+        aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
+        findex = inputs.findex-flake.defaultPackage."${system}";
+        spicetify = inputs.spicetify-nix.packages."${system}".default;
+      };
+
+    extraInfo = import ./extra_info.nix;
+  in {
+    templates = {
+      rust = {
+        path = ./templates/rust;
+        description = "My rust template using rust-overlay and direnv";
+      };
+    };
+    packages.x86_64-linux = pkgList "x86_64-linux" nixpkgs.legacyPackages.x86_64-linux.callPackage;
+
+    hmModules = {
+      minimal = import ./minimal/hm.nix {
+        inherit inputs extraInfo;
+        flake = self;
+      };
+      personal-cli = import ./personal-cli/hm.nix;
+      personal-gui = import ./personal-gui/hm.nix;
+      gaming = import ./gaming/hm.nix;
+    };
+
+    nixosModules = {
+      minimal = import ./minimal/nixos.nix {
+        inherit extraInfo;
+      };
+      personal-cli = import ./personal-cli/nixos.nix;
+      personal-gui = import ./personal-gui/nixos.nix;
+      roaming = import ./roaming/nixos.nix;
+      gaming = import ./gaming/nixos.nix;
+    };
+
+    overlays.x86_64-linux = final: prev: pkgList "x86_64-linux" prev.callPackage;
+
     nixosConfigurations = {
       XeMaix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = [
+          ./hostconfig/XeMaix/extra_info.nix
+          self.nixosModules.minimal
+          self.nixosModules.personal-cli
+          self.nixosModules.personal-gui
+          self.nixosModules.gaming
           ({pkgs, ...}: {
             nixpkgs.overlays = [
+              inputs.nur.overlay
               inputs.rust-overlay.overlays.default
-              inputs.nvim-maix.overlay."${system}"
-              # inputs.nix-alien.overlay
+              inputs.nix-alien.overlay
+              inputs.nix-gaming.overlays.default
               inputs.comma.overlays.default
-              (final: prev: {
-                xdg-ninja = with pkgs;
-                  stdenv.mkDerivation {
-                    pname = "xdg-ninja";
-                    version = "0.1";
-                    src = inputs.xdg-ninja;
-                    installPhase = ''
-                      mkdir -p $out/bin
-                      cp xdg-ninja.sh $out/bin
-                      cp -r programs $out/bin
-                      wrapProgram $out/bin/xdg-ninja.sh \
-                      	--prefix PATH : ${lib.makeBinPath [bash jq glow]}
-                    '';
-                    buildInputs = [jq glow bash];
-                    nativeBuildInputs = [makeWrapper];
-                  };
-                kabalist_cli = inputs.naersk.lib."${system}".buildPackage {
-                  cargoBuildOptions = opts: opts ++ ["--package=kabalist_cli"];
-                  root = inputs.kabalist;
-                };
-                raclette = inputs.raclette.defaultPackage."${system}";
-                aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
-                findex = inputs.findex-flake.defaultPackage."${system}";
-                spicetify = inputs.spicetify-nix.packages."${system}".default;
-              })
-              (final: prev: {
-                httpie = prev.httpie.overrideAttrs (oldAttrs: {
-                  doCheck = false;
-                  doInstallCheck = false;
-                });
-              })
-              (final: prev: {
-                python310Packages = prev.python310Packages.overrideScope (pfinal: pprev: {
-                  httpie = pprev.httpie.overrideAttrs (oldAttrs: {
-                    doCheck = false;
-                    doInstallCheck = false;
-                  });
-                });
-              })
-              (final: prev: {
-                python39Packages = prev.python39Packages.overrideScope (pfinal: pprev: {
-                  httpie = pprev.httpie.overrideAttrs (oldAttrs: {
-                    doCheck = abort false;
-                    doInstallCheck = false;
-                  });
-                });
-              })
+              (final: prev: pkgList system prev.callPackage)
             ];
           })
           ./nixos/configuration.nix
@@ -122,17 +168,110 @@
               ...
             }: {
               imports = [
-                inputs.spicetify-nix.homeManagerModule
-                ./home.nix
-                ./graphical.nix
-                ./extra_info.nix
-                ./localinfo.nix
-                ./wm
-                ./rustdev.nix
-                ./git
-                inputs.zsh-maix.home-managerModule."${system}"
-                inputs.nvim-maix.home-managerModule."${system}"
+                self.hmModules.minimal
+                self.hmModules.personal-cli
+                self.hmModules.personal-gui
+                self.hmModules.gaming
               ];
+            };
+            home-manager.extraSpecialArgs = {
+              flake = self;
+            };
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
+        ];
+      };
+
+      ZeNixComputa = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        modules = [
+          ./hostconfig/ZeNixComputa/extra_info.nix
+          ./hostconfig/ZeNixComputa/hardware-configuration.nix
+          ./hostconfig/ZeNixComputa/nixos.nix
+          self.nixosModules.minimal
+          self.nixosModules.personal-cli
+          self.nixosModules.personal-gui
+          self.nixosModules.gaming
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [
+              inputs.nur.overlay
+              inputs.rust-overlay.overlays.default
+              inputs.nix-alien.overlay
+              inputs.nix-gaming.overlays.default
+              inputs.comma.overlays.default
+              (final: prev: pkgList system prev.callPackage)
+            ];
+          })
+          ./nixos/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.traxys = {
+              config,
+              lib,
+              pkgs,
+              ...
+            }: {
+              imports = [
+                self.hmModules.minimal
+                ./hostconfig/ZeNixComputa/hm.nix
+                ./hostconfig/ZeNixComputa/extra_info.nix
+                self.hmModules.personal-cli
+                self.hmModules.personal-gui
+                self.hmModules.gaming
+              ];
+            };
+            home-manager.extraSpecialArgs = {
+              flake = self;
+            };
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
+        ];
+      };
+
+      thinkpad-nixos = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        modules = [
+          ./hostconfig/thinkpad-nixos/extra_info.nix
+          ./hostconfig/thinkpad-nixos/nixos.nix
+          ./hostconfig/thinkpad-nixos/hardware-configuration.nix
+          self.nixosModules.minimal
+          self.nixosModules.personal-cli
+          self.nixosModules.personal-gui
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [
+              inputs.nur.overlay
+              inputs.rust-overlay.overlays.default
+              inputs.nix-alien.overlay
+              inputs.nix-gaming.overlays.default
+              inputs.comma.overlays.default
+              (final: prev: pkgList system prev.callPackage)
+            ];
+          })
+          ./nixos/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.traxys = {
+              config,
+              lib,
+              pkgs,
+              ...
+            }: {
+              imports = [
+                ./hostconfig/thinkpad-nixos/extra_info.nix
+                ./hostconfig/thinkpad-nixos/hm.nix
+                self.hmModules.minimal
+                self.hmModules.personal-cli
+                self.hmModules.personal-gui
+              ];
+            };
+            home-manager.extraSpecialArgs = {
+              flake = self;
             };
             # Optionally, use home-manager.extraSpecialArgs to pass
             # arguments to home.nix
