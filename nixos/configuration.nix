@@ -17,7 +17,6 @@
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
-  networking.useDHCP = false;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -25,6 +24,8 @@
     font = "Lat2-Terminus16";
     keyMap = "fr";
   };
+
+  hardware.tuxedo-control-center.enable = true;
 
   environment.pathsToLink = ["/share/zsh"];
   security.rtkit.enable = true;
@@ -42,7 +43,17 @@
     postgresql = {
       enable = true;
     };
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+          user = "greeter";
+        };
+      };
+    };
   };
+
   programs.adb.enable = true;
   programs.dconf.enable = true;
   hardware.opengl.extraPackages = with pkgs; [
@@ -81,8 +92,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages;
   /*
-  nixpkgs.config.allowBroken = true;
-  */
+   nixpkgs.config.allowBroken = true;
+   */
 
   virtualisation = {
     waydroid.enable = true;
@@ -146,6 +157,32 @@
     dates = "weekly";
     options = "--delete-older-than 14d"; # Ajuste comme tu veux, tu peux utiliser +5 pour garder les 5 dernières, etc.
   };
+
+  environment.systemPackages = [
+    pkgs.ydotool
+  ];
+
+  programs.light.enable = true;
+
+  security.sudo.extraRules = [
+    {
+      groups = ["wheel"];
+      commands = [
+        {
+          command = "${pkgs.ydotool}/bin/ydotool";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "${pkgs.light}/bin/light";
+          options = ["NOPASSWD"];
+        }
+      ];
+    }
+  ];
+
+  #''
+  #	user ALL = (root) NOPASSWD: ${pkgs.ydotool}/bin/ydotool, ${pkgs.light}/bin/light
+  #'';
 
   sound.enable = true;
   # This value determines the NixOS release from which the default

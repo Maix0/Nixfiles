@@ -3,14 +3,15 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   home.packages = with pkgs; [
     bitwarden-cli
+    quickemu
+    virt-viewer
     nodePackages.vscode-json-languageserver
     exa
     python310
-	python310Packages.setuptools
+    python310Packages.setuptools
     topgrade
     rsync
     fd
@@ -31,11 +32,12 @@
     xdg-ninja
     bc
     kabalist_cli
-  	wev
-	ydotool
+    wev
+    ydotool
     comma
     raclette
-	nodePackages.prettier
+    nodePackages.prettier
+    aseprite-flake
   ];
 
   services = {
@@ -79,6 +81,7 @@
   };
 
   programs.zsh = {
+    enable = true;
     initExtraBeforeCompInit = ''
       fpath+="$HOME/.zfunc"
     '';

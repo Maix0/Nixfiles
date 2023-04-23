@@ -25,6 +25,7 @@ in {
     home.packages = with pkgs;
       [
         sway
+        findex
       ]
       ++ (
         if cfg.wallpaper != null
@@ -54,17 +55,19 @@ in {
             layer = "top";
             position = "top";
             modules-left = [
+              "bluetooth"
               "network#wifi"
               "sway/workspaces"
               "sway/mode"
             ];
             modules-center = ["sway/window"];
             modules-right = [
-	      "pulseaudio"
+              "backlight"
+              "pulseaudio"
               "cpu"
               "memory"
               "disk#home"
-              "disk#root"
+              # "disk#root"
               "battery"
               "clock"
               "tray"
@@ -111,7 +114,7 @@ in {
     };
 
     wm.printScreen.command = mkDefault "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png";
-    wm.menu.command = mkDefault "${pkgs.wofi}/bin/wofi --show drun,run --allow-images";
+    # wm.menu.command = mkDefault "${pkgs.wofi}/bin/wofi --show drun,run --allow-images";
     wm.exit.command = mkDefault "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
 
     wayland.windowManager.sway = {

@@ -70,6 +70,7 @@
     menu = {
       enable = true;
       keybind = "${mod}+d";
+      command = "echo '' > $HOME/.config/findex/toggle_file";
     };
 
     exit = {
@@ -89,6 +90,7 @@
       {command = "firefox";}
       {command = "spotify";}
       {command = "thunderbird";}
+      {command = "findex";}
       {command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
       {command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
     ];
@@ -133,10 +135,12 @@
       "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'";
       "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
       "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify play-pause";
-      "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify next";
-      "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify previous";
+      "${mod}+Mod1+Right" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify next"; # Mod + Alt + Right
+      "${mod}+Mod1+Left" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify previous"; # Mod + Alt + Left
+      "XF86MonBrightnessDown" = "exec sudo light -U 5";
+      "XF86MonBrightnessUp" = "exec sudo light -A 5";
 
-      "${mod}+twosuperior" = "ydotool click 0xC1";
+      "${mod}+twosuperior" = "exec sudo ydotool click 0xC1";
       # Focus
       "${mod}+Left" = "focus left";
       "${mod}+Right" = "focus right";

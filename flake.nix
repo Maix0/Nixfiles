@@ -2,40 +2,56 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:/nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "git+ssh://git@github.com:/nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #nix-alien.url = "github:thiagokokada/nix-alien";
-    nix-ld.url = "github:Mic92/nix-ld/main";
+    nix-ld = {
+      url = "git+ssh://git@github.com:/Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nvim-maix = {
-      url = "github:Maix0/nvim-flake";
+      url = "git+ssh://git@github.com:/Maix0/nvim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zsh-maix = {
-      url = "github:Maix0/zsh-flake";
+      url = "git+ssh://git@github.com:/Maix0/zsh-flake";
     };
     xdg-ninja = {
-      url = "github:traxys/xdg-ninja";
+      url = "git+ssh://git@github.com:/traxys/xdg-ninja";
       flake = false;
     };
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    naersk.url = "github:nix-community/naersk";
+    rust-overlay.url = "git+ssh://git@github.com:/oxalica/rust-overlay";
+    naersk.url = "git+ssh://git@github.com:/nix-community/naersk";
     kabalist = {
-      url = "github:traxys/kabalist";
+      url = "git+ssh://git@github.com:/traxys/kabalist";
       flake = false;
     };
-    comma.url = "github:nix-community/comma";
-    raclette.url = "github:traxys/raclette";
+    comma.url = "git+ssh://git@github.com:/nix-community/comma";
+    raclette.url = "git+ssh://git@github.com:/traxys/raclette";
+    aseprite-flake.url = "git+ssh://git@github.com:/Maix0/aseprite-flake";
+    findex-flake.url = "git+ssh://git@github.com:/Maix0/findex-flake";
+
+    tuxedo-nixos = {
+      url = "git+ssh://git@github.com:/blitz/tuxedo-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    spicetify-nix = {
+      url = "git+ssh://git@github.com:/the-argus/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
+
   outputs = {
     home-manager,
     nixpkgs,
     ...
   } @ inputs: {
     nixosConfigurations = {
-      ZeMaix = nixpkgs.lib.nixosSystem rec {
+      XeMaix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = [
           ({pkgs, ...}: {
@@ -46,7 +62,7 @@
               inputs.comma.overlays.default
               (final: prev: {
                 xdg-ninja = with pkgs;
-                  stdenv.mkDerivation rec {
+                  stdenv.mkDerivation {
                     pname = "xdg-ninja";
                     version = "0.1";
                     src = inputs.xdg-ninja;
@@ -65,10 +81,36 @@
                   root = inputs.kabalist;
                 };
                 raclette = inputs.raclette.defaultPackage."${system}";
+                aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
+                findex = inputs.findex-flake.defaultPackage."${system}";
+                spicetify = inputs.spicetify-nix.packages."${system}".default;
+              })
+              (final: prev: {
+                httpie = prev.httpie.overrideAttrs (oldAttrs: {
+                  doCheck = false;
+                  doInstallCheck = false;
+                });
+              })
+              (final: prev: {
+                python310Packages = prev.python310Packages.overrideScope (pfinal: pprev: {
+                  httpie = pprev.httpie.overrideAttrs (oldAttrs: {
+                    doCheck = false;
+                    doInstallCheck = false;
+                  });
+                });
+              })
+              (final: prev: {
+                python39Packages = prev.python39Packages.overrideScope (pfinal: pprev: {
+                  httpie = pprev.httpie.overrideAttrs (oldAttrs: {
+                    doCheck = abort false;
+                    doInstallCheck = false;
+                  });
+                });
               })
             ];
           })
           ./nixos/configuration.nix
+          inputs.tuxedo-nixos.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -80,6 +122,7 @@
               ...
             }: {
               imports = [
+                inputs.spicetify-nix.homeManagerModule
                 ./home.nix
                 ./graphical.nix
                 ./extra_info.nix

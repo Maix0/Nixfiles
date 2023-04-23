@@ -20,9 +20,8 @@
     # Media
     pavucontrol
     vlc
-    spotify
-	krita
-	gromit-mpx
+    krita
+    gromit-mpx
 
     # Libreoffice
     libreoffice
@@ -45,10 +44,36 @@
     feh
   ];
 
+  programs.spicetify = {
+    enable = true;
+    theme = pkgs.spicetify.themes.Fluent;
+    colorScheme = "dark";
+
+    enabledCustomApps = with pkgs.spicetify.apps; [
+      new-releases
+      marketplace
+      lyrics-plus
+    ];
+
+    enabledExtensions = with pkgs.spicetify.extensions; [
+      shuffle # shuffle+ (special characters are sanitized out of ext names)
+      bookmark
+      groupSession
+      playlistIcons
+      goToSong
+      featureShuffle
+      songStats
+      showQueueDuration
+      copyToClipboard
+      history
+      playNext
+    ];
+  };
+
   /*
-   environment.pathsToLink = [ "/share/hunspell" "/share/myspell" "/share/hyphen" ];
-  environment.variables.DICPATH = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
-  */
+    environment.pathsToLink = [ "/share/hunspell" "/share/myspell" "/share/hyphen" ];
+   environment.variables.DICPATH = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
+   */
 
   home.sessionVariables = {
     BROWSER = "firefox";
