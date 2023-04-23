@@ -15,7 +15,7 @@
 	    inputs.nixfiles.follows = "/";
     };
     nvim-maix = {
-      url = "github:Maix0/nvim-maix";
+      url = "github:traxys/nvim-maix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixfiles.follows = "/";
     };
