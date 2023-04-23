@@ -35,7 +35,6 @@
     comma
     raclette
     nodePackages.prettier
-
   ];
 
   services = {

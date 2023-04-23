@@ -7,9 +7,9 @@
     efi.canTouchEfiVariables = true;
     systemd-boot.enable = true;
   };
-  boot.supportedFilesystems = ["ntfs"]
+  boot.supportedFilesystems = ["ntfs"];
   boot.kernelParams = ["i8042.reset" "i8042.nomux" "i8042.nopnp" "i8042.noloop"];
-  
+
   networking = {
     hostName = "XeMaix";
     interfaces = {

@@ -60,11 +60,10 @@
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
-    security.sudo.extraRules = [
+  security.sudo.extraRules = [
     {
       groups = ["wheel"];
       commands = [
-
         {
           command = "${pkgs.light}/bin/light";
           options = ["NOPASSWD"];

@@ -30,12 +30,8 @@
     kind = "foot";
 
     colors = {
-<<<<<<< HEAD:wm/default.nix
       alpha = 0.80;
       background = "0F0F0F";
-      selectionForeground = "000000";
-=======
-      background = "1a1b26";
       foreground = "c0caf5";
 
       black = {
@@ -59,7 +55,6 @@
         foreground = "c0caf5";
         background = "33467c";
       };
->>>>>>> upstream/master:personal-gui/wm/default.nix
     };
     font = {
       family = "Hack Nerd Font Mono";
@@ -170,10 +165,10 @@
       "XF86MonBrightnessDown" = "exec sudo light -U 5";
       "XF86MonBrightnessUp" = "exec sudo light -A 5";
 
-	  # Gromit
-	  "Ctrl+Shift+I" = "exec ${pkgs.gromit-mpx}/bin/gromit-mpx -a";
-	  "Ctrl+Shift+D" = "exec ${pkgs.gromit-mpx}/bin/gromit-mpx -q";
-	  "Ctrl+Shift+H" = "exec ${pkgs.gromit-mpx}/bin/gromit-mpx -c";
+      # Gromit
+      "Ctrl+Shift+I" = "exec ${pkgs.gromit-mpx}/bin/gromit-mpx -a";
+      "Ctrl+Shift+D" = "exec ${pkgs.gromit-mpx}/bin/gromit-mpx -q";
+      "Ctrl+Shift+H" = "exec ${pkgs.gromit-mpx}/bin/gromit-mpx -c";
 
       # Focus
       "${mod}+Left" = "focus left";

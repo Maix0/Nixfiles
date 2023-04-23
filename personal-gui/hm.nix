@@ -6,7 +6,7 @@
 }: {
   imports = [
     ./wm
-  inputs.spicetify-nix.homeManagerModule
+    inputs.spicetify-nix.homeManagerModule
   ];
 
   home.packages = with pkgs; [

@@ -34,9 +34,9 @@
     "kvm"
     "qemu-libvirtd"
     "docker"
-    "wheel" 
-    "adbusers" 
-    "audio" 
+    "wheel"
+    "adbusers"
+    "audio"
     "video"
   ];
 }

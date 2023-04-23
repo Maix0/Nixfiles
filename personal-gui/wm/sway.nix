@@ -39,7 +39,7 @@ in {
       LIBSEAT_BACKEND = "logind";
     };
 
-	programs.rofi.package = pkgs.rofi-wayland;
+    programs.rofi.package = pkgs.rofi-wayland;
 
     services.mako = mkIf cfg.notifications.enable {
       enable = true;
