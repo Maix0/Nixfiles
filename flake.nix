@@ -110,6 +110,10 @@
         path = ./templates/rust;
         description = "My rust template using rust-overlay and direnv";
       };
+      perseus = {
+        path = ./templates/perseus;
+        description = "A perseus frontend with rust-overlay & direnv";
+      };
     };
     packages.x86_64-linux = pkgList "x86_64-linux" nixpkgs.legacyPackages.x86_64-linux.callPackage;
 
