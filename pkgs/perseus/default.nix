@@ -1,14 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, rustPlatform
-, openssl
-, zstd
-, darwin
-, bonnie
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  rustPlatform,
+  openssl,
+  zstd,
+  darwin,
+  bonnie,
 }:
-
 stdenv.mkDerivation rec {
   pname = "perseus";
   version = "0.4.0";
@@ -40,14 +40,16 @@ stdenv.mkDerivation rec {
     rustPlatform.rust.rustc
   ];
 
-  buildInputs = [
-    openssl
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreFoundation
-    darwin.apple_sdk.frameworks.CoreServices
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs =
+    [
+      openssl
+      zstd
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.CoreFoundation
+      darwin.apple_sdk.frameworks.CoreServices
+      darwin.apple_sdk.frameworks.Security
+    ];
 
   checkPhase = ''
     bonnie test cli
@@ -62,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/framesurge/perseus";
     changelog = "https://github.com/framesurge/perseus/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

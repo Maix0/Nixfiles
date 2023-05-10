@@ -115,6 +115,7 @@
         description = "A perseus frontend with rust-overlay & direnv";
       };
     };
+
     packages.x86_64-linux = pkgList "x86_64-linux" nixpkgs.legacyPackages.x86_64-linux.callPackage;
 
     hmModules = {
