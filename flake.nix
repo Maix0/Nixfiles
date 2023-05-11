@@ -2,7 +2,6 @@
   description = "NixOS configuration";
 
   inputs = {
-    # hello
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
