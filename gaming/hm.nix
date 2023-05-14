@@ -19,7 +19,6 @@
   home.file = {
     ".config/heroic/tools/wine/wine-system" = {
       source = pkgs.wine-ge;
-      recursive = true;
     };
   };
 
