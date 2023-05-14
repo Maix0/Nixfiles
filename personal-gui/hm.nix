@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./wm
-    inputs.spicetify-nix.homeManagerModule
   ];
 
   home.packages = with pkgs; [
@@ -29,7 +28,7 @@
     krita
     pavucontrol
     qpwgraph
-    spotify
+ 	  #spotify
     vlc
 
     # Libreoffice

@@ -28,7 +28,7 @@
       gnumake
       jq
       man-pages
-      neovimTraxys
+      neovimMaix
       nix-zsh-completions
       oscclip
       pandoc

@@ -30,6 +30,8 @@
   fonts.enableDefaultFonts = true;
   fonts = {
     fonts = with pkgs; [
+      #hack-font
+      #otf
       (nerdfonts.override {fonts = ["Hack"];})
       dejavu_fonts
     ];
@@ -37,7 +39,7 @@
       defaultFonts = {
         serif = ["DejaVu"];
         sansSerif = ["DejaVu Sans"];
-        monospace = ["Hack"];
+        monospace = ["Hack Nerd Font Mono"];
       };
     };
   };

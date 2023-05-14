@@ -98,7 +98,7 @@
         neovimMaix = inputs.nvim-maix.packages."${system}".nvim;
         roaming_proxy = inputs.roaming_proxy.defaultPackage."${system}";
         aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
-        findex = inputs.findex-flake.defaultPackage."${system}";
+        findex = inputs.findex-flake.packages."${system}".default;
         spicetify = inputs.spicetify-nix.packages."${system}".default;
       };
 
@@ -125,6 +125,7 @@
       personal-cli = import ./personal-cli/hm.nix;
       personal-gui = import ./personal-gui/hm.nix;
       gaming = import ./gaming/hm.nix;
+      spicetify-nix = inputs.spicetify-nix.homeManagerModule;
     };
 
     nixosModules = {
@@ -143,6 +144,7 @@
       XeMaix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = [
+          ./hostconfig/XeMaix/hardware-configuration.nix
           ./hostconfig/XeMaix/extra_info.nix
           ./hostconfig/XeMaix/nixos.nix
           self.nixosModules.minimal
@@ -173,11 +175,11 @@
             }: {
               imports = [
                 ./hostconfig/XeMaix/extra_info.nix
-                ./hostconfig/XeMaix/hardware-configuration.nix
-                ./hostconfig/XeMaix/nixos.nix
+                ./hostconfig/XeMaix/hm.nix
                 self.hmModules.minimal
                 self.hmModules.personal-cli
                 self.hmModules.personal-gui
+                self.hmModules.spicetify-nix
                 self.hmModules.gaming
               ];
             };
