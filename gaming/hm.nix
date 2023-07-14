@@ -10,16 +10,16 @@
     lutris
     simulationcraft
     warcraftlogs
-    wine-ge
-    winetricks
+    #wine-ge
+    #winetricks
     wowup
     xivlauncher
   ];
 
   home.file = {
-    ".config/heroic/tools/wine/wine-system" = {
-      source = pkgs.wine-ge;
-    };
+    #".config/heroic/tools/wine/wine-system" = {
+    #  source = pkgs.wine-ge;
+    #};
   };
 
   home.activation = {

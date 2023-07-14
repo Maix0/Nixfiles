@@ -3,7 +3,10 @@
   config,
   ...
 }: {
-  environment.systemPackages = [config.boot.kernelPackages.perf pkgs.virt-manager];
+  environment.systemPackages = [
+    config.boot.kernelPackages.perf
+    pkgs.virt-manager
+  ];
 
   services.privoxy.enable = true;
 

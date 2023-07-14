@@ -165,10 +165,6 @@
       "XF86MonBrightnessDown" = "exec sudo light -U 5";
       "XF86MonBrightnessUp" = "exec sudo light -A 5";
 
-      # Gromit
-      "Ctrl+Shift+I" = "exec ${pkgs.gromit-mpx}/bin/gromit-mpx -a";
-      "Ctrl+Shift+D" = "exec ${pkgs.gromit-mpx}/bin/gromit-mpx -q";
-      "Ctrl+Shift+H" = "exec ${pkgs.gromit-mpx}/bin/gromit-mpx -c";
 
       # Focus
       "${mod}+Left" = "focus left";

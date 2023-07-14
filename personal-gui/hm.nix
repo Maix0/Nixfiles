@@ -9,6 +9,8 @@
   ];
 
   home.packages = with pkgs; [
+    ghidra-bin
+
     # Browsers
     firefox-wayland
     (tor-browser-bundle-bin.override {
@@ -24,8 +26,6 @@
     thunderbird-wayland
 
     # Media
-    gromit-mpx
-    krita
     pavucontrol
     qpwgraph
  	  #spotify

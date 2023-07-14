@@ -18,6 +18,7 @@
     extraInfo
   ];
 
+
   config = {
     home.packages = with pkgs; [
       bat
@@ -39,6 +40,7 @@
       unzip
       wget
       frg
+      ipmitool
 
       # Useful for pandoc to latex
       (texlive.combine {
