@@ -78,7 +78,6 @@ in {
               "battery"
               "clock"
               "tray"
-              "pulseaudio"
             ];
             "sway/workspaces" = {
               persistent_workspaces = {
@@ -128,6 +127,7 @@ in {
       enable = true;
       extraConfig = mkIf (cfg.wallpaper != null) ''
         output "*" bg ${cfg.wallpaper} fill
+        input * xkb_layout "fr"
       '';
       config = {
         inherit startup;
@@ -139,27 +139,16 @@ in {
         ];
         input = let
           inputs = config.extraInfo.inputs;
-<<<<<<< HEAD
-          inputsCfg =
-            [
-              (
-                if inputs.touchpad != null
-                then {
-                  name = inputs.touchpad;
-                  value = {dwt = "disable";};
-                }
-                else null
-              )
-            ]
-            ++ (
-              builtins.map (k: {
-                name = k;
-                value = {
-                  xkb_layout = "fr";
-                };
-              })
-              inputs.keyboard
-            );
+          inputsCfg = [
+            (
+              if inputs.touchpad != null
+              then {
+                name = inputs.touchpad;
+                value = {dwt = "disable";};
+              }
+              else null
+            )
+          ];
         in
           builtins.listToAttrs (builtins.filter (s: s != null) inputsCfg);
         output = config.extraInfo.outputs;

@@ -79,22 +79,6 @@
         "url": "https://gitlab.scd31.com/stephen/dotacat.git"
       }
     },
-    "dotacat_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1674819296,
-        "narHash": "sha256-y+u9PO01W+IzBatGHZpgOD7cRKjdeuy4/VX7/V9cu3Q=",
-        "ref": "refs/heads/master",
-        "rev": "f3b7e7816bed6b84123e066c57cf4003d77a85f1",
-        "revCount": 31,
-        "type": "git",
-        "url": "https://gitlab.scd31.com/stephen/dotacat.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://gitlab.scd31.com/stephen/dotacat.git"
-      }
-    },
     "fast-syntax-highlighting": {
       "flake": false,
       "locked": {
@@ -1202,22 +1186,6 @@
         "type": "github"
       }
     },
-    "oscclip": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1688305439,
-        "narHash": "sha256-MXOdBWjsSvuNXRYXDp6vhliGOoAH/wwRtv1amUwI+oM=",
-        "owner": "rumpelsepp",
-        "repo": "oscclip",
-        "rev": "a0f95e5778a3a5fe6e04a976bcb4881c83bb8ca6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rumpelsepp",
-        "repo": "oscclip",
-        "type": "github"
-      }
-    },
     "plugin:clangd_extensions-nvim": {
       "flake": false,
       "locked": {
@@ -2072,7 +2040,6 @@
       "inputs": {
         "aseprite-flake": "aseprite-flake",
         "comma": "comma",
-        "dotacat": "dotacat",
         "fast-syntax-highlighting": "fast-syntax-highlighting",
         "findex-flake": "findex-flake",
         "home-manager": "home-manager",
@@ -2085,12 +2052,10 @@
         "nixpkgs": "nixpkgs_8",
         "nur": "nur",
         "nvim-maix": "nvim-maix",
-        "oscclip": "oscclip",
         "powerlevel10k": "powerlevel10k",
         "raclette": "raclette",
         "roaming_proxy": "roaming_proxy",
         "rust-overlay": "rust-overlay_3",
-        "simulationcraft": "simulationcraft",
         "spicetify-nix": "spicetify-nix",
         "tuxedo-nixos": "tuxedo-nixos",
         "xdg-ninja": "xdg-ninja",
@@ -2152,22 +2117,6 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "simulationcraft": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1689645389,
-        "narHash": "sha256-yBJnbNTe22C+D8b3GFKIGFUDygidGPz9k3pQU2TfMUA=",
-        "owner": "simulationcraft",
-        "repo": "simc",
-        "rev": "f8c71865c57382cc70909519320399923c8203cd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "simulationcraft",
-        "repo": "simc",
         "type": "github"
       }
     },
@@ -2414,7 +2363,7 @@
     },
     "zsh-maix": {
       "inputs": {
-        "dotacat": "dotacat_2",
+        "dotacat": "dotacat",
         "fast-syntax-highlighting": "fast-syntax-highlighting_2",
         "flake-utils": "flake-utils_13",
         "naersk": "naersk_6",
