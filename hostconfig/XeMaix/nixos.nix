@@ -16,6 +16,7 @@
       eno1.useDHCP = false;
       wlp1s0.useDHCP = true;
     };
+    firewall.allowedTCPPorts = [8080 8085];
   };
 
   users = {
@@ -26,6 +27,20 @@
   hardware.bluetooth.enable = true;
 
   hardware.ckb-next.enable = true;
+
+  services.postgresql = {
+    enable = true;
+    ensureUsers = [
+      {
+        name = "traxys";
+        ensurePermissions = {
+          "DATABASE \"list\"" = "ALL PRIVILEGES";
+          "DATABASE \"regalade\"" = "ALL PRIVILEGES";
+        };
+      }
+    ];
+    ensureDatabases = ["list" "regalade"];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

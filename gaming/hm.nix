@@ -8,20 +8,7 @@
     bottles
     heroic
     lutris
-    #simulationcraft
-    #warcraftlogs
-    #wine-ge
-    #winetricks
-    #wowup
-    #xivlauncher
   ];
-
-  home.file = {
-    #".config/heroic/tools/wine/wine-system" = {
-    #  source = pkgs.wine-ge;
-    #};
-  };
-
   home.activation = {
     proton-ge = lib.hm.dag.entryAfter ["writeBoundary"] ''
       target="${config.home.homeDirectory}/.steam/root/compatibilitytools.d/Proton-${pkgs.proton-ge.version}"

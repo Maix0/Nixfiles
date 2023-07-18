@@ -165,7 +165,6 @@
       "XF86MonBrightnessDown" = "exec sudo light -U 5";
       "XF86MonBrightnessUp" = "exec sudo light -A 5";
 
-
       # Focus
       "${mod}+Left" = "focus left";
       "${mod}+Right" = "focus right";

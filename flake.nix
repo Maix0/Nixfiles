@@ -33,14 +33,6 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     # Extra Package Sources
-    simulationcraft = {
-      url = "github:simulationcraft/simc";
-      flake = false;
-    };
-    oscclip = {
-      url = "github:rumpelsepp/oscclip";
-      flake = false;
-    };
     kabalist = {
       url = "github:traxys/kabalist";
       flake = false;
@@ -60,10 +52,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     roaming_proxy.url = "github:traxys/roaming_proxy";
-    dotacat = {
-      url = "git+https://gitlab.scd31.com/stephen/dotacat.git";
-      flake = false;
-    };
     zsh-nix-shell = {
       url = "github:chisui/zsh-nix-shell";
       flake = false;
@@ -78,19 +66,22 @@
     };
   };
 
-  outputs = inputs: let
-    nixpkgs = inputs.nixpkgs;
-    home-manager = inputs.home-manager;
-    self = inputs.self;
-    sources =
+  outputs = {
+    self,
+    home-manager,
+    nixpkgs,
+    ...
+  } @ inputs: let
+    sources = system:
       {
-        inherit (inputs) oscclip simulationcraft kabalist dotacat;
+        inherit (inputs) simulationcraft kabalist;
       }
-      // (nixpkgs.legacyPackages.x86_64-linux.callPackage ./_sources/generated.nix {});
+      // (nixpkgs.legacyPackages."${system}".callPackage ./_sources/generated.nix {});
 
     pkgList = system: callPackage:
       (import ./pkgs/default.nix {
-        inherit sources callPackage;
+        inherit callPackage;
+        sources = sources system;
         naersk = inputs.naersk.lib."${system}";
       })
       // {
@@ -113,9 +104,14 @@
         path = ./templates/perseus;
         description = "A perseus frontend with rust-overlay & direnv";
       };
+      webapp = {
+        path = ./templates/webapp;
+        description = "A template for a web application (frontend + backend)";
+      };
     };
 
     packages.x86_64-linux = pkgList "x86_64-linux" nixpkgs.legacyPackages.x86_64-linux.callPackage;
+    packages.aarch64-linux = pkgList "aarch64-linux" nixpkgs.legacyPackages.aarch64-linux.callPackage;
 
     hmModules = {
       minimal = import ./minimal/hm.nix {
@@ -139,6 +135,7 @@
     };
 
     overlays.x86_64-linux = final: prev: pkgList "x86_64-linux" prev.callPackage;
+    overlays.aarch64-linux = final: prev: pkgList "aarch64-linux" prev.callPackage;
 
     nixosConfigurations = {
       XeMaix = nixpkgs.lib.nixosSystem rec {
@@ -156,9 +153,9 @@
               inputs.nur.overlay
               inputs.rust-overlay.overlays.default
               inputs.nix-alien.overlay
-              inputs.nix-gaming.overlays.default
               inputs.comma.overlays.default
               (final: prev: pkgList system prev.callPackage)
+              (final: prev: inputs.nix-gaming.packages."${system}")
             ];
           })
           ./nixos/configuration.nix

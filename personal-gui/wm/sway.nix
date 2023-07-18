@@ -37,6 +37,7 @@ in {
       MOZ_ENABLE_WAYLAND = "1";
       XDG_CURRENT_DESKTOP = "sway";
       LIBSEAT_BACKEND = "logind";
+      _JAVA_AWT_WM_NONREPARENTING = 1;
     };
 
     programs.rofi.package = pkgs.rofi-wayland;
@@ -77,6 +78,7 @@ in {
               "battery"
               "clock"
               "tray"
+              "pulseaudio"
             ];
             "sway/workspaces" = {
               persistent_workspaces = {
@@ -137,6 +139,7 @@ in {
         ];
         input = let
           inputs = config.extraInfo.inputs;
+<<<<<<< HEAD
           inputsCfg =
             [
               (
@@ -163,6 +166,16 @@ in {
         fonts = common.mkFont cfg.font;
         window = {
           titlebar = false;
+          commands = [
+            {
+              criteria.class = "davmail-DavGateway";
+              command = "floating enable";
+            }
+            {
+              criteria.window_type = "menu";
+              command = "floating enable";
+            }
+          ];
         };
         keybindings = common.keybindings;
         workspaceOutputAssign = common.workspaceOutputAssign;

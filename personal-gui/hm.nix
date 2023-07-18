@@ -49,12 +49,14 @@
     aseprite-flake
     quickemu
     virt-viewer
+    waypipe
   ];
 
   home.sessionVariables = {
     BROWSER = "firefox";
     GTK_USE_PORTAL = 1;
     NIXOS_OZONE_WL = 1;
+    ANDROID_HOME="${config.home.sessionVariables.XDG_DATA_HOME}/android";
   };
 
   programs.zathura.enable = true;

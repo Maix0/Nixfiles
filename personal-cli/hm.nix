@@ -12,6 +12,9 @@
     tree
     socat
     fastmod
+    nixpkgs-fmt
+    nixpkgs-review
+    nix-init
   ];
 
   services.syncthing.enable = true;
