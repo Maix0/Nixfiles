@@ -8,12 +8,12 @@
     bottles
     heroic
     lutris
-    simulationcraft
-    warcraftlogs
+    #simulationcraft
+    #warcraftlogs
     #wine-ge
     #winetricks
-    wowup
-    xivlauncher
+    #wowup
+    #xivlauncher
   ];
 
   home.file = {

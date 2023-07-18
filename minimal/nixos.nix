@@ -7,6 +7,7 @@
   imports = [extraInfo];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages;
+  virtualisation.containers.enable = lib.mkForce false;
 
   programs.nix-ld.enable = true;
 
