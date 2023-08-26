@@ -58,6 +58,7 @@
       wget
       frg
       ipmitool
+      nix-output-monitor
 
       # Useful for pandoc to latex
       (texlive.combine {

@@ -58,7 +58,7 @@
     };
     font = {
       family = "Hack Nerd Font Mono";
-      size = 13;
+      size = lib.mkDefault 13;
     };
   };
 

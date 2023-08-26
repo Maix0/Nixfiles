@@ -8,12 +8,14 @@
     pkgs.virt-manager
   ];
 
-  services.privoxy.enable = true;
+  # services.privoxy.enable = true;
 
   services.fwupd.enable = true;
   services.openssh.enable = true;
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
+
+  services.tailscale.enable = true;
 
   networking.networkmanager.enable = true;
 

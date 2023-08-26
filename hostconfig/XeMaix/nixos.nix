@@ -16,7 +16,7 @@
       eno1.useDHCP = false;
       wlp1s0.useDHCP = true;
     };
-    firewall.allowedTCPPorts = [8080 8085];
+    firewall.allowedTCPPorts = [8080 8085 5201];
   };
 
   users = {
@@ -41,6 +41,15 @@
     ];
     ensureDatabases = ["list" "regalade"];
   };
+
+  hardware.cpu.amd.updateMicrocode = true;
+
+  nix.extraOptions = ''
+    keep-outputs = true
+    keep-derivations = true
+  '';
+
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
