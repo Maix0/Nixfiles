@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-traxys.url = "github:traxys/nixpkgs";
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -70,6 +71,7 @@
     self,
     home-manager,
     nixpkgs,
+    nixpkgs-traxys,
     ...
   } @ inputs: let
     sources = system:
@@ -91,6 +93,7 @@
         aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
         findex = inputs.findex-flake.packages."${system}".default;
         spicetify = inputs.spicetify-nix.packages."${system}".default;
+        inherit (nixpkgs-traxys.legacyPackages."${system}") djlint;
       };
 
     extraInfo = import ./extra_info.nix;

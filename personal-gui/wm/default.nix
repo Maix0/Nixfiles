@@ -58,7 +58,7 @@
     };
     font = {
       family = "Hack Nerd Font Mono";
-      size = 8;
+      size = 13;
     };
   };
 
@@ -102,7 +102,7 @@
 
     notifications = {
       enable = true;
-      font = "hack nerd font 14";
+      font = "hack nerd font 10";
       defaultTimeout = 7000;
     };
 
@@ -111,7 +111,6 @@
       {command = "discord";}
       {command = "firefox";}
       {command = "spotify";}
-      {command = "thunderbird";}
       {command = "findex";}
       {command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
       {command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
@@ -153,7 +152,7 @@
     };
 
     keybindings = {
-      "${mod}+Shift+l" = "exec ${pkgs.swaylock-fancy}/bin/swaylock-fancy";
+      "${mod}+Escape" = "exec ${pkgs.swaylock-fancy}/bin/swaylock-fancy";
 
       # Media Keys
       "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'";

@@ -4,7 +4,7 @@
     hbw
     kabalist_cli
     nix-alien
-    nvfetcher
+    #nvfetcher
     tokei
     xdg-ninja
     zk
