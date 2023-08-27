@@ -3,11 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-<<<<<<< HEAD
-    nixpkgs-traxys.url = "github:traxys/nixpkgs";
-=======
     nixpkgs-traxys.url = "github:traxys/nixpkgs/inflight";
->>>>>>> upstream/master
     nix-gaming.url = "github:fufexan/nix-gaming";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -19,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvim-maix = {
-      url = "github:traxys/nvim-flake";
+      url = "github:Maix0/nvim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixfiles.follows = "/";
     };
