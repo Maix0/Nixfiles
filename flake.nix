@@ -162,7 +162,7 @@
             ];
           })
           ./nixos/configuration.nix
-          inputs.tuxedo-nixos.nixosModules.default
+          #inputs.tuxedo-nixos.nixosModules.default # will be added back when it uses a normal nodejs version ...
           home-manager.nixosModules.home-manager
           {
             home-manager.verbose = false;
