@@ -13,7 +13,7 @@
     };
   };
 
-  hardware.tuxedo-control-center.enable = true;
+  #hardware.tuxedo-control-center.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
   services.flatpak.enable = true;
