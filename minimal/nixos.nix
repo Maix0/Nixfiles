@@ -28,13 +28,14 @@
   };
 
   environment.pathsToLink = ["/share/zsh"];
-  fonts.enableDefaultFonts = true;
   fonts = {
     fonts = with pkgs; [
-      #hack-font
-      #otf
+      # otf
       (nerdfonts.override {fonts = ["Hack"];})
+      hack-font
       dejavu_fonts
+      noto-fonts-emoji
+      noto-fonts
     ];
     fontconfig = {
       defaultFonts = {

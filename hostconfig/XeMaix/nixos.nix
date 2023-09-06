@@ -8,7 +8,7 @@
     systemd-boot.enable = true;
   };
   boot.supportedFilesystems = ["ntfs"];
-  boot.kernelParams = ["i8042.reset" "i8042.nomux" "i8042.nopnp" "i8042.noloop"];
+  boot.kernelParams = ["i8042.reset" "i8042.nomux" "i8042.nopnp" "i8042.noloop" "acpi"];
 
   networking = {
     hostName = "XeMaix";
