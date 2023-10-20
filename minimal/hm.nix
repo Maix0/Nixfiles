@@ -189,7 +189,7 @@
       '';
       shellAliases = {
         cat = "${pkgs.bat}/bin/bat -p";
-        ls = "${pkgs.exa}/bin/exa --icons";
+        ls = "${pkgs.eza}/bin/eza --icons";
       };
     };
 

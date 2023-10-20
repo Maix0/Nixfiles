@@ -110,7 +110,7 @@
       {command = "signal-desktop";}
       {command = "discord";}
       {command = "firefox";}
-      {command = "spotify";}
+      #{command = "spotify";}
       {command = "findex";}
       {command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
       {command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
@@ -161,8 +161,8 @@
       "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify play-pause";
       "${mod}+Mod1+Right" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify next"; # Mod + Alt + Right
       "${mod}+Mod1+Left" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify previous"; # Mod + Alt + Left
-      "XF86MonBrightnessDown" = "exec sudo light -U 5";
-      "XF86MonBrightnessUp" = "exec sudo light -A 5";
+      "XF86MonBrightnessDown" = "exec /run/wrappers/bin/light -U 5";
+      "XF86MonBrightnessUp" = "exec /run/wrappers/bin/light -A 5";
 
       # Focus
       "${mod}+Left" = "focus left";

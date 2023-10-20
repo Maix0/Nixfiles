@@ -13,7 +13,33 @@
     };
   };
 
+  environment.systemPackages = [
+    pkgs.itd
+  ];
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --remember-user-session --remember-session --time --cmd sway";
+        user = "greeter";
+      };
+    };
+  };
+
   #hardware.tuxedo-control-center.enable = true;
+
+  systemd.user.services.itd = {
+    enable = false;
+    description = "InfiniTime Daemon (itd)";
+    after = ["bluetooth.target"];
+    wantedBy = ["default.target"];
+    serviceConfig = {
+      ExecStart = "${pkgs.itd}/bin/itd";
+      Restart = "always";
+      #StandartOutput = "journal";
+    };
+  };
 
   services.gnome.gnome-keyring.enable = true;
   services.flatpak.enable = true;
@@ -60,6 +86,13 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+  };
+
+  security.wrappers.doas = {
+    setuid = true;
+    owner = "root";
+    group = "root";
+    source = "${pkgs.light}/bin/light";
   };
 
   users.users."${config.extraInfo.username}".extraGroups = ["adbusers" "scanner" "lp"];

@@ -12,7 +12,7 @@
     ghidra-bin
 
     # Browsers
-    firefox-wayland
+    firefox
     (tor-browser-bundle-bin.override {
       useHardenedMalloc = false;
     })
@@ -23,7 +23,7 @@
     signal-desktop
 
     # Mail
-    thunderbird-wayland
+    thunderbird
 
     # Media
     pavucontrol
