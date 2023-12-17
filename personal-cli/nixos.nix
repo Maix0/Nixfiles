@@ -8,7 +8,7 @@
     pkgs.virt-manager
   ];
 
-  # services.privoxy.enable = true;
+  services.privoxy.enable = true;
 
   services.fwupd.enable = true;
   services.openssh.enable = true;

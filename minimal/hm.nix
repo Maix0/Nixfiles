@@ -35,6 +35,9 @@
       PYTHONSTARTUP = "${XDG_CONFIG_HOME}/python/pythonrc";
       RUSTUP_HOME = "${XDG_DATA_HOME}/rustup";
       WINEPREFIX = "${XDG_DATA_HOME}/wine";
+
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+      MANROFFOPT = "-c";
     };
 
     home.packages = with pkgs; [
@@ -59,6 +62,7 @@
       frg
       ipmitool
       nix-output-monitor
+      bat-extras.prettybat
 
       # Useful for pandoc to latex
       (texlive.combine {
@@ -89,12 +93,21 @@
     };
 
     programs.home-manager.enable = true;
-    programs.bat.enable = true;
+    programs.bat = {
+      enable = true;
+      syntaxes = {
+        meson = {
+          src = inputs.meson-syntax;
+          file = "meson.sublime-syntax";
+        };
+      };
+    };
     programs.zoxide.enable = true;
 
     programs.git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
+      lfs.enable = true;
       delta = {
         enable = true;
         options = {
@@ -142,6 +155,11 @@
           name = "zsh-nix-shell";
           file = "nix-shell.plugin.zsh";
           src = inputs.zsh-nix-shell;
+        }
+        {
+          name = "jq-zsh-plugin";
+          file = "jq.plugin.zsh";
+          src = inputs.jq-zsh-plugin;
         }
       ];
 

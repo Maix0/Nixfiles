@@ -3,8 +3,6 @@
     bitwarden-cli
     hbw
     kabalist_cli
-    nix-alien
-    #nvfetcher
     tokei
     xdg-ninja
     zk
