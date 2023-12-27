@@ -18,7 +18,7 @@
     })
 
     # IM
-    (discord.override {nss = pkgs.nss;})
+    vesktop
     element-desktop
     signal-desktop
 
@@ -28,7 +28,7 @@
     # Media
     pavucontrol
     qpwgraph
- 	  #spotify
+    #spotify
     vlc
 
     # Libreoffice
@@ -56,20 +56,21 @@
     BROWSER = "firefox";
     GTK_USE_PORTAL = 1;
     NIXOS_OZONE_WL = 1;
-    ANDROID_HOME="${config.home.sessionVariables.XDG_DATA_HOME}/android";
+    ANDROID_HOME = "${config.home.sessionVariables.XDG_DATA_HOME}/android";
   };
 
   programs.zathura.enable = true;
 
   programs.spicetify = {
     enable = true;
-    theme = pkgs.spicetify.themes.Fluent;
-    colorScheme = "dark";
+    theme = "Dreary"; #pkgs.spicetify.themes.Dreary;
+    colorScheme = "deeper";
 
     enabledCustomApps = with pkgs.spicetify.apps; [
       new-releases
       marketplace
       lyrics-plus
+      localFiles
     ];
 
     enabledExtensions = with pkgs.spicetify.extensions; [
@@ -85,5 +86,14 @@
       history
       playNext
     ];
+  };
+
+  xdg.desktopEntries = {
+    spotify = {
+      name = "Spiced Spotify";
+      exec = "spotify";
+      icon = "spotify";
+      type = "Application";
+    };
   };
 }

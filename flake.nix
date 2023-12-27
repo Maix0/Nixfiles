@@ -227,8 +227,8 @@
                 ./hostconfig/XeMaix/extra_info.nix
                 ./hostconfig/XeMaix/hm.nix
                 self.hmModules.minimal
-                self.hmModules.personal-cli
                 self.hmModules.personal-gui
+
                 self.hmModules.spicetify-nix
                 self.hmModules.gaming
               ];
