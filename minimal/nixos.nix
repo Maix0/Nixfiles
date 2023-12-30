@@ -15,7 +15,7 @@
     isNormalUser = true;
     home = "/home/${config.extraInfo.username}";
     shell = pkgs.zsh;
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" "video"];
   };
 
   programs.zsh.enable = true;
@@ -79,15 +79,5 @@
     automatic = true;
     options = "--delete-older-than 7d";
   };
-  security.sudo.extraRules = [
-    {
-      groups = ["wheel"];
-      commands = [
-        {
-          command = "${pkgs.light}/bin/light";
-          options = ["NOPASSWD"];
-        }
-      ];
-    }
-  ];
+  security.polkit.enable = true;
 }

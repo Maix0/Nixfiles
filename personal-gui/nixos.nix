@@ -87,13 +87,5 @@
     driSupport = true;
     driSupport32Bit = true;
   };
-
-  security.wrappers.doas = {
-    setuid = true;
-    owner = "root";
-    group = "root";
-    source = "${pkgs.light}/bin/light";
-  };
-
   users.users."${config.extraInfo.username}".extraGroups = ["adbusers" "scanner" "lp"];
 }

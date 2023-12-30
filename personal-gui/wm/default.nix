@@ -115,7 +115,7 @@
 
     startup = [
       {command = "signal-desktop";}
-      {command = "vesktop";}
+      {command = "${pkgs.vesktop}/bin/vencorddesktop";}
       {command = "firefox";}
       #{command = "spotify";}
       {command = "findex-daemon";}
@@ -168,8 +168,8 @@
       "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify play-pause";
       "${mod}+Mod1+Right" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify next"; # Mod + Alt + Right
       "${mod}+Mod1+Left" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify previous"; # Mod + Alt + Left
-      "XF86MonBrightnessDown" = "exec /run/wrappers/bin/light -U 5";
-      "XF86MonBrightnessUp" = "exec /run/wrappers/bin/light -A 5";
+      "XF86MonBrightnessDown" = "exec /usr/bin/env light -U 5";
+      "XF86MonBrightnessUp" = "exec /usr/bin/env light -A 5";
 
       # Focus
       "${mod}+Left" = "focus left";
