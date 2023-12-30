@@ -2,29 +2,43 @@
   description = "NixOS configuration";
 
   inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-traxys.url = "github:traxys/nixpkgs/inflight";
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
     };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix-index-database.follows = "nix-index-database";
+        flake-utils.follows = "flake-utils";
+      };
+    };
     nix-ld = {
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvim-maix = {
       url = "github:Maix0/nvim-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixfiles.follows = "/";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
     naersk = {
       url = "github:nix-community/naersk";
@@ -37,15 +51,25 @@
     };
     raclette = {
       url = "github:traxys/raclette";
-      inputs.naersk.follows = "naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        naersk.follows = "naersk";
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        rust-overlay.follows = "rust-overlay";
+      };
     };
     nur = {
       url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     zsh-maix = {
       url = "github:Maix0/zsh-flake";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        zsh-nix-shell.follows = "zsh-nix-shell";
+        fast-syntax-highlighting.follows = "fast-syntax-highlighting";
+        naersk.follows = "naersk";
+      };
     };
     xdg-ninja = {
       url = "github:traxys/xdg-ninja";
@@ -68,22 +92,42 @@
       url = "github:traxys/kabalist";
       flake = false;
     };
-    aseprite-flake.url = "git+ssh://git@github.com:/Maix0/aseprite-flake";
-    findex-flake.url = "github:Maix0/findex-flake";
+    aseprite-flake = {
+      url = "git+ssh://git@github.com:/Maix0/aseprite-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    findex-flake = {
+      url = "github:Maix0/findex-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        naersk.follows = "naersk";
+      };
+    };
 
     tuxedo-nixos = {
       url = "github:blitz/tuxedo-nixos";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     spicetify-nix = {
       url = "github:the-argus/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
     roaming_proxy = {
       url = "github:traxys/roaming_proxy";
-      inputs.naersk.follows = "naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        naersk.follows = "naersk";
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        rust-overlay.follows = "rust-overlay";
+      };
     };
     zsh-nix-shell = {
       url = "github:chisui/zsh-nix-shell";
@@ -103,16 +147,23 @@
     };
     mujmap = {
       url = "github:elizagamedev/mujmap";
-      #inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
-    fioul.url = "github:traxys/fioul";
+    fioul = {
+      url = "github:traxys/fioul";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        naersk.follows = "naersk";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
   };
 
   outputs = {
     self,
     home-manager,
     nixpkgs,
-    nixpkgs-traxys,
     ...
   } @ inputs: let
     sources = system:
@@ -134,7 +185,6 @@
         aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
         findex = inputs.findex-flake.packages."${system}".default;
         spicetify = inputs.spicetify-nix.packages."${system}".default;
-        inherit (nixpkgs-traxys.legacyPackages."${system}") groovy-language-server;
         inherit (inputs.mujmap.packages."${system}") mujmap;
       };
 
