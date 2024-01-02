@@ -149,6 +149,7 @@
             "Element"
             "Signal"
             "Discord"
+            "VencordDesktop"
           ];
         };
         "" = {
