@@ -114,13 +114,13 @@
     };
 
     startup = [
-      {command = "signal-desktop";}
-      {command = "${pkgs.vesktop}/bin/vencorddesktop";}
-      {command = "firefox";}
-      #{command = "spotify";}
-      {command = "findex-daemon";}
       {command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
       {command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
+      #{command = "spotify";}
+      {command = "signal-desktop";}
+      {command = "firefox";}
+      {command = "findex-daemon";}
+      {command = "${pkgs.vesktop}/bin/vencorddesktop";}
       {
         command = "${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd";
         always = true;
