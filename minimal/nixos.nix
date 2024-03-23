@@ -20,7 +20,9 @@
 
   programs.zsh.enable = true;
   programs.light.enable = true;
-
+  networking.hosts = {
+    "www.bottlecaps.de" = ["127.0.0.1"];
+  };
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
     font = "Lat2-Terminus16";

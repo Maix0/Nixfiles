@@ -5,8 +5,12 @@
 
   programs.steam = {
     enable = true;
+    extest.enable = true;
     remotePlay.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+    extraCompatPackages = [pkgs.proton-ge-bin];
   };
+
   hardware.steam-hardware.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;

@@ -1,16 +1,17 @@
 {
-  boot.initrd = {
-    enable = true;
-    availableKernelModules = ["amdgpu" "r8169"];
+  boot = {
+    supportedFilesystems = ["ntfs"];
+    kernelParams = ["i8042.reset" "i8042.nomux" "i8042.nopnp" "i8042.noloop" "acpi"];
+    binfmt.emulatedSystems = ["aarch64-linux"];
+    initrd = {
+      enable = true;
+      availableKernelModules = ["amdgpu" "r8169"];
+    };
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot.enable = true;
+    };
   };
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    systemd-boot.enable = true;
-  };
-  boot.supportedFilesystems = ["ntfs"];
-  boot.kernelParams = ["i8042.reset" "i8042.nomux" "i8042.nopnp" "i8042.noloop" "acpi"];
-
-  hardware.tuxedo-keyboard.enable = true;
 
   networking = {
     hostName = "XeMaix";
@@ -26,32 +27,31 @@
     groups.localtimed = {};
     groups.docker = {};
   };
-  hardware.bluetooth.enable = true;
 
-  hardware.ckb-next.enable = true;
-
+  hardware = {
+    tuxedo-keyboard.enable = true;
+    bluetooth.enable = true;
+    ckb-next.enable = true;
+    cpu.amd.updateMicrocode = true;
+  };
   services.postgresql = {
     enable = true;
     ensureUsers = [
       {
-        name = "traxys";
-        ensurePermissions = {
-          "DATABASE \"list\"" = "ALL PRIVILEGES";
-          "DATABASE \"regalade\"" = "ALL PRIVILEGES";
+        name = "maix";
+        ensureClauses = {
+          superuser = true;
+          login = true;
         };
       }
     ];
     ensureDatabases = ["list" "regalade"];
   };
 
-  hardware.cpu.amd.updateMicrocode = true;
-
   nix.extraOptions = ''
     keep-outputs = true
     keep-derivations = true
   '';
-
-  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

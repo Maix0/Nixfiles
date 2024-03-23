@@ -120,7 +120,7 @@
       {command = "signal-desktop";}
       {command = "firefox";}
       {command = "findex-daemon";}
-      {command = "${pkgs.vesktop}/bin/vencorddesktop";}
+      {command = "${pkgs.vesktop}/bin/vesktop";}
       {
         command = "${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd";
         always = true;
