@@ -15,6 +15,7 @@
 
   environment.systemPackages = [
     pkgs.itd
+    pkgs.rofi
   ];
 
   services.greetd = {
