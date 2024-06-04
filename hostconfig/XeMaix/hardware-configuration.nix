@@ -14,7 +14,7 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "rtsx_usb_sdmmc"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd"];
+  boot.kernelModules = ["kvm-amd" "cypress_m8"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {

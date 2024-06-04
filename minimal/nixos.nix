@@ -9,8 +9,6 @@
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages;
   virtualisation.containers.enable = lib.mkForce false;
 
-  programs.nix-ld.enable = true;
-
   users.users."${config.extraInfo.username}" = {
     isNormalUser = true;
     home = "/home/${config.extraInfo.username}";
@@ -18,11 +16,12 @@
     extraGroups = ["wheel" "video"];
   };
 
-  programs.zsh.enable = true;
-  programs.light.enable = true;
-  networking.hosts = {
-    "www.bottlecaps.de" = ["127.0.0.1"];
+  programs = {
+    nix-ld.enable = true;
+    zsh.enable = true;
+    light.enable = true;
   };
+
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
     font = "Lat2-Terminus16";
@@ -51,13 +50,13 @@
   nixpkgs.overlays = [
     (final: super: {
       nixos-rebuild = super.nixos-rebuild.overrideAttrs (old: {
-        path = "${old.path}:${lib.makeBinPath [final.nix-output-monitor]}";
         src = lib.debug.traceVal "${final.runCommand "nixos-rebuild.sh" {} ''
           mkdir -p $out
 
           cp ${old.src} nixos-rebuild.sh
 
           patch -p5 <${./nom-rebuild.patch}
+          sed -i -e '2s|^|export PATH="${lib.makeBinPath [final.nix-output-monitor]}:$PATH"|' nixos-rebuild.sh
           mv nixos-rebuild.sh $out
         ''}/nixos-rebuild.sh";
       });
@@ -65,7 +64,7 @@
   ];
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.git;
 
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -75,6 +74,7 @@
       auto-optimise-store = true;
       substituters = ["https://nix-gaming.cachix.org"];
       trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+      trusted-users = ["@wheel" config.extraInfo.username];
     };
   };
   nix.gc = {

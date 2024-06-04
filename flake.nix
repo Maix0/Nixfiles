@@ -179,9 +179,9 @@
         naersk = inputs.naersk.lib."${system}";
       })
       // {
-        raclette = inputs.raclette.defaultPackage."${system}";
+        raclette = inputs.raclette.packages."${system}".default;
         neovimMaix = inputs.nvim-maix.packages."${system}".nvim;
-        roaming_proxy = inputs.roaming_proxy.defaultPackage."${system}";
+        roaming_proxy = inputs.roaming_proxy.packages."${system}.default";
         aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
         findex = inputs.findex-flake.packages."${system}".default;
         spicetify = inputs.spicetify-nix.packages."${system}".default;

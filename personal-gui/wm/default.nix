@@ -89,7 +89,7 @@
       };
     };
 
-    wallpaper = "/home/maix/wallpaper.jpg"; #""${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png";
+    wallpaper = ../../wallpapers/wallpaper.jpg; #""${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png";
 
     printScreen = {
       enable = true;
