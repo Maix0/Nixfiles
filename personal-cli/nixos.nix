@@ -6,6 +6,7 @@
   environment.systemPackages = [
     config.boot.kernelPackages.perf
     pkgs.virt-manager
+    pkgs.zshMaix
   ];
 
   services.privoxy.enable = true;

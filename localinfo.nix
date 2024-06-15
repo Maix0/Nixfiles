@@ -2,7 +2,7 @@
   home.username = "maix";
   home.homeDirectory = "/home/maix";
 
-  extraInfo.email = "maix522@gmail.com";
+  extraInfo.email = "maieul+dev@familleboyer.net";
 
   extraInfo.inputs = {
     keyboard = ["1:1:AT_Translated_Set_2_keyboard"];

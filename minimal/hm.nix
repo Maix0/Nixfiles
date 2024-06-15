@@ -49,7 +49,6 @@
       jq
       man-pages
       neovimMaix
-      nix-zsh-completions
       oscclip
       pandoc
       raclette
@@ -58,7 +57,6 @@
       tokei
       unzip
       wget
-      frg
       ipmitool
       nix-output-monitor
       bat-extras.prettybat
@@ -149,81 +147,7 @@
       };
     };
 
-    programs.zsh = {
-      enable = true;
-      enableCompletion = true;
-      oh-my-zsh = {
-        enable = true;
-        plugins = ["git" "wd" "rust"];
-      };
-      plugins = [
-        {
-          name = "fast-syntax-highlighting";
-          file = "fast-syntax-highlighting.plugin.zsh";
-          src = inputs.fast-syntax-highlighting;
-        }
-        {
-          name = "zsh-nix-shell";
-          file = "nix-shell.plugin.zsh";
-          src = inputs.zsh-nix-shell;
-        }
-        {
-          name = "jq-zsh-plugin";
-          file = "jq.plugin.zsh";
-          src = inputs.jq-zsh-plugin;
-        }
-      ];
-
-      envExtra = "export EDITOR=nvim";
-
-      initExtra = ''
-        export PATH="$PATH:$HOME/bin";
-        source ${./p10k.zsh}
-        source ${inputs.powerlevel10k}/powerlevel10k.zsh-theme
-        if [ -f "$HOME/.zvars" ]; then
-          source "$HOME/.zvars"
-        fi
-
-        if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-           SESSION_TYPE=remote/ssh
-        else
-          case $(ps -o comm= -p "$PPID") in
-            sshd|*/sshd) SESSION_TYPE=remote/ssh;;
-          esac
-        fi
-
-        if [[ $SESSION_TYPE = remote/ssh ]]; then
-          title_prefix="$(whoami)@$(hostname) - "
-        fi
-
-        DISABLE_AUTO_TITLE="true"
-
-        preexec() {
-          cmd=$1
-          if [[ -n $cmd ]]; then
-            print -Pn "\e]0;$title_prefix$cmd\a"
-          fi
-        }
-
-        precmd() {
-          dir=$(pwd | sed "s:$HOME:~:")
-          print -Pn "\e]0;$(whoami)@$(hostname):$dir\a"
-        }
-
-        zmodload zsh/zpty
-
-        ${pkgs.fortune}/bin/fortune \
-          | ${pkgs.cowsay}/bin/cowsay \
-          | ${pkgs.dotacat}/bin/dotacat
-      '';
-      shellAliases = {
-        cat = "${pkgs.bat}/bin/bat -p";
-        ls = "${pkgs.eza}/bin/eza --icons";
-      };
-    };
-
     home.file = {
-      ".zprofile".source = ./zprofile;
       ".config/python/pythonrc".text = ''
         import os
         import atexit

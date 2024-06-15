@@ -29,8 +29,8 @@
     nvim-maix = {
       url = "github:Maix0/nvim-flake";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
+        #nixpkgs.follows = "nixpkgs";
+        #flake-utils.follows = "flake-utils";
       };
     };
     rust-overlay = {
@@ -61,16 +61,6 @@
     nur = {
       url = "github:nix-community/NUR";
     };
-    zsh-maix = {
-      url = "github:Maix0/zsh-flake";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        zsh-nix-shell.follows = "zsh-nix-shell";
-        fast-syntax-highlighting.follows = "fast-syntax-highlighting";
-        naersk.follows = "naersk";
-      };
-    };
     xdg-ninja = {
       url = "github:traxys/xdg-ninja";
       flake = false;
@@ -82,14 +72,6 @@
     # Extra Package Sources
     meson-syntax = {
       url = "github:Monochrome-Sauce/sublime-meson";
-      flake = false;
-    };
-    simulationcraft = {
-      url = "github:simulationcraft/simc";
-      flake = false;
-    };
-    kabalist = {
-      url = "github:traxys/kabalist";
       flake = false;
     };
     aseprite-flake = {
@@ -105,57 +87,12 @@
         naersk.follows = "naersk";
       };
     };
-
-    tuxedo-nixos = {
-      url = "github:blitz/tuxedo-nixos";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
-    spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
+    zshMaix = {
+      url = "github:Maix0/zsh-flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
-      };
-    };
-    roaming_proxy = {
-      url = "github:traxys/roaming_proxy";
-      inputs = {
         naersk.follows = "naersk";
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        rust-overlay.follows = "rust-overlay";
-      };
-    };
-    zsh-nix-shell = {
-      url = "github:chisui/zsh-nix-shell";
-      flake = false;
-    };
-    powerlevel10k = {
-      url = "github:romkatv/powerlevel10k";
-      flake = false;
-    };
-    fast-syntax-highlighting = {
-      url = "github:zdharma-continuum/fast-syntax-highlighting";
-      flake = false;
-    };
-    jq-zsh-plugin = {
-      url = "github:reegnz/jq-zsh-plugin";
-      flake = false;
-    };
-    mujmap = {
-      url = "github:elizagamedev/mujmap";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    fioul = {
-      url = "github:traxys/fioul";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        naersk.follows = "naersk";
-        rust-overlay.follows = "rust-overlay";
       };
     };
   };
@@ -166,27 +103,13 @@
     nixpkgs,
     ...
   } @ inputs: let
-    sources = system:
-      {
-        inherit (inputs) simulationcraft kabalist;
-      }
-      // (nixpkgs.legacyPackages."${system}".callPackage ./_sources/generated.nix {});
-
-    pkgList = system: callPackage:
-      (import ./pkgs/default.nix {
-        inherit callPackage;
-        sources = sources system;
-        naersk = inputs.naersk.lib."${system}";
-      })
-      // {
-        raclette = inputs.raclette.packages."${system}".default;
-        neovimMaix = inputs.nvim-maix.packages."${system}".nvim;
-        roaming_proxy = inputs.roaming_proxy.packages."${system}.default";
-        aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
-        findex = inputs.findex-flake.packages."${system}".default;
-        spicetify = inputs.spicetify-nix.packages."${system}".default;
-        inherit (inputs.mujmap.packages."${system}") mujmap;
-      };
+    pkgList = system: {
+      raclette = inputs.raclette.packages."${system}".default;
+      neovimMaix = inputs.nvim-maix.packages."${system}".nvim;
+      aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
+      findex = inputs.findex-flake.packages."${system}".default;
+      zshMaix = inputs.zshMaix.packages."${system}".default;
+    };
 
     extraInfo = import ./extra_info.nix;
   in {
@@ -213,8 +136,8 @@
       };
     };
 
-    packages.x86_64-linux = pkgList "x86_64-linux" nixpkgs.legacyPackages.x86_64-linux.callPackage;
-    packages.aarch64-linux = pkgList "aarch64-linux" nixpkgs.legacyPackages.aarch64-linux.callPackage;
+    packages.x86_64-linux = pkgList "x86_64-linux";
+    packages.aarch64-linux = pkgList "aarch64-linux";
 
     hmModules = {
       minimal = import ./minimal/hm.nix {
@@ -224,7 +147,6 @@
       personal-cli = import ./personal-cli/hm.nix;
       personal-gui = import ./personal-gui/hm.nix;
       gaming = import ./gaming/hm.nix;
-      spicetify-nix = inputs.spicetify-nix.homeManagerModule;
     };
 
     nixosModules = {
@@ -237,8 +159,8 @@
       gaming = import ./gaming/nixos.nix;
     };
 
-    overlays.x86_64-linux = final: prev: pkgList "x86_64-linux" prev.callPackage;
-    overlays.aarch64-linux = final: prev: pkgList "aarch64-linux" prev.callPackage;
+    overlays.x86_64-linux = final: prev: pkgList "x86_64-linux";
+    overlays.aarch64-linux = final: prev: pkgList "aarch64-linux";
 
     nixosConfigurations = {
       XeMaix = nixpkgs.lib.nixosSystem rec {
@@ -256,7 +178,7 @@
               inputs.nur.overlay
               inputs.rust-overlay.overlays.default
               inputs.comma.overlays.default
-              (final: prev: pkgList system prev.callPackage)
+              (final: prev: pkgList system)
               (final: prev: inputs.nix-gaming.packages."${system}")
             ];
           })
@@ -264,30 +186,26 @@
           #inputs.tuxedo-nixos.nixosModules.default # will be added back when it uses a normal nodejs version ...
           home-manager.nixosModules.home-manager
           {
-            home-manager.verbose = false;
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.maix = {
-              config,
-              lib,
-              pkgs,
-              ...
-            }: {
-              imports = [
-                ./hostconfig/XeMaix/extra_info.nix
-                ./hostconfig/XeMaix/hm.nix
-                self.hmModules.minimal
-                self.hmModules.personal-gui
-
-                self.hmModules.spicetify-nix
-                self.hmModules.gaming
-              ];
+            home-manager = {
+              verbose = false;
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs.flake = self;
+              users.maix = {
+                config,
+                lib,
+                pkgs,
+                ...
+              }: {
+                imports = [
+                  ./hostconfig/XeMaix/extra_info.nix
+                  ./hostconfig/XeMaix/hm.nix
+                  self.hmModules.minimal
+                  self.hmModules.personal-gui
+                  self.hmModules.gaming
+                ];
+              };
             };
-            home-manager.extraSpecialArgs = {
-              flake = self;
-            };
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
           }
         ];
       };

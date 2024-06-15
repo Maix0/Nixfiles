@@ -1,7 +1,6 @@
 {pkgs, config, ...}: {
   home.packages = with pkgs; [
     bitwarden-cli
-    hbw
     kabalist_cli
     tokei
     xdg-ninja
@@ -18,11 +17,11 @@
   services.syncthing.enable = true;
 
   programs.ssh.enable = true;
-  programs.zsh.initExtraBeforeCompInit = ''
-    fpath+="$HOME/.zfunc"
-  '';
-
   programs.ssh.matchBlocks = rec {
+    LoServer = {
+      hostname = "risoul.familleboyer.net";
+      port = 22;
+    };
     ZeServe = {
       hostname = "familleboyer.net";
       port = 10022;
@@ -38,10 +37,6 @@
   home.file = {
     bin = {
       source = ./scripts;
-      recursive = true;
-    };
-    ".zfunc" = {
-      source = ./zfunc;
       recursive = true;
     };
   };

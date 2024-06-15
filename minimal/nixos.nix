@@ -12,13 +12,12 @@
   users.users."${config.extraInfo.username}" = {
     isNormalUser = true;
     home = "/home/${config.extraInfo.username}";
-    shell = pkgs.zsh;
+    shell = pkgs.zshMaix;
     extraGroups = ["wheel" "video"];
   };
 
   programs = {
     nix-ld.enable = true;
-    zsh.enable = true;
     light.enable = true;
   };
 
@@ -28,7 +27,7 @@
     keyMap = "fr";
   };
 
-  environment.pathsToLink = ["/share/zsh"];
+  environment.pathsToLink = [];
   fonts = {
     fonts = with pkgs; [
       # otf
