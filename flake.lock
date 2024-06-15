@@ -1875,11 +1875,11 @@
         "starship": "starship"
       },
       "locked": {
-        "lastModified": 1718473442,
-        "narHash": "sha256-hcWMuSDVrGaPfEssLR4lVYaQ7dcy0S5ILSjRsYywc+U=",
+        "lastModified": 1718484429,
+        "narHash": "sha256-UyIJ7c6Eue608lxHT52YI58e4CYYn8EXQ7l/wz3j9kU=",
         "owner": "Maix0",
         "repo": "zsh-flake",
-        "rev": "4e9a7615f43d6c7cf5f6c26e09f9a933855f408e",
+        "rev": "f16efefeacc886b86a2976aff9a6ebd9b4003294",
         "type": "github"
       },
       "original": {

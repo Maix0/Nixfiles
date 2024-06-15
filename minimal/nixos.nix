@@ -17,6 +17,10 @@
   };
 
   programs = {
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+    };
     nix-ld.enable = true;
     light.enable = true;
   };
@@ -27,7 +31,7 @@
     keyMap = "fr";
   };
 
-  environment.pathsToLink = [];
+  environment.pathsToLink = ["/share/zsh"];
   fonts = {
     fonts = with pkgs; [
       # otf
