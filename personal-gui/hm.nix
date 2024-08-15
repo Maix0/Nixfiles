@@ -13,13 +13,9 @@
 
     # Browsers
     firefox
-    (tor-browser-bundle-bin.override {
-      useHardenedMalloc = false;
-    })
 
     # IM
     vesktop
-    element-desktop
     signal-desktop
 
     # Mail
@@ -38,8 +34,7 @@
     libreoffice
 
     # Misc
-    gnome.eog
-    freecad
+    eog
     plasma5Packages.kdeconnect-kde
     wdisplays
     wl-clipboard
@@ -47,7 +42,6 @@
     xdg-utils
     fzf
     aseprite-flake
-    quickemu
     virt-viewer
     waypipe
   ];

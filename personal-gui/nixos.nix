@@ -27,6 +27,8 @@
       };
     };
   };
+  
+  hardware.tuxedo-rs.tailor-gui.enable = true;
 
   #hardware.tuxedo-control-center.enable = true;
 
@@ -85,8 +87,6 @@
 
   hardware.opengl = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
   };
   users.users."${config.extraInfo.username}".extraGroups = ["adbusers" "scanner" "lp"];
 }

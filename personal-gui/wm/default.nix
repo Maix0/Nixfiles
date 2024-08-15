@@ -12,7 +12,7 @@
       name = "DejaVu Sans";
     };
     theme = {
-      package = pkgs.gnome.gnome-themes-extra;
+      package = pkgs.gnome-themes-extra;
       name = "Adwaita-dark";
     };
   };

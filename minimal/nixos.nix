@@ -53,7 +53,7 @@
   nixpkgs.overlays = [
     (final: super: {
       nixos-rebuild = super.nixos-rebuild.overrideAttrs (old: {
-        src = lib.debug.traceVal "${final.runCommand "nixos-rebuild.sh" {} ''
+        src = "${final.runCommand "nixos-rebuild.sh" {} ''
           mkdir -p $out
 
           cp ${old.src} nixos-rebuild.sh

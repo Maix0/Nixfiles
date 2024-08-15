@@ -80,7 +80,7 @@ in {
               "tray"
             ];
             "sway/workspaces" = {
-              persistent_workspaces = {
+              persistent-workspaces = {
                 "" = [];
                 "" = [];
                 "1:" = [];

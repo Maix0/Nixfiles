@@ -37,7 +37,6 @@
       url = "github:oxalica/rust-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
       };
     };
     naersk = {
@@ -180,6 +179,23 @@
               inputs.comma.overlays.default
               (final: prev: pkgList system)
               (final: prev: inputs.nix-gaming.packages."${system}")
+              (final: prev: {
+                delta = nixpkgs.lib.warn "Remove the delta patch" prev.rustPlatform.buildRustPackage {
+                  version = "0.17.0-unstable-2024-08-12";
+                  inherit (prev.delta) pname buildInputs nativeBuildInputs postInstall checkFlags meta;
+
+                  env = {
+                    RUSTONIG_SYSTEM_LIBONIG = true;
+                  };
+                  src = prev.fetchFromGitHub {
+                    owner = "dandavison";
+                    repo = prev.delta.pname;
+                    rev = "a01141b72001f4c630d77cf5274267d7638851e4";
+                    hash = "sha256-My51pQw5a2Y2VTu39MmnjGfmCavg8pFqOmOntUildS0=";
+                  };
+                  cargoHash = "sha256-Rlc3Bc6Jh89KLLEWBWQB5GjoeIuHnwIVZN/MVFMjY24=";
+                };
+              })
             ];
           })
           ./nixos/configuration.nix

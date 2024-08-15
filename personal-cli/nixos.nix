@@ -20,6 +20,8 @@
 
   networking.networkmanager.enable = true;
 
+  hardware.tuxedo-rs.enable = true;
+
   users.users."${config.extraInfo.username}".extraGroups = [
     "networkmanager"
     "wheel"
