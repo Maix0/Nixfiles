@@ -196,6 +196,13 @@
                   cargoHash = "sha256-Rlc3Bc6Jh89KLLEWBWQB5GjoeIuHnwIVZN/MVFMjY24=";
                 };
               })
+              (final: prev: {
+                linuxPackages_xanmod_latest = nixpkgs.lib.warn "patching tuxedo-keyboard, switch to tuxedo-driver when it is stable" prev.linuxPackages_xanmod_latest.extend (lfinal: lprev: {
+                  tuxedo-keyboard = lprev.tuxedo-keyboard.overrideAttrs (oldAttrs: {
+                    patches = [./tuxedo-keyboard.patch];
+                  });
+                });
+              })
             ];
           })
           ./nixos/configuration.nix
