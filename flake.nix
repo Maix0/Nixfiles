@@ -162,6 +162,51 @@
     overlays.aarch64-linux = final: prev: pkgList "aarch64-linux";
 
     nixosConfigurations = {
+      XeLaptop = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        modules = [
+          ./hostconfig/XeLaptop/hardware-configuration.nix
+          ./hostconfig/XeLaptop/extra_info.nix
+          ./hostconfig/XeLaptop/nixos.nix
+          self.nixosModules.minimal
+          self.nixosModules.personal-cli
+          self.nixosModules.personal-gui
+          self.nixosModules.gaming
+          ({pkgs, ...}: {
+            nixpkgs.overlays = [
+              inputs.nur.overlay
+              inputs.rust-overlay.overlays.default
+              inputs.comma.overlays.default
+              (final: prev: pkgList system)
+              (final: prev: inputs.nix-gaming.packages."${system}")
+            ];
+          })
+          ./nixos/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              verbose = false;
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs.flake = self;
+              users.maix = {
+                config,
+                lib,
+                pkgs,
+                ...
+              }: {
+                imports = [
+                  ./hostconfig/XeLaptop/extra_info.nix
+                  ./hostconfig/XeLaptop/hm.nix
+                  self.hmModules.minimal
+                  self.hmModules.personal-gui
+                  self.hmModules.gaming
+                ];
+              };
+            };
+          }
+        ];
+      };
       XeMaix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = [
