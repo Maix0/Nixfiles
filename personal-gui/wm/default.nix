@@ -58,7 +58,7 @@
     };
     font = {
       family = "Hack Nerd Font Mono";
-      size = lib.mkDefault 13;
+      size = lib.mkDefault 10;
     };
   };
 
@@ -73,23 +73,23 @@
     mod = config.wm.modifier;
   in {
     enable = true;
-    kind = "sway";
-    modifier = "Mod4";
+    kind = "hyprland";
+    modifier = "Super";
 
     font = {
-      name = ["Hack"];
+      name = "Hack";
       style = "Regular";
-      size = 13.0;
+      size = 10.0;
     };
     bar = {
       font = {
         name = ["Hack"];
         style = "Regular";
-        size = 13.0;
+        size = 10.0;
       };
     };
 
-    wallpaper = ../../wallpapers/wallpaper.jpg; #""${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png";
+    wallpaper = null; # ../../wallpapers/wallpaper.jpg;
 
     printScreen = {
       enable = true;
@@ -99,7 +99,7 @@
     menu = {
       enable = true;
       keybind = "${mod}+d";
-      command = "echo '' > $HOME/.config/findex/toggle_file";
+      command = "${pkgs.rofi-wayland}/bin/rofi -show drun";
     };
 
     exit = {
@@ -114,86 +114,62 @@
     };
 
     startup = [
-      {command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
       {command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
-      #{command = "spotify";}
       {command = "signal-desktop";}
       {command = "firefox";}
       {command = "findex-daemon";}
       {command = "vesktop";}
-      {
-        command = "${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd";
-        always = true;
-      }
+      {command = "${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd";}
     ];
 
     workspaces = {
       moveModifier = "Shift";
       definitions = {
-        "1:" = {key = "ampersand";};
-        "2:" = {
-          key = "eacute";
-        };
-        "3:" = {key = "quotedbl";};
-        "4" = {key = "apostrophe";};
-        "5" = {key = "parenleft";};
-        "6" = {key = "minus";};
-        "7" = {key = "egrave";};
-        "" = {
-          key = "less";
-          assign = ["Spotify"];
-        };
-        "" = {
-          key = "w";
-          assign = [
-            "Element"
-            "Signal"
-            "Discord"
-            "VencordDesktop"
-          ];
-        };
-        "" = {
-          key = "x";
-          assign = ["Thunderbird"];
-        };
+        "1:" = {key = "1";};
+        "2:" = {key = "2";};
+        "3:" = {key = "3";};
+        "4" = {key = "4";};
+        "5" = {key = "5";};
+        "6" = {key = "6";};
+        "7" = {key = "7";};
+        "" = {key = "x";};
+        "" = {key = "z";};
       };
     };
 
     keybindings = {
-      "${mod}+Escape" = "exec ${pkgs.swaylock-fancy}/bin/swaylock-fancy";
+      "${mod}+Escape" = "exec ${pkgs.hyprlock}/bin/hyprlock";
 
       # Media Keys
-      "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'";
-      "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'";
-      "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-      "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify play-pause";
-      "${mod}+Mod1+Right" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify next"; # Mod + Alt + Right
-      "${mod}+Mod1+Left" = "exec ${pkgs.playerctl}/bin/playerctl -p spotify previous"; # Mod + Alt + Left
-      "XF86MonBrightnessDown" = "exec /usr/bin/env light -U 5";
-      "XF86MonBrightnessUp" = "exec /usr/bin/env light -A 5";
+      "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'";
+      "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'";
+      "XF86AudioMute" = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+      "XF86AudioPlay" = "${pkgs.playerctl}/bin/playerctl -p spotify play-pause";
+      "${mod}+Alt+Right" = "${pkgs.playerctl}/bin/playerctl -p spotify next"; # Mod + Alt + Right
+      "${mod}+Alt+Left" = "${pkgs.playerctl}/bin/playerctl -p spotify previous"; # Mod + Alt + Left
+      "XF86MonBrightnessDown" = "/usr/bin/env light -U 5";
+      "XF86MonBrightnessUp" = "/usr/bin/env light -A 5";
 
       # Focus
-      "${mod}+Left" = "focus left";
-      "${mod}+Right" = "focus right";
-      "${mod}+Down" = "focus down";
-      "${mod}+Up" = "focus up";
-      "${mod}+Shift+Left" = "move left";
-      "${mod}+Shift+Right" = "move right";
-      "${mod}+Shift+Down" = "move down";
-      "${mod}+Shift+Up" = "move up";
+      "${mod}+Left" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movefocus l";
+      "${mod}+Right" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movefocus r";
+      "${mod}+Down" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movefocus d";
+      "${mod}+Up" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movefocus u";
+      "${mod}+Shift+Left" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movewindow l";
+      "${mod}+Shift+Right" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movewindow r";
+      "${mod}+Shift+Down" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movewindow d";
+      "${mod}+Shift+Up" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movewindow u";
 
       # Layout
-      "${mod}+f" = "fullscreen toggle";
-      "${mod}+z" = "layout tabbed";
-      "${mod}+c" = "layout toggle split";
+      "${mod}+f" = "${pkgs.hyprland}/bin/hyprctl dispatch fullscreen";
+      "${mod}+w" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:changegroup tab";
+      "${mod}+c" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:changegroup untab";
 
       # Misc
-      "${mod}+Shift+a" = "kill";
-      "${mod}+Shift+R" = "reload";
-      "${mod}+Return" = "exec ${config.terminal.command}";
-      "${mod}+p" = "mode resize";
-      "${mod}+Shift+P" = "restart";
-      "${mod}+Shift+S" = "exec ${config.programs.rofi.package}/bin/rofi -show ssh";
+      "${mod}+Shift+q" = "${pkgs.hyprland}/bin/hyprctl dispatch killactive";
+      "${mod}+Shift+R" = "${pkgs.hyprland}/bin/hyprctl reload";
+      "${mod}+Return" = "${config.terminal.command}";
+      "${mod}+Shift+S" = "${config.programs.rofi.package}/bin/rofi -show ssh";
     };
   };
 }

@@ -5,6 +5,7 @@
 }: {
   xdg = {
     portal = {
+      config.common.default = "*";
       enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
@@ -18,20 +19,6 @@
     pkgs.rofi
   ];
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --remember-user-session --time --cmd sway";
-        user = "greeter";
-      };
-    };
-  };
-  
-  hardware.tuxedo-rs.tailor-gui.enable = true;
-
-  #hardware.tuxedo-control-center.enable = true;
-
   systemd.user.services.itd = {
     enable = false;
     description = "InfiniTime Daemon (itd)";
@@ -44,49 +31,61 @@
     };
   };
 
-  services.gnome.gnome-keyring.enable = true;
-  services.flatpak.enable = true;
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+  security = {
+    rtkit.enable = true;
+    pam.yubico = {
+      enable = true;
+      debug = false;
+      mode = "challenge-response";
+    };
+    pam.services.swaylock.text = ''
+      auth include login
+    '';
+    pam.services.hyprlock = {};
   };
-  programs.noisetorch.enable = true;
 
-  programs.adb.enable = true;
-  programs.dconf.enable = true;
+  services = {
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --remember-user-session --time --cmd sway";
+          user = "greeter";
+        };
+      };
+    };
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+    gnome.gnome-keyring.enable = true;
+    flatpak.enable = true;
+    udev.packages = [pkgs.yubikey-personalization];
+    printing = {
+      enable = true;
+      drivers = [pkgs.hplip pkgs.gutenprint pkgs.cnijfilter2];
+    };
+    avahi = {
+      nssmdns4 = true;
+      enable = true;
+    };
+  };
 
   virtualisation.waydroid.enable = true;
 
-  hardware.opentabletdriver.enable = true;
-  hardware.bluetooth.enable = true;
-
-  security.pam.yubico = {
-    enable = true;
-    debug = false;
-    mode = "challenge-response";
-  };
-  services.udev.packages = [pkgs.yubikey-personalization];
-
-  security.pam.services.swaylock.text = ''
-    auth include login
-  '';
-
-  services.printing = {
-    enable = true;
-    drivers = [pkgs.hplip pkgs.gutenprint pkgs.cnijfilter2];
-  };
-  hardware.sane.enable = true;
-  services.avahi = {
-    nssmdns = true;
-    enable = true;
+  programs = {
+    noisetorch.enable = true;
+    adb.enable = true;
+    dconf.enable = true;
   };
 
-  hardware.opengl = {
-    enable = true;
+  hardware = {
+    sane.enable = true;
+    graphics .enable = true;
+    opentabletdriver.enable = true;
+    bluetooth.enable = true;
   };
   users.users."${config.extraInfo.username}".extraGroups = ["adbusers" "scanner" "lp"];
 }

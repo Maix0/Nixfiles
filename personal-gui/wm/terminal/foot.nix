@@ -64,6 +64,6 @@ in {
         };
       };
     };
-    wayland.windowManager.sway.config.terminal = "${config.terminal.command}";
+    #wayland.windowManager.hyprland.bind = "${config.terminal.command}";
   };
 }

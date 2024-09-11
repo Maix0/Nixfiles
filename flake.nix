@@ -4,95 +4,34 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    raclette.url = "github:traxys/raclette";
+    nur.url = "github:nix-community/NUR";
+    xdg-ninja = {
+      url = "github:traxys/xdg-ninja";
+      flake = false;
     };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-alien = {
-      url = "github:thiagokokada/nix-alien";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nix-index-database.follows = "nix-index-database";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nvim-maix = {
-      url = "github:Maix0/nvim-flake";
-      inputs = {
-        #nixpkgs.follows = "nixpkgs";
-        #flake-utils.follows = "flake-utils";
-      };
-    };
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    naersk = {
-      url = "github:nix-community/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    comma = {
-      url = "github:nix-community/comma";
-      inputs.naersk.follows = "naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    raclette = {
-      url = "github:traxys/raclette";
-      inputs = {
-        naersk.follows = "naersk";
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        rust-overlay.follows = "rust-overlay";
-      };
-    };
-    nur = {
-      url = "github:nix-community/NUR";
-    };
-    xdg-ninja = {
-      url = "github:traxys/xdg-ninja";
-      flake = false;
-    };
-
-    nix-index-database.url = "github:Mic92/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Extra Package Sources
     meson-syntax = {
       url = "github:Monochrome-Sauce/sublime-meson";
       flake = false;
     };
-    aseprite-flake = {
-      url = "git+ssh://git@github.com:/Maix0/aseprite-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    aseprite-flake.url = "github:Maix0/aseprite-flake";
+    nvim-maix.url = "github:Maix0/nvim-flake";
+    zshMaix.url = "github:Maix0/zsh-flake";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
     };
-
-    findex-flake = {
-      url = "github:Maix0/findex-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        naersk.follows = "naersk";
-      };
-    };
-    zshMaix = {
-      url = "github:Maix0/zsh-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        naersk.follows = "naersk";
-      };
+    hy3 = {
+      url = "github:outfoxxed/hy3";
+      inputs.hyprland.follows = "hyprland";
     };
   };
 
@@ -106,8 +45,8 @@
       raclette = inputs.raclette.packages."${system}".default;
       neovimMaix = inputs.nvim-maix.packages."${system}".nvim;
       aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
-      findex = inputs.findex-flake.packages."${system}".default;
       zshMaix = inputs.zshMaix.packages."${system}".default;
+      hy3 = inputs.hy3.packages."${system}".default;
     };
 
     extraInfo = import ./extra_info.nix;
@@ -175,8 +114,9 @@
           ({pkgs, ...}: {
             nixpkgs.overlays = [
               inputs.nur.overlay
-              inputs.rust-overlay.overlays.default
-              inputs.comma.overlays.default
+              inputs.hyprland.overlays.hyprland-packages #"${system}".
+              inputs.hyprland.overlays.hyprland-extras #"${system}".
+              inputs.hyprland-plugins.overlays.hyprland-plugins #"${system}".
               (final: prev: pkgList system)
               (final: prev: inputs.nix-gaming.packages."${system}")
             ];

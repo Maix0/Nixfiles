@@ -6,7 +6,7 @@
 }:
 with builtins;
 with lib; {
-  imports = [./i3.nix ./sway.nix];
+  imports = [./i3.nix ./sway.nix ./hyprland.nix];
 
   options = {
     wm = {
@@ -16,7 +16,7 @@ with lib; {
         description = "Manage window Manager";
       };
       kind = mkOption {
-        type = types.enum ["i3" "sway"];
+        type = types.enum ["i3" "sway" "hyprland"];
         default = "sway";
         description = "WM to use";
       };

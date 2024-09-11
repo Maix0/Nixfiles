@@ -9,19 +9,16 @@
     pkgs.zshMaix
   ];
 
-  services.privoxy.enable = true;
+  services = {
+    privoxy.enable = true;
+    fwupd.enable = true;
+    openssh.enable = true;
+    tailscale.enable = true;
+  };
 
-  services.fwupd.enable = true;
-  services.openssh.enable = true;
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
-
-  services.tailscale.enable = true;
-
   networking.networkmanager.enable = true;
-
-  hardware.tuxedo-rs.enable = true;
-
   users.users."${config.extraInfo.username}".extraGroups = [
     "networkmanager"
     "wheel"

@@ -6,20 +6,4 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  nixpkgs.config = {
-    permittedInsecurePackages = [
-      "electron-13.6.9"
-      "nodejs-14.21.3"
-      "openssl-1.1.1u"
-      "openssl-1.1.1v"
-    ];
-  };
-}
-// {
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-13.6.9"
-    "nodejs-14.21.3"
-    "openssl-1.1.1u"
-    "openssl-1.1.1v"
-  ];
 }

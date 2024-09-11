@@ -3,7 +3,7 @@
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: "Hack Nerd Font Mono";
-    font-size: 18px;
+    font-size: 14px;
     min-height: 0;
 }
 
@@ -51,7 +51,14 @@ window#waybar.firefox {
     box-shadow: inset 0 -3px #ffffff;
 }
 
-#workspaces button.focused {
+#workspaces button.focused
+{
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces button.active
+{
     background-color: #64727D;
     box-shadow: inset 0 -3px #ffffff;
 }

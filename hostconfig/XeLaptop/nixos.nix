@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   boot = {
     supportedFilesystems = ["ntfs"];
     kernelParams = ["i8042.reset" "i8042.nomux" "i8042.nopnp" "i8042.noloop" "acpi"];
@@ -32,19 +32,28 @@
     ckb-next.enable = true;
     cpu.amd.updateMicrocode = true;
   };
-  services.postgresql = {
-    enable = true;
-    ensureUsers = [
-      {
-        name = "maix";
-        ensureClauses = {
-          superuser = true;
-          login = true;
-        };
-      }
-    ];
-    ensureDatabases = ["list" "regalade"];
+  services = {
+    fprintd = {
+      enable = true;
+      #tod.enable = true;
+      #tod.driver = pkgs.libfprint-2-tod1-goodix;
+    };
+    postgresql = {
+      enable = true;
+      ensureUsers = [
+        {
+          name = "maix";
+          ensureClauses = {
+            superuser = true;
+            login = true;
+          };
+        }
+      ];
+      ensureDatabases = ["list" "regalade"];
+    };
   };
+
+  security.pam.services.login.fprintAuth = true;
 
   nix.extraOptions = ''
     keep-outputs = true

@@ -25,7 +25,7 @@ in {
     home.packages = with pkgs;
       [
         sway
-        findex
+        rofi-wayland
       ]
       ++ (
         if cfg.wallpaper != null
@@ -127,7 +127,7 @@ in {
       enable = true;
       extraConfig = mkIf (cfg.wallpaper != null) ''
         output "*" bg ${cfg.wallpaper} fill
-        input * xkb_layout "fr"
+        input * xkb_layout "us"
       '';
       config = {
         inherit startup;
@@ -158,7 +158,7 @@ in {
           commands = [
             {
               criteria.class = "davmail-DavGateway";
-              command = "floating enable";
+              command = "floatin enable";
             }
             {
               criteria.window_type = "menu";
