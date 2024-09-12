@@ -99,7 +99,7 @@
     menu = {
       enable = true;
       keybind = "${mod}+d";
-      command = "/usr/bin/env dir=${../rofi/files/launchers/type-2} ${../rofi/files/launchers/type-2/launcher.sh}";
+      command = "~/.config/rofi/launchers/type-2/launcher.sh";
     };
 
     exit = {
@@ -138,7 +138,7 @@
 
     keybindings = {
       #"${mod}+Escape" = "exec ${pkgs.hyprlock}/bin/hyprlock --immediate";
-      "${mod}+Escape" = "/usr/bin/env dir=${../rofi/files/powermenu/type-2} ${../rofi/files/powermenu/type-2/launcher.sh}";
+      "${mod}+Escape" = "~/.config/rofi/powermenu/type-2/launcher.sh";
       # Media Keys
       "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'";
       "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'";

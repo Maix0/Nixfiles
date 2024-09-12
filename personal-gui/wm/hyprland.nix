@@ -170,10 +170,6 @@ in {
           ];
         };
       };
-      rofi = {
-        package = pkgs.rofi-wayland;
-        enable = true;
-      };
       waybar = {
         enable = true;
         style = builtins.readFile ./waybar.css;
