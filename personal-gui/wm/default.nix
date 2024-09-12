@@ -99,7 +99,7 @@
     menu = {
       enable = true;
       keybind = "${mod}+d";
-      command = "${pkgs.rofi-wayland}/bin/rofi -show drun";
+      command = "/usr/bin/env dir=${../rofi/files/launchers/type-2} ${../rofi/files/launchers/type-2/launcher.sh}";
     };
 
     exit = {
@@ -114,7 +114,6 @@
     };
 
     startup = [
-      {command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK";}
       {command = "signal-desktop";}
       {command = "firefox";}
       {command = "findex-daemon";}
@@ -138,8 +137,8 @@
     };
 
     keybindings = {
-      "${mod}+Escape" = "exec ${pkgs.hyprlock}/bin/hyprlock";
-
+      #"${mod}+Escape" = "exec ${pkgs.hyprlock}/bin/hyprlock --immediate";
+      "${mod}+Escape" = "/usr/bin/env dir=${../rofi/files/powermenu/type-2} ${../rofi/files/powermenu/type-2/launcher.sh}";
       # Media Keys
       "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'";
       "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'";
