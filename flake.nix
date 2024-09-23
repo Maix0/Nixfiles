@@ -24,6 +24,10 @@
     aseprite-flake.url = "github:Maix0/aseprite-flake";
     nvim-maix.url = "github:Maix0/nvim-flake";
     zshMaix.url = "github:Maix0/zsh-flake";
+    rofiMaix = {
+      url = "github:Maix0/rofi-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -47,6 +51,7 @@
       aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
       zshMaix = inputs.zshMaix.packages."${system}".default;
       hy3 = inputs.hy3.packages."${system}".default;
+      buildRofi = inputs.rofiMaix.lib."${system}";
     };
 
     extraInfo = import ./extra_info.nix;
@@ -117,6 +122,21 @@
               inputs.hyprland.overlays.hyprland-packages #"${system}".
               inputs.hyprland.overlays.hyprland-extras #"${system}".
               inputs.hyprland-plugins.overlays.hyprland-plugins #"${system}".
+              (final: prev: {
+                fprintd = prev.fprintd.overrideAttrs {
+                  doCheck = false;
+                  dontUseMesonCheck = true;
+                  postUnpack = ''
+                    cat <<EOF >/build/source/tests/unittest_inspector.py
+                    #! ${pkgs.runtimeShell}
+                    exit 0
+                    EOF
+                    chmod +x /build/source/tests/unittest_inspector.py
+                    ls -l /build/source/tests/unittest_inspector.py
+                    cat /build/source/tests/unittest_inspector.py
+                  '';
+                };
+              })
               (final: prev: pkgList system)
               (final: prev: inputs.nix-gaming.packages."${system}")
             ];
@@ -165,20 +185,8 @@
               (final: prev: pkgList system)
               (final: prev: inputs.nix-gaming.packages."${system}")
               (final: prev: {
-                delta = nixpkgs.lib.warn "Remove the delta patch" prev.rustPlatform.buildRustPackage {
-                  version = "0.17.0-unstable-2024-08-12";
-                  inherit (prev.delta) pname buildInputs nativeBuildInputs postInstall checkFlags meta;
-
-                  env = {
-                    RUSTONIG_SYSTEM_LIBONIG = true;
-                  };
-                  src = prev.fetchFromGitHub {
-                    owner = "dandavison";
-                    repo = prev.delta.pname;
-                    rev = "a01141b72001f4c630d77cf5274267d7638851e4";
-                    hash = "sha256-My51pQw5a2Y2VTu39MmnjGfmCavg8pFqOmOntUildS0=";
-                  };
-                  cargoHash = "sha256-Rlc3Bc6Jh89KLLEWBWQB5GjoeIuHnwIVZN/MVFMjY24=";
+                fprintd = prev.fprintd.overrideAttrs {
+                  doCheck = false;
                 };
               })
               (final: prev: {

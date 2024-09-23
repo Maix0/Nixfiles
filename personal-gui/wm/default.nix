@@ -19,7 +19,6 @@
 
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "1";
-    XDG_CURRENT_DESKTOP = "sway";
     LIBSEAT_BACKEND = "logind";
     _JAVA_AWT_WM_NONREPARENTING = 1;
     NIXPKGS_ALLOW_UNFREE = 1;
@@ -71,6 +70,23 @@
 
   wm = let
     mod = config.wm.modifier;
+    rofiPackages = pkgs.buildRofi.mkRofiPackages {
+      config.rofi = {
+        package = config.programs.rofi.package;
+        launcher = {
+          enable = true;
+          style = 2;
+          theme = 2;
+        };
+        powermenu = {
+          enable = true;
+          style = 2;
+          theme = 2;
+        };
+        lockPackage = pkgs.writeShellScriptBin "lock" "${pkgs.hyprlock}/bin/hyprlock --immediate";
+        exitPackage = pkgs.writeShellScriptBin "exit" "${pkgs.hyprland}/bin/hyprctl exit";
+      };
+    };
   in {
     enable = true;
     kind = "hyprland";
@@ -99,7 +115,7 @@
     menu = {
       enable = true;
       keybind = "${mod}+d";
-      command = "~/.config/rofi/launchers/type-2/launcher.sh";
+      command = "${rofiPackages.launcher}/bin/rofi-launcher";
     };
 
     exit = {
@@ -119,26 +135,33 @@
       {command = "findex-daemon";}
       {command = "vesktop";}
       {command = "${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd";}
+      {command = "${pkgs.polkit}polkit-agent-helper-1";}
+      {command = "systemctl start --user polkit-gnome-authentication-agent-1";}
     ];
 
     workspaces = {
       moveModifier = "Shift";
       definitions = {
-        "1:" = {key = "1";};
+        "1:" = {
+          key = "1";
+          persistent = true;
+        };
         "2:" = {key = "2";};
-        "3:" = {key = "3";};
+        "3:" = {key = "3";};
         "4" = {key = "4";};
         "5" = {key = "5";};
         "6" = {key = "6";};
         "7" = {key = "7";};
         "" = {key = "x";};
-        "" = {key = "z";};
+        "" = {
+          key = "z";
+          persistent = true;
+        };
       };
     };
 
     keybindings = {
-      #"${mod}+Escape" = "exec ${pkgs.hyprlock}/bin/hyprlock --immediate";
-      "${mod}+Escape" = "~/.config/rofi/powermenu/type-2/launcher.sh";
+      "${mod}+Escape" = "${rofiPackages.powermenu}/bin/rofi-powermenu";
       # Media Keys
       "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'";
       "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'";

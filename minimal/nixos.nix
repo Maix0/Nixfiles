@@ -27,9 +27,11 @@
 
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
+    packages = [pkgs.terminus_font];
     font = "ter-v32n";
-    keyMap = "en";
+    keyMap = "us";
   };
+  time.timeZone = "Europe/Paris";
 
   environment.pathsToLink = ["/share/zsh"];
   fonts = {

@@ -17,18 +17,40 @@
   environment.systemPackages = [
     pkgs.itd
     pkgs.rofi
+    pkgs.polkit_gnome
+    pkgs.polkit
   ];
 
-  systemd.user.services.itd = {
-    enable = false;
-    description = "InfiniTime Daemon (itd)";
-    after = ["bluetooth.target"];
-    wantedBy = ["default.target"];
-    serviceConfig = {
-      ExecStart = "${pkgs.itd}/bin/itd";
-      Restart = "always";
-      #StandartOutput = "journal";
+  systemd = {
+    user.services = {
+      itd = {
+        enable = false;
+        description = "InfiniTime Daemon (itd)";
+        after = ["bluetooth.target"];
+        wantedBy = ["default.target"];
+        serviceConfig = {
+          ExecStart = "${pkgs.itd}/bin/itd";
+          Restart = "always";
+          #StandartOutput = "journal";
+        };
+      };
+      polkit-gnome-authentication-agent-1 = {
+        description = "polkit-gnome-authentication-agent-1";
+        wantedBy = ["graphical-session.target"];
+        wants = ["graphical-session.target"];
+        after = ["graphical-session.target"];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
+      };
     };
+    extraConfig = ''
+      DefaultTimeoutStopSec=10s
+    '';
   };
 
   security = {
@@ -42,6 +64,21 @@
       auth include login
     '';
     pam.services.hyprlock = {};
+    pam.services.bitwarden.text = ''
+      auth sufficient pam_fprintd.so
+    '';
+    polkit.extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if (action.id == "com.bitwarden.Bitwarden.unlock") {
+          // Allow only the currently active user to authenticate
+          if (subject.active) {
+            return polkit.Result.AUTH_SELF; // Require the user's own authentication
+          }
+          // Deny for inactive or other users
+          return polkit.Result.NO;
+        }
+      });
+    '';
   };
 
   services = {

@@ -20,6 +20,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/1a57efa7-9946-449d-9254-f92dbbd3befc";
     fsType = "btrfs";
+    options = ["defaults"];
   };
 
   fileSystems."/boot" = {

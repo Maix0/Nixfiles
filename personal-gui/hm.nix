@@ -33,6 +33,9 @@
     hyphen
     libreoffice
 
+
+    bitwarden-desktop
+    
     # Misc
     eog
     plasma5Packages.kdeconnect-kde

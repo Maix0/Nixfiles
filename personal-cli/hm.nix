@@ -18,23 +18,17 @@
     nix-init
   ];
 
+  home.sessionVariables = {
+    CARGO_TARGET_DIR = "${config.home.sessionVariables.HOME}/cargo-target";
+  };
+
   services.syncthing.enable = true;
 
   programs.ssh.enable = true;
-  programs.ssh.matchBlocks = rec {
+  programs.ssh.matchBlocks = {
     LoServer = {
       hostname = "risoul.familleboyer.net";
       port = 22;
-    };
-    ZeServe = {
-      hostname = "familleboyer.net";
-      port = 10022;
-    };
-    ZeServer = ZeServe;
-    LoBootstrap = {
-      hostname = "familleboyer.net";
-      port = 20022;
-      identityFile = "/home/${config.extraInfo.username}/.ssh/risoul_bootstrap";
     };
   };
 

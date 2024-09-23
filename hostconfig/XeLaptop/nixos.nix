@@ -54,6 +54,11 @@
   };
 
   security.pam.services.login.fprintAuth = true;
+  #security.selinux.enable = true;
+  #security.selinux.mode = "permissive"; # or "enforcing" for strict policy
+  #security.selinux.policy = {
+  #  packages = [pkgs.selinuxPolicyDefault];
+  #};
 
   nix.extraOptions = ''
     keep-outputs = true

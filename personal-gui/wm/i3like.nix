@@ -162,6 +162,16 @@ with lib; {
                 description = "Assign class elements";
                 default = [];
               };
+              icon = {
+                type = types.nullOr types.str;
+                description = "Assign class elements";
+                default = null;
+              };
+              persistent = mkOption {
+                type = types.bool;
+                description = "Is the workspace persistents";
+                default = false;
+              };
             };
           });
           description = "Workspace descriptions";

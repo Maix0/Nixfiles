@@ -38,9 +38,10 @@ with builtins; let
     get_ws = ws: getAttr ws ws_def;
     workspaceFmt = name: let
       inherit (get_ws name) key;
+      id = (lists.findFirstIndex (x: x.name == name) 0 (attrsToList ws_def)) + 1;
     in [
-      "${mod}, ${key}, workspace, name:${name}"
-      "${mod} ${cfg.workspaces.moveModifier}, ${key}, movetoworkspacesilent, name:${name}"
+      "${mod}, ${key}, workspace, ${toString id}"
+      "${mod} ${cfg.workspaces.moveModifier}, ${key}, movetoworkspacesilent, ${toString id}"
     ];
   in {
     binds =
@@ -85,7 +86,6 @@ in {
 
     home.sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
-      XDG_CURRENT_DESKTOP = "sway";
       LIBSEAT_BACKEND = "logind";
       _JAVA_AWT_WM_NONREPARENTING = 1;
     };
@@ -94,7 +94,7 @@ in {
         enable = true;
         settings = {
           general = {
-            after_sleep_cmd = "hyprctl dispatch dpms on";
+            after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
             ignore_dbus_inhibit = false;
             lock_cmd = "hyprlock";
           };
@@ -105,8 +105,8 @@ in {
             }
             {
               timeout = 1200;
-              on-timeout = "hyprctl dispatch dpms off";
-              on-resume = "hyprctl dispatch dpms on";
+              on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+              on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
             }
           ];
         };
@@ -193,13 +193,25 @@ in {
               "clock"
               "tray"
             ];
-            "hyprland/workspaces" = {
-              persistent-workspaces = {
-                "" = [];
-                "" = [];
-                "1:" = [];
-              };
+            "hyprland/workspaces" = let
+              workspaces = attrsToList cfg.workspaces.definitions;
+              indexed_workspace =
+                imap (idx: w: {
+                  inherit idx;
+                  inherit (w) value name;
+                })
+                workspaces;
+            in {
               numeric-first = true;
+              persistent-workspaces = {
+                #"*" = map (w: w.name) (filter (w: w.value.persistent) indexed_workspace);
+              };
+              format = "{icon}";
+              format-icons = listToAttrs (map (w: {
+                  name = toString w.idx;
+                  value = w.name;
+                })
+                indexed_workspace);
             };
             "network#wifi" = {
               interface = "wlp1s0";
@@ -240,11 +252,11 @@ in {
     wayland.windowManager.hyprland = {
       plugins = [
         pkgs.hy3
-        #pkgs.hyprbars
       ];
       enable = true;
       settings = {
-        workspace = imap (idx: w: "name:${w}, default:${boolToString (idx == 0)}") (attrNames cfg.workspaces.definitions);
+        # defaultName:${w.name},
+        workspace = imap (idx: w: "${toString idx}, monitor:eDP-1, default:${boolToString (idx == 1)}, persistent:${boolToString w.value.persistent}") (attrsToList cfg.workspaces.definitions);
         input = {
           kb_layout = "us";
           touchpad = {
