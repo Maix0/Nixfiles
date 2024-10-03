@@ -246,7 +246,7 @@ in {
       };
     };
 
-    wm.printScreen.command = mkDefault "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy -t image/png";
+    wm.printScreen.command = mkDefault "${pkgs.hyprshot}/bin/hyprshot -m region --clipboard-only";
     wm.exit.command = mkDefault "${pkgs.hyprland}/bin/hyprctl dispatch exit";
 
     wayland.windowManager.hyprland = {
@@ -255,8 +255,7 @@ in {
       ];
       enable = true;
       settings = {
-        # defaultName:${w.name},
-        workspace = imap (idx: w: "${toString idx}, monitor:eDP-1, default:${boolToString (idx == 1)}, persistent:${boolToString w.value.persistent}") (attrsToList cfg.workspaces.definitions);
+        workspace = imap (idx: w: "${toString idx}, default:${boolToString (idx == 1)}, persistent:${boolToString w.value.persistent}") (attrsToList cfg.workspaces.definitions);
         input = {
           kb_layout = "us";
           touchpad = {
@@ -270,29 +269,16 @@ in {
         };
         plugin.hy3 = {
           tabs = {
-            #text_font = "${cfg.font.name}";
           };
         };
+        monitor = [",prefered,auto,2"];
         exec-once = map (cmd: cmd.command) startup;
+        bindl = [
+          ",switch:on:Lid Switch, exec, sleep 0.1 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms off"
+          ",switch:off:Lid Switch, exec, sleep 0.1 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on"
+        ];
+
         bind = common.binds;
-        # inherit (cfg) modifier;
-        # inherit startup;
-        # bars = [{command = "waybar";}];
-        # output = config.extraInfo.outputs;
-        # fonts = common.mkFont cfg.font;
-        # window = {
-        #  titlebar = false;
-        #  commands = [
-        #    {
-        #      criteria.class = "davmail-DavGateway";
-        #      command = "floatin enable";
-        #    }
-        #    {
-        #      criteria.window_type = "menu";
-        #      command = "floating enable";
-        #    }
-        #  ];
-        #};
       };
     };
   };

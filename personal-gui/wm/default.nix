@@ -72,7 +72,6 @@
     mod = config.wm.modifier;
     rofiPackages = pkgs.buildRofi.mkRofiPackages {
       config.rofi = {
-        package = config.programs.rofi.package;
         launcher = {
           enable = true;
           style = 2;
@@ -83,6 +82,7 @@
           style = 2;
           theme = 2;
         };
+        package = pkgs.rofi-wayland;
         lockPackage = pkgs.writeShellScriptBin "lock" "${pkgs.hyprlock}/bin/hyprlock --immediate";
         exitPackage = pkgs.writeShellScriptBin "exit" "${pkgs.hyprland}/bin/hyprctl exit";
       };
@@ -130,12 +130,11 @@
     };
 
     startup = [
-      {command = "signal-desktop";}
-      {command = "firefox";}
-      {command = "findex-daemon";}
-      {command = "vesktop";}
+      {command = "${lib.optionalString (config.wm.kind == "hyprland") "[workspace 9 silent]"} signal-desktop";}
+      {command = "${lib.optionalString (config.wm.kind == "hyprland") "[workspace 2 silent]"} firefox";}
+      {command = "${lib.optionalString (config.wm.kind == "hyprland") " [workspace 9 silent]"} vesktop";}
       {command = "${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd";}
-      {command = "${pkgs.polkit}polkit-agent-helper-1";}
+      {command = "${pkgs.polkit}/bin/polkit-agent-helper-1";}
       {command = "systemctl start --user polkit-gnome-authentication-agent-1";}
     ];
 
@@ -146,7 +145,10 @@
           key = "1";
           persistent = true;
         };
-        "2:" = {key = "2";};
+        "2:" = {
+          key = "2";
+          persistent = true;
+        };
         "3:" = {key = "3";};
         "4" = {key = "4";};
         "5" = {key = "5";};

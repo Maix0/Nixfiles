@@ -7,6 +7,9 @@
     config.boot.kernelPackages.perf
     pkgs.virt-manager
     pkgs.zshMaix
+    pkgs.podman-compose
+    pkgs.podman-tui
+    pkgs.podman
   ];
 
   services = {
@@ -28,5 +31,7 @@
     "adbusers"
     "audio"
     "video"
+    "podman"
+    "docker"
   ];
 }

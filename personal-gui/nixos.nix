@@ -14,7 +14,31 @@
     };
   };
 
-  environment.systemPackages = [
+  environment.systemPackages = let
+    polkit-bitwarden = pkgs.writeTextFile {
+      name = "com.bitwarden.Bitwarden.policy";
+      text = ''
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE policyconfig PUBLIC
+         "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+         "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+
+        <policyconfig>
+            <action id="com.bitwarden.Bitwarden.unlock">
+              <description>Unlock Bitwarden</description>
+              <message>Authenticate to unlock Bitwarden</message>
+              <defaults>
+                <allow_any>no</allow_any>
+                <allow_inactive>no</allow_inactive>
+                <allow_active>auth_self</allow_active>
+              </defaults>
+            </action>
+        </policyconfig>
+      '';
+      destination = "/share/polkit-1/actions/com.bitwarden.Bitwarden.policy";
+    };
+  in [
+    (pkgs.lib.traceVal polkit-bitwarden)
     pkgs.itd
     pkgs.rofi
     pkgs.polkit_gnome
@@ -66,18 +90,6 @@
     pam.services.hyprlock = {};
     pam.services.bitwarden.text = ''
       auth sufficient pam_fprintd.so
-    '';
-    polkit.extraConfig = ''
-      polkit.addRule(function(action, subject) {
-        if (action.id == "com.bitwarden.Bitwarden.unlock") {
-          // Allow only the currently active user to authenticate
-          if (subject.active) {
-            return polkit.Result.AUTH_SELF; // Require the user's own authentication
-          }
-          // Deny for inactive or other users
-          return polkit.Result.NO;
-        }
-      });
     '';
   };
 

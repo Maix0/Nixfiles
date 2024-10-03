@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  imports = [extraInfo];
+  imports = [extraInfo ./cachix.nix];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages;
   virtualisation.containers.enable = lib.mkForce false;
