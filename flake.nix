@@ -2,32 +2,56 @@
   description = "NixOS configuration";
 
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    flake-utils.url = "github:numtide/flake-utils";
     nix-gaming.url = "github:fufexan/nix-gaming";
-    raclette.url = "github:traxys/raclette";
     nur.url = "github:nix-community/NUR";
-    xdg-ninja = {
-      url = "github:traxys/xdg-ninja";
-      flake = false;
-    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     meson-syntax = {
       url = "github:Monochrome-Sauce/sublime-meson";
       flake = false;
     };
-    nix-index-database.url = "github:Mic92/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    aseprite-flake.url = "github:Maix0/aseprite-flake";
-    nvim-maix.url = "github:Maix0/nvim-flake";
-    zshMaix.url = "github:Maix0/zsh-flake";
-    rofiMaix = {
-      url = "github:Maix0/rofi-flake";
+    xdg-ninja = {
+      url = "github:traxys/xdg-ninja";
+      flake = false;
+    };
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    raclette = {
+      url = "github:traxys/raclette";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    aseprite-flake = {
+      url = "github:maix-flake/aseprite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nvim-maix = {
+      url = "github:maix-flake/nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    zshMaix = {
+      url = "github:maix-flake/zsh";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    rofiMaix = {
+      url = "github:maix-flake/rofi";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
