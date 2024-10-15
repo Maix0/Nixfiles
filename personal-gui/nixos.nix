@@ -38,7 +38,7 @@
       destination = "/share/polkit-1/actions/com.bitwarden.Bitwarden.policy";
     };
   in [
-    (pkgs.lib.traceVal polkit-bitwarden)
+    polkit-bitwarden
     pkgs.itd
     pkgs.rofi
     pkgs.polkit_gnome
