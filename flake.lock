@@ -398,11 +398,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1730628889,
-        "narHash": "sha256-jUx84Wbxw6tDt2a9JCDDzR+03DUwipJiRz0vVDs8x1A=",
+        "lastModified": 1730652188,
+        "narHash": "sha256-3L+Jh3J3JvJPsGTqSOIKjwZy/AysR0WOLgGKNkXFqxs=",
         "ref": "refs/heads/main",
-        "rev": "514e0ff509f3bf4c98515f08216ac2eeb8797517",
-        "revCount": 5404,
+        "rev": "cd0d0491261728260de3d1aff150e1b6c05f9e86",
+        "revCount": 5407,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -863,11 +863,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1730636040,
-        "narHash": "sha256-odF78c4GJWmqgQZbYWT4NFTZMhzESrTiJ0eXlaye5oA=",
+        "lastModified": 1730659772,
+        "narHash": "sha256-ovsyQNN/HHdjt2pWwmQoOCYgBO5NVptkp2AI5heZMV0=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "b42ad6446301efc53863515e875bcb0d3f58e4ba",
+        "rev": "f984533422fba1872b8b4191bbb489ce83981d18",
         "type": "github"
       },
       "original": {
@@ -958,11 +958,11 @@
         "plugin:zk-nvim": "plugin:zk-nvim"
       },
       "locked": {
-        "lastModified": 1730635672,
-        "narHash": "sha256-Gy3s44fFup4OPsOaKhgjVcjC27XJaTJgHwvlNhEOsRY=",
+        "lastModified": 1730637326,
+        "narHash": "sha256-O03VwZOSg/V2hE1S9OEcdSnHcEUDNo9PA0YOyGPUtcY=",
         "owner": "maix-flake",
         "repo": "nvim",
-        "rev": "c9b29e8f6a3820a216663d543e500a32a97742c8",
+        "rev": "e006a0e9b00174e8fcd1c20c58ff422f1ccdc76d",
         "type": "github"
       },
       "original": {
@@ -1987,11 +1987,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728166987,
-        "narHash": "sha256-w6dVTguAn9zJ+7aPOhBQgDz8bn6YZ7b56cY8Kg5HJRI=",
+        "lastModified": 1730187742,
+        "narHash": "sha256-M0umGIIvVFqCwA0fQ5edivMTbRYA0r/5tXK8sr+M7EA=",
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
-        "rev": "fb9c8d665af0588bb087f97d0f673ddf0d501787",
+        "rev": "998f646762b94fbac61b0271ce66d3e617262858",
         "type": "github"
       },
       "original": {
@@ -2012,11 +2012,11 @@
         "starship": "starship"
       },
       "locked": {
-        "lastModified": 1730636043,
-        "narHash": "sha256-ZxznYIaCuu6438E5Lnr7SEh5AbPR9lKFv3Bx00PIJnY=",
+        "lastModified": 1730637366,
+        "narHash": "sha256-K5Dz+TjjJcoUX/TGMde64ZwcC4NvSXruUxbmVGCg9Mg=",
         "owner": "maix-flake",
         "repo": "zsh",
-        "rev": "5f4ef8364a735b575c90ac32088c08e4d4f1432c",
+        "rev": "344038b491db1973c2e583491d8faef7ebfae753",
         "type": "github"
       },
       "original": {
