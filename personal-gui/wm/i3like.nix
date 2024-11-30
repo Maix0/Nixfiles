@@ -187,6 +187,9 @@ with lib; {
         type = types.attrsOf (types.nullOr types.str);
         description = "keybindings";
       };
+      passthru = mkOption {
+        description = "will be passed directly through";
+      };
     };
   };
 }

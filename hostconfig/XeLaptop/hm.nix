@@ -6,7 +6,7 @@
   home.username = "${config.extraInfo.username}";
   home.homeDirectory = "/home/${config.extraInfo.username}";
   home.packages = with pkgs; [
-    opentabletdriver
+    #opentabletdriver
   ];
 
   programs.git = {

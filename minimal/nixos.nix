@@ -15,6 +15,8 @@
     shell = pkgs.zshMaix;
     extraGroups = ["wheel" "video"];
   };
+  nixpkgs.config.permittedInsecurePackages = [
+  ];
 
   programs = {
     zsh = {
@@ -22,6 +24,9 @@
       enableCompletion = true;
     };
     nix-ld.enable = true;
+    nix-ld.libraries = with pkgs; [
+    ];
+
     light.enable = true;
   };
 
@@ -36,7 +41,7 @@
   environment.pathsToLink = ["/share/zsh"];
   fonts = {
     packages = with pkgs; [
-      (nerdfonts.override {fonts = ["Hack"];})
+      nerd-fonts.hack
       hack-font
       dejavu_fonts
       noto-fonts-emoji

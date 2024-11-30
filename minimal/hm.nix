@@ -44,7 +44,8 @@
       comma
       fd
       file
-      gdb
+      gef
+      ltrace
       gnumake
       jq
       man-pages

@@ -164,36 +164,39 @@
 
     keybindings = {
       "${mod}+Escape" = "${rofiPackages.powermenu}/bin/rofi-powermenu";
-      # Media Keys
       "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'";
       "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'";
       "XF86AudioMute" = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-      "XF86AudioPlay" = "${pkgs.playerctl}/bin/playerctl -p spotify play-pause";
-      "${mod}+Alt+Right" = "${pkgs.playerctl}/bin/playerctl -p spotify next"; # Mod + Alt + Right
-      "${mod}+Alt+Left" = "${pkgs.playerctl}/bin/playerctl -p spotify previous"; # Mod + Alt + Left
       "XF86MonBrightnessDown" = "/usr/bin/env light -U 5";
       "XF86MonBrightnessUp" = "/usr/bin/env light -A 5";
 
-      # Focus
-      "${mod}+Left" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movefocus l";
-      "${mod}+Right" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movefocus r";
-      "${mod}+Down" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movefocus d";
-      "${mod}+Up" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movefocus u";
-      "${mod}+Shift+Left" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movewindow l";
-      "${mod}+Shift+Right" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movewindow r";
-      "${mod}+Shift+Down" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movewindow d";
-      "${mod}+Shift+Up" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:movewindow u";
-
-      # Layout
-      "${mod}+f" = "${pkgs.hyprland}/bin/hyprctl dispatch fullscreen";
-      "${mod}+w" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:changegroup tab";
-      "${mod}+c" = "${pkgs.hyprland}/bin/hyprctl dispatch hy3:changegroup untab";
-
-      # Misc
-      "${mod}+Shift+q" = "${pkgs.hyprland}/bin/hyprctl dispatch killactive";
-      "${mod}+Shift+R" = "${pkgs.hyprland}/bin/hyprctl reload";
       "${mod}+Return" = "${config.terminal.command}";
       "${mod}+Shift+S" = "${config.programs.rofi.package}/bin/rofi -show ssh";
+    };
+    passthru = {
+      bindn = [
+        ", mouse:272, hy3:focustab, mouse"
+      ];
+      bind = [
+        "${mod} Shift Ctrl, Left, moveactive, -10 0"
+        "${mod} Shift Ctrl, Right, moveactive, 10 0"
+        "${mod} Shift Ctrl, Up, moveactive, 0 -10"
+        "${mod} Shift Ctrl, Down, moveactive, 0 10 "
+        "${mod}, Left, hy3:movefocus, l"
+        "${mod}, Right, hy3:movefocus, r"
+        "${mod}, Down, hy3:movefocus, d"
+        "${mod}, Up, hy3:movefocus, u"
+        "${mod} Shift, Left, hy3:movewindow, l"
+        "${mod} Shift, Right, hy3:movewindow, r"
+        "${mod} Shift, Down, hy3:movewindow, d"
+        "${mod} Shift, Up, hy3:movewindow, u"
+        "${mod}, f, togglefloating"
+        "${mod} Shift, f, fullscreen"
+        "${mod}, w, hy3:changegroup, tab"
+        "${mod}, c, hy3:changegroup, untab"
+        "${mod} Shift, q, killactive"
+        "${mod} Shift, r, exec, ${pkgs.hyprland}/bin/hyprctl reload"
+      ];
     };
   };
 }

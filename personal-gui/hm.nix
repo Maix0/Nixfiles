@@ -33,9 +33,8 @@
     hyphen
     libreoffice
 
-
     bitwarden-desktop
-    
+
     # Misc
     eog
     plasma5Packages.kdeconnect-kde
@@ -47,6 +46,12 @@
     aseprite-flake
     virt-viewer
     waypipe
+    (mypaint.overrideAttrs {
+      doCheck = false;
+      checkPhase = "true";
+      installCheckPhase = "true";
+      nativeCheckInputs = [];
+    })
   ];
 
   home.sessionVariables = {

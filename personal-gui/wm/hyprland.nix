@@ -6,6 +6,29 @@
 }:
 with lib;
 with builtins; let
+  MyRecursiveUpdateUntil = pred: lhs: rhs: let
+    f = attrPath: attrs:
+      if all (a: isList a) attrs
+      then flatten attrs
+      else if all (a: isAttrs a) attrs
+      then
+        (zipAttrsWith (
+          n: values: let
+            here = attrPath ++ [n];
+          in
+            if
+              length values
+              == 1
+              || pred here (elemAt values 1) (head values)
+            then head values
+            else f here values
+        ))
+        attrs
+      else thow "must be only attrs or list at the same path";
+  in
+    f [] [rhs lhs];
+  MyRecursiveUpdate = lhs: rhs:
+    MyRecursiveUpdateUntil (path: lhs: rhs: !((isAttrs lhs && isAttrs rhs) || (isList lhs && isList rhs))) lhs rhs;
   cfg = config.wm;
   common = let
     addKeyIf = cond: keybinds: newkey:
@@ -254,32 +277,37 @@ in {
         pkgs.hy3
       ];
       enable = true;
-      settings = {
-        workspace = imap (idx: w: "${toString idx}, default:${boolToString (idx == 1)}, persistent:${boolToString w.value.persistent}") (attrsToList cfg.workspaces.definitions);
-        input = {
-          kb_layout = "us";
-          touchpad = {
-            natural_scroll = false;
+      settings =
+        /*
+        builtins.throw (builtins.toJSON
+        */
+        MyRecursiveUpdate {
+          workspace = imap (idx: w: "${toString idx}, default:${boolToString (idx == 1)}, persistent:${boolToString w.value.persistent}") (attrsToList cfg.workspaces.definitions);
+          input = {
+            kb_layout = "us";
+            touchpad = {
+              natural_scroll = false;
+            };
           };
-        };
-        general = {
-          layout = "hy3";
-          gaps_out = 0;
-          gaps_in = 0;
-        };
-        plugin.hy3 = {
-          tabs = {
+          general = {
+            layout = "hy3";
+            gaps_out = 0;
+            gaps_in = 0;
           };
-        };
-        monitor = [",prefered,auto,2"];
-        exec-once = map (cmd: cmd.command) startup;
-        bindl = [
-          ",switch:on:Lid Switch, exec, sleep 0.1 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms off"
-          ",switch:off:Lid Switch, exec, sleep 0.1 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on"
-        ];
+          plugin.hy3 = {
+            tabs = {
+            };
+          };
+          monitor = [",prefered,auto,2"];
+          exec-once = map (cmd: cmd.command) startup;
+          bindl = [
+            ",switch:on:Lid Switch, exec, sleep 0.1 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms off"
+            ",switch:off:Lid Switch, exec, sleep 0.1 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on"
+          ];
 
-        bind = common.binds;
-      };
+          bind = common.binds;
+        }
+        cfg.passthru;
     };
   };
 }

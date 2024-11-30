@@ -133,7 +133,7 @@
   hardware = {
     sane.enable = true;
     graphics .enable = true;
-    opentabletdriver.enable = true;
+    #opentabletdriver.enable = true;
     bluetooth.enable = true;
   };
   users.users."${config.extraInfo.username}".extraGroups = ["adbusers" "scanner" "lp"];
