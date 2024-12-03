@@ -197,6 +197,23 @@
         "${mod} Shift, q, killactive"
         "${mod} Shift, r, exec, ${pkgs.hyprland}/bin/hyprctl reload"
       ];
+      device = let
+        tabletConfig = name: {
+          inherit name;
+          output = "eDP-1";
+          # DP-2, preferred, auto, 1, mirror, eDP-1";
+        };
+      in
+        []
+        ++ (map tabletConfig [
+          "huion-huion-tablet_gs1331-pen"
+          "huion-huion-tablet_gs1331-stylus"
+          "huion-huion-tablet_gs1331"
+        ]);
+      monitor = [
+        "desc:HAT Kamvas 13 L56051794302, preferred, auto, 1, mirror, eDP-1"
+      ];
+      input.tablet.output = "eDP-1";
     };
   };
 }
