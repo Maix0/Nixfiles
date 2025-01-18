@@ -11,6 +11,9 @@
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
+    kernel.sysctl = {
+      "net.ipv4.ip_unprivileged_port_start" = 0;
+    };
   };
 
   networking = {
@@ -18,7 +21,7 @@
     interfaces = {
       wlp1s0.useDHCP = true;
     };
-    firewall.allowedTCPPorts = [8080 8085 5201];
+    firewall.allowedTCPPorts = [8080 8085 5201 80 443];
   };
 
   users = {

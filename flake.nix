@@ -58,8 +58,7 @@
       inputs.hyprland.follows = "hyprland";
     };
     hy3 = {
-      #url = "github:outfoxxed/hy3";
-      url = "github:ZWORX52/hy3/36340e627d1b9c844ce73443db042c953ffdd1bf";
+      url = "github:outfoxxed/hy3";
       inputs.hyprland.follows = "hyprland";
     };
   };
@@ -143,7 +142,7 @@
           self.nixosModules.gaming
           ({pkgs, ...}: {
             nixpkgs.overlays = [
-              inputs.nur.overlay
+              inputs.nur.overlays.default
               inputs.hyprland.overlays.hyprland-packages #"${system}".
               inputs.hyprland.overlays.hyprland-extras #"${system}".
               inputs.hyprland-plugins.overlays.hyprland-plugins #"${system}".

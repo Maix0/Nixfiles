@@ -93,7 +93,14 @@ with builtins; let
     ]
     else [];
 
-  startup = startupNotifications ++ cfg.startup ++ [{command = "${pkgs.waybar}/bin/waybar";}];
+  killDbus = pkgs.writeShellScript "kill-dbus-session" ''
+    ${pkgs.procps}/bin/ps aux | \
+      ${pkgs.ripgrep}/bin/rg dbus | \
+      ${pkgs.ripgrep}/bin/rg -v '/bin/rg' | \
+      ${pkgs.ripgrep}/bin/rg -o '^'"$(${pkgs.toybox}/bin/whoami)"'\s+([0-9]+)'  --replace '$1' | \
+      ${pkgs.toybox}/bin/xargs ${pkgs.procps}/bin/kill
+  '';
+  startup = [{command = killDbus;}] ++ startupNotifications ++ cfg.startup ++ [{command = "${pkgs.waybar}/bin/waybar";}];
 in {
   config = mkIf (cfg.enable && cfg.kind == "hyprland") {
     home.packages = with pkgs;
@@ -296,6 +303,13 @@ in {
           };
           plugin.hy3 = {
             tabs = {
+              height = 20;
+              padding = 5;
+              rounding = 3;
+              text_center = true;
+              text_font = "Hack Mono";
+              text_height = 10;
+              text_padding = 5;
             };
           };
           monitor = [",prefered,auto,2"];

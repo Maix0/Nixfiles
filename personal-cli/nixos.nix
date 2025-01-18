@@ -10,6 +10,8 @@
     pkgs.podman-compose
     pkgs.podman-tui
     pkgs.podman
+    pkgs.fastmod
+    pkgs.ripgrep
   ];
 
   services = {
@@ -33,5 +35,6 @@
     "video"
     "podman"
     "docker"
+    "dialout"
   ];
 }

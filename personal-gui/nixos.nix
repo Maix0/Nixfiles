@@ -136,5 +136,6 @@
     #opentabletdriver.enable = true;
     bluetooth.enable = true;
   };
-  users.users."${config.extraInfo.username}".extraGroups = ["adbusers" "scanner" "lp"];
+  users.users."${config.extraInfo.username}".extraGroups = ["adbusers" "scanner" "lp" "vboxusers"];
+  virtualisation.virtualbox.host.enable = true;
 }
