@@ -2,7 +2,7 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -24,27 +24,19 @@
 
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     raclette = {
       url = "github:traxys/raclette";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     aseprite-flake = {
       url = "github:maix-flake/aseprite";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     nvim-maix = {
       url = "github:maix-flake/nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     zshMaix = {
       url = "github:maix-flake/zsh";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     rofiMaix = {
       url = "github:maix-flake/rofi";

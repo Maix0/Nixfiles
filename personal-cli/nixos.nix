@@ -12,6 +12,10 @@
     pkgs.podman
     pkgs.fastmod
     pkgs.ripgrep
+    pkgs.bottom
+    pkgs.htop
+    pkgs.tree
+    pkgs.acpi
   ];
 
   services = {

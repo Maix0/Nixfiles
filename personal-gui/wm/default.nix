@@ -164,6 +164,7 @@
 
     keybindings = {
       "${mod}+Escape" = "${rofiPackages.powermenu}/bin/rofi-powermenu";
+      "XF86PowerOff" = "${rofiPackages.powermenu}/bin/rofi-powermenu";
       "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'";
       "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'";
       "XF86AudioMute" = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";

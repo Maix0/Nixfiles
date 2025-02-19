@@ -32,7 +32,6 @@
 
   hardware = {
     bluetooth.enable = true;
-    ckb-next.enable = true;
     cpu.amd.updateMicrocode = true;
   };
   services = {

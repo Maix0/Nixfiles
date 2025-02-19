@@ -100,7 +100,7 @@ with builtins; let
       ${pkgs.ripgrep}/bin/rg -o '^'"$(${pkgs.toybox}/bin/whoami)"'\s+([0-9]+)'  --replace '$1' | \
       ${pkgs.toybox}/bin/xargs ${pkgs.procps}/bin/kill
   '';
-  startup = [{command = killDbus;}] ++ startupNotifications ++ cfg.startup ++ [{command = "${pkgs.waybar}/bin/waybar";}];
+  startup = [{command = killDbus;} {command = "${pkgs.systemd}/bin/systemd-inhibit --what=handle-power-key /bin/sh -c 'sleep infinity'";}] ++ startupNotifications ++ cfg.startup ++ [{command = "${config.programs.waybar.package}/bin/waybar";}];
 in {
   config = mkIf (cfg.enable && cfg.kind == "hyprland") {
     home.packages = with pkgs;
@@ -203,6 +203,7 @@ in {
       waybar = {
         enable = true;
         style = builtins.readFile ./waybar.css;
+        package  = pkgs.waybar.override {swaySupport = false;};
         settings = [
           {
             layer = "top";

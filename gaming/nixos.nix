@@ -17,7 +17,7 @@
 
   hardware.steam-hardware.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest; #lib.trivial.warn "Update Kernel version when tuxedo-driver is fixed" pkgs.linuxKernel.packages.linux_xanmod;
+  # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest; 
 
   security.wrappers = {
     gamescope = {
