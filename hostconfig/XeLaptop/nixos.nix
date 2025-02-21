@@ -37,11 +37,10 @@
   services = {
     fprintd = {
       enable = true;
-      #tod.enable = true;
-      #tod.driver = pkgs.libfprint-2-tod1-goodix;
     };
     postgresql = {
       enable = true;
+      package = pkgs.postgresql_17;
       ensureUsers = [
         {
           name = "maix";
@@ -56,17 +55,6 @@
   };
 
   security.pam.services.login.fprintAuth = true;
-  #security.selinux.enable = true;
-  #security.selinux.mode = "permissive"; # or "enforcing" for strict policy
-  #security.selinux.policy = {
-  #  packages = [pkgs.selinuxPolicyDefault];
-  #};
-
-  nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
-  '';
-  #hardware.opentabletdriver.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

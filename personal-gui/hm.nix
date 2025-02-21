@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  myPkgs,
   ...
 }: {
   imports = [
@@ -37,21 +38,17 @@
 
     # Misc
     eog
+    fzf
+    myPkgs.aseprite
+    myPkgs.zen-browser
+    mypaint
     plasma5Packages.kdeconnect-kde
+    virt-viewer
+    waypipe
     wdisplays
     wl-clipboard
     wl-mirror
     xdg-utils
-    fzf
-    aseprite-flake
-    virt-viewer
-    waypipe
-    (mypaint.overrideAttrs {
-      doCheck = false;
-      checkPhase = "true";
-      installCheckPhase = "true";
-      nativeCheckInputs = [];
-    })
   ];
 
   home.sessionVariables = {

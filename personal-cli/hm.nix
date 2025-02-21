@@ -5,17 +5,17 @@
 }: {
   home.packages = with pkgs; [
     bitwarden-cli
-    kabalist_cli
-    tokei
-    xdg-ninja
-    zk
-    htop
-    tree
-    socat
+    bottom
     fastmod
+    htop
+    kabalist_cli
+    nix-init
     nixpkgs-fmt
     nixpkgs-review
-    nix-init
+    socat
+    tokei
+    tree
+    zk
   ];
 
   home.sessionVariables = {
@@ -29,13 +29,6 @@
     LoServer = {
       hostname = "risoul.familleboyer.net";
       port = 22;
-    };
-  };
-
-  home.file = {
-    bin = {
-      source = ./scripts;
-      recursive = true;
     };
   };
 }

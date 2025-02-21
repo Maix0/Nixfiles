@@ -3,48 +3,22 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-
     flake-utils.url = "github:numtide/flake-utils";
-    nix-gaming.url = "github:fufexan/nix-gaming";
-    nur.url = "github:nix-community/NUR";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    meson-syntax = {
-      url = "github:Monochrome-Sauce/sublime-meson";
-      flake = false;
-    };
-    xdg-ninja = {
-      url = "github:traxys/xdg-ninja";
-      flake = false;
-    };
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
-    nix-index-database = {
-      url = "github:Mic92/nix-index-database";
-    };
+    aseprite.url = "github:maix-flake/aseprite";
+    nvimMaix.url = "github:maix-flake/nvim";
+    zshMaix.url = "github:maix-flake/zsh";
+    rofiMaix.url = "github:maix-flake/rofi";
 
-    raclette = {
-      url = "github:traxys/raclette";
-    };
-    aseprite-flake = {
-      url = "github:maix-flake/aseprite";
-    };
-    nvim-maix = {
-      url = "github:maix-flake/nvim";
-    };
-    zshMaix = {
-      url = "github:maix-flake/zsh";
-    };
-    rofiMaix = {
-      url = "github:maix-flake/rofi";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=e1179b665b307e46a57367493a85ac80f34f2ce4";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
@@ -62,12 +36,12 @@
     ...
   } @ inputs: let
     pkgList = system: {
-      raclette = inputs.raclette.packages."${system}".default;
-      neovimMaix = inputs.nvim-maix.packages."${system}".nvim;
-      aseprite-flake = inputs.aseprite-flake.packages."${system}".default;
-      zshMaix = inputs.zshMaix.packages."${system}".default;
-      hy3 = inputs.hy3.packages."${system}".default;
+      aseprite = inputs.aseprite.packages."${system}".default;
       buildRofi = inputs.rofiMaix.lib."${system}";
+      hy3 = inputs.hy3.packages."${system}".default;
+      nvimMaix = inputs.nvimMaix.packages."${system}".default;
+      zen-browser = inputs.zen-browser.packages."${system}".default;
+      zshMaix = inputs.zshMaix.packages."${system}".default;
     };
 
     extraInfo = import ./extra_info.nix;
@@ -124,6 +98,10 @@
     nixosConfigurations = {
       XeLaptop = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
+        specialArgs = {
+          flake = self;
+          myPkgs = pkgList system;
+        };
         modules = [
           ./hostconfig/XeLaptop/hardware-configuration.nix
           ./hostconfig/XeLaptop/extra_info.nix
@@ -134,27 +112,9 @@
           self.nixosModules.gaming
           ({pkgs, ...}: {
             nixpkgs.overlays = [
-              inputs.nur.overlays.default
-              inputs.hyprland.overlays.hyprland-packages #"${system}".
-              inputs.hyprland.overlays.hyprland-extras #"${system}".
-              inputs.hyprland-plugins.overlays.hyprland-plugins #"${system}".
-              (final: prev: {
-                fprintd = prev.fprintd.overrideAttrs {
-                  doCheck = false;
-                  dontUseMesonCheck = true;
-                  postUnpack = ''
-                    cat <<EOF >/build/source/tests/unittest_inspector.py
-                    #! ${pkgs.runtimeShell}
-                    exit 0
-                    EOF
-                    chmod +x /build/source/tests/unittest_inspector.py
-                    ls -l /build/source/tests/unittest_inspector.py
-                    cat /build/source/tests/unittest_inspector.py
-                  '';
-                };
-              })
-              (final: prev: pkgList system)
-              (final: prev: inputs.nix-gaming.packages."${system}")
+              inputs.hyprland.overlays.hyprland-packages
+              inputs.hyprland.overlays.hyprland-extras
+              inputs.hyprland-plugins.overlays.hyprland-plugins
             ];
           })
           ./nixos/configuration.nix
@@ -164,7 +124,10 @@
               verbose = false;
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs.flake = self;
+              extraSpecialArgs = {
+                flake = self;
+                myPkgs = pkgList system;
+              };
               users.maix = {
                 config,
                 lib,
@@ -174,64 +137,6 @@
                 imports = [
                   ./hostconfig/XeLaptop/extra_info.nix
                   ./hostconfig/XeLaptop/hm.nix
-                  self.hmModules.minimal
-                  self.hmModules.personal-gui
-                  self.hmModules.gaming
-                ];
-              };
-            };
-          }
-        ];
-      };
-      XeMaix = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        modules = [
-          ./hostconfig/XeMaix/hardware-configuration.nix
-          ./hostconfig/XeMaix/extra_info.nix
-          ./hostconfig/XeMaix/nixos.nix
-          self.nixosModules.minimal
-          self.nixosModules.personal-cli
-          self.nixosModules.personal-gui
-          self.nixosModules.gaming
-          ({pkgs, ...}: {
-            nixpkgs.overlays = [
-              inputs.nur.overlay
-              inputs.rust-overlay.overlays.default
-              inputs.comma.overlays.default
-              (final: prev: pkgList system)
-              (final: prev: inputs.nix-gaming.packages."${system}")
-              (final: prev: {
-                fprintd = prev.fprintd.overrideAttrs {
-                  doCheck = false;
-                };
-              })
-              (final: prev: {
-                linuxPackages_xanmod_latest = nixpkgs.lib.warn "patching tuxedo-keyboard, switch to tuxedo-driver when it is stable" prev.linuxPackages_xanmod_latest.extend (lfinal: lprev: {
-                  tuxedo-keyboard = lprev.tuxedo-keyboard.overrideAttrs (oldAttrs: {
-                    patches = [./tuxedo-keyboard.patch];
-                  });
-                });
-              })
-            ];
-          })
-          ./nixos/configuration.nix
-          #inputs.tuxedo-nixos.nixosModules.default # will be added back when it uses a normal nodejs version ...
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              verbose = false;
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs.flake = self;
-              users.maix = {
-                config,
-                lib,
-                pkgs,
-                ...
-              }: {
-                imports = [
-                  ./hostconfig/XeMaix/extra_info.nix
-                  ./hostconfig/XeMaix/hm.nix
                   self.hmModules.minimal
                   self.hmModules.personal-gui
                   self.hmModules.gaming

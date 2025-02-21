@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  myPkgs,
   ...
 }:
 with lib;
@@ -203,7 +204,7 @@ in {
       waybar = {
         enable = true;
         style = builtins.readFile ./waybar.css;
-        package  = pkgs.waybar.override {swaySupport = false;};
+        package = pkgs.waybar.override {swaySupport = false;};
         settings = [
           {
             layer = "top";
@@ -282,7 +283,7 @@ in {
 
     wayland.windowManager.hyprland = {
       plugins = [
-        pkgs.hy3
+        myPkgs.hy3
       ];
       enable = true;
       settings =

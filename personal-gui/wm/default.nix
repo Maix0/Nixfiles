@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  myPkgs,
   ...
 }: {
   imports = [./terminal ./i3like.nix];
@@ -70,7 +71,7 @@
 
   wm = let
     mod = config.wm.modifier;
-    rofiPackages = pkgs.buildRofi.mkRofiPackages {
+    rofiPackages = myPkgs.buildRofi.mkRofiPackages {
       config.rofi = {
         launcher = {
           enable = true;

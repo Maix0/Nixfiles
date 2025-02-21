@@ -1,21 +1,22 @@
 {
   pkgs,
   config,
+  myPkgs,
   ...
 }: {
   environment.systemPackages = [
     config.boot.kernelPackages.perf
-    pkgs.virt-manager
-    pkgs.zshMaix
+    myPkgs.zshMaix
+    pkgs.acpi
+    pkgs.bottom
+    pkgs.fastmod
+    pkgs.htop
+    pkgs.podman
     pkgs.podman-compose
     pkgs.podman-tui
-    pkgs.podman
-    pkgs.fastmod
     pkgs.ripgrep
-    pkgs.bottom
-    pkgs.htop
     pkgs.tree
-    pkgs.acpi
+    pkgs.virt-manager
   ];
 
   services = {

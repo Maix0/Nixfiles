@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  myPkgs,
   ...
 }: {
   imports = [extraInfo ./cachix.nix];
@@ -12,11 +13,9 @@
   users.users."${config.extraInfo.username}" = {
     isNormalUser = true;
     home = "/home/${config.extraInfo.username}";
-    shell = pkgs.zshMaix;
+    shell = myPkgs.zshMaix;
     extraGroups = ["wheel" "video"];
   };
-  nixpkgs.config.permittedInsecurePackages = [
-  ];
 
   programs = {
     zsh = {
@@ -24,9 +23,7 @@
       enableCompletion = true;
     };
     nix-ld.enable = true;
-    nix-ld.libraries = with pkgs; [
-    ];
-
+    nix-ld.libraries = [];
     light.enable = true;
   };
 
@@ -56,39 +53,37 @@
     };
   };
 
-  nixpkgs.overlays = [
-    (final: super: {
-      nixos-rebuild = super.nixos-rebuild.overrideAttrs (old: {
-        src = "${final.runCommand "nixos-rebuild.sh" {} ''
-          mkdir -p $out
-
-          cp ${old.src} nixos-rebuild.sh
-
-          patch -p5 <${./nom-rebuild.patch}
-          sed -i -e '2s|^|export PATH="${lib.makeBinPath [final.nix-output-monitor]}:$PATH"|' nixos-rebuild.sh
-          mv nixos-rebuild.sh $out
-        ''}/nixos-rebuild.sh";
-      });
-    })
-  ];
-
   nix = {
     package = pkgs.nixVersions.git;
-
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-
+    buildMachines = [
+      {
+        system = "x86_64-linux";
+        supportedFeatures = [
+          "benchmark"
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+        ];
+        sshUser = "root";
+        sshKey = "/root/.ssh/id_buildremotekey";
+        maxJobs = 8;
+        hostName = "maix.me";
+      }
+    ];
+    distributedBuilds = true;
     settings = {
+      experimental-features = "nix-command flakes";
+      builders-use-substitutes = true;
       auto-optimise-store = true;
-      substituters = ["https://nix-gaming.cachix.org"];
-      trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+      keep-outputs = true;
+      keep-derivations = true;
+
       trusted-users = ["@wheel" config.extraInfo.username];
     };
-  };
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 7d";
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
   };
   security.polkit.enable = true;
 }
