@@ -132,7 +132,7 @@
 
     startup = [
       {command = "${lib.optionalString (config.wm.kind == "hyprland") "[workspace 9 silent]"} signal-desktop";}
-      {command = "${lib.optionalString (config.wm.kind == "hyprland") "[workspace 2 silent]"} firefox";}
+      {command = "${lib.optionalString (config.wm.kind == "hyprland") "[workspace 2 silent]"} zen";}
       {command = "${lib.optionalString (config.wm.kind == "hyprland") " [workspace 9 silent]"} vesktop";}
       {command = "${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd";}
       {command = "${pkgs.polkit}/bin/polkit-agent-helper-1";}

@@ -5,7 +5,11 @@
 }: {
   xdg = {
     portal = {
-      config.common.default = "*";
+      config.common.default = [
+        "gtk"
+        "wlr"
+      ];
+      xdgOpenUsePortal = true;
       enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
@@ -43,6 +47,10 @@
     pkgs.rofi
     pkgs.polkit_gnome
     pkgs.polkit
+
+    pkgs.xdg-desktop-portal-wlr
+    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-gnome
   ];
 
   systemd = {
@@ -98,7 +106,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --remember-user-session --time --cmd sway";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --remember-user-session --time --cmd Hyprland";
           user = "greeter";
         };
       };

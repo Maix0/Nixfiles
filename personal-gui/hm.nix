@@ -14,6 +14,7 @@
 
     # Browsers
     firefox
+    myPkgs.zen-browser
 
     # IM
     vesktop
@@ -40,7 +41,6 @@
     eog
     fzf
     myPkgs.aseprite
-    myPkgs.zen-browser
     mypaint
     plasma5Packages.kdeconnect-kde
     virt-viewer
@@ -52,10 +52,15 @@
   ];
 
   home.sessionVariables = {
-    BROWSER = "firefox";
-    GTK_USE_PORTAL = 1;
-    NIXOS_OZONE_WL = 1;
     ANDROID_HOME = "${config.home.sessionVariables.XDG_DATA_HOME}/android";
+    BROWSER = "zen";
+    CLUTTER_BACKEND = "wayland";
+    GDK_BACKEND = "wayland,x11";
+    MOZ_ENABLE_WAYLAND = "1";
+    NIXOS_OZONE_WL = 1;
+    QT_QPA_PLATFORM = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    XDG_CURRENT_DESKTOP = "Hyprland";
   };
 
   programs.zathura.enable = true;
