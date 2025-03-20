@@ -175,7 +175,17 @@
       "${mod}+Return" = "${config.terminal.command}";
       "${mod}+Shift+S" = "${config.programs.rofi.package}/bin/rofi -show ssh";
     };
-    passthru = {
+    passthru = let
+      tabletConfig = name: {
+        inherit name;
+        output = "eDP-1";
+        active_area_size = "247.16, 165.24";
+        active_area_position = "23.3, 0";
+      };
+    in {
+      env = [
+        "HYPRCURSOR_THEME, rose-pine-hyprcursor"
+      ];
       bindn = [
         ", mouse:272, hy3:focustab, mouse"
       ];
@@ -199,23 +209,15 @@
         "${mod} Shift, q, killactive"
         "${mod} Shift, r, exec, ${pkgs.hyprland}/bin/hyprctl reload"
       ];
-      device = let
-        tabletConfig = name: {
-          inherit name;
-          output = "eDP-1";
-          # DP-2, preferred, auto, 1, mirror, eDP-1";
-        };
-      in
-        []
-        ++ (map tabletConfig [
-          "huion-huion-tablet_gs1331-pen"
-          "huion-huion-tablet_gs1331-stylus"
-          "huion-huion-tablet_gs1331"
-        ]);
+      device = map tabletConfig [
+        "huion-huion-tablet_gs1331-pen"
+        "huion-huion-tablet_gs1331-stylus"
+        "huion-huion-tablet_gs1331"
+      ];
       monitor = [
         "desc:HAT Kamvas 13 L56051794302, preferred, auto, 1, mirror, eDP-1"
       ];
-      input.tablet.output = "eDP-1";
+      input.tablet = builtins.removeAttrs (tabletConfig "global tablets") ["name"];
     };
   };
 }

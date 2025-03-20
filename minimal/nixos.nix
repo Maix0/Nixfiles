@@ -10,11 +10,20 @@
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages;
   virtualisation.containers.enable = lib.mkForce false;
 
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "69-probe-rs.rules";
+      destination = "/etc/udev/rules.d/69-probe-rs.rules";
+      text = builtins.readFile ./69-probe-rs.rules;
+    })
+  ];
+  users.groups.plugdev = {};
+
   users.users."${config.extraInfo.username}" = {
     isNormalUser = true;
     home = "/home/${config.extraInfo.username}";
     shell = myPkgs.zshMaix;
-    extraGroups = ["wheel" "video"];
+    extraGroups = ["wheel" "video" "plugdev"];
   };
 
   programs = {
@@ -54,7 +63,7 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.git;
+    #package = pkgs.nixVersions.git;
     buildMachines = [
       {
         system = "x86_64-linux";

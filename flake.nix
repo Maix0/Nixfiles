@@ -5,6 +5,11 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,7 +23,7 @@
     zshMaix.url = "github:maix-flake/zsh";
     rofiMaix.url = "github:maix-flake/rofi";
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=e1179b665b307e46a57367493a85ac80f34f2ce4";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
@@ -26,6 +31,11 @@
     hy3 = {
       url = "github:outfoxxed/hy3";
       inputs.hyprland.follows = "hyprland";
+    };
+    rose-pine-hyprcursor = {
+      url = "github:ndom91/rose-pine-hyprcursor";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprlang.follows = "hyprland/hyprlang";
     };
   };
 
@@ -42,6 +52,7 @@
       nvimMaix = inputs.nvimMaix.packages."${system}".default;
       zen-browser = inputs.zen-browser.packages."${system}".default;
       zshMaix = inputs.zshMaix.packages."${system}".default;
+      rose-pine-hyprcursor = inputs.rose-pine-hyprcursor.packages.${system}.default;
     };
 
     extraInfo = import ./extra_info.nix;
@@ -103,6 +114,8 @@
           myPkgs = pkgList system;
         };
         modules = [
+          inputs.lix-module.nixosModules.default
+            
           ./hostconfig/XeLaptop/hardware-configuration.nix
           ./hostconfig/XeLaptop/extra_info.nix
           ./hostconfig/XeLaptop/nixos.nix

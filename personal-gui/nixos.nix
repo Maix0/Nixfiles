@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  myPkgs,
   ...
 }: {
   xdg = {
@@ -51,6 +52,7 @@
     pkgs.xdg-desktop-portal-wlr
     pkgs.xdg-desktop-portal-gtk
     pkgs.xdg-desktop-portal-gnome
+    myPkgs.rose-pine-hyprcursor
   ];
 
   systemd = {
