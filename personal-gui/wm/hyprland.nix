@@ -155,13 +155,10 @@ in {
         };
       };
       mako = mkIf cfg.notifications.enable {
-        inherit (cfg.notifications) defaultTimeout font;
+        inherit (cfg.notifications) font;
+        defaultTimeout = builtins.toString cfg.notifications.defaultTimeout;
         enable = true;
         margin = "20,20,5,5";
-        extraConfig = ''
-          [mode=do-not-disturb]
-          invisible=1
-        '';
       };
     };
 

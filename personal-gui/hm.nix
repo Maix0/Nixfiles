@@ -10,15 +10,13 @@
   ];
 
   home.packages = with pkgs; [
-    ghidra-bin
-
     # Browsers
     firefox
     myPkgs.zen-browser
 
     # IM
     vesktop
-    signal-desktop
+    signal-desktop-bin
 
     # Mail
     thunderbird
@@ -40,10 +38,13 @@
     # Misc
     eog
     fzf
+    ghidra-bin
+    krita
     myPkgs.aseprite
     mypaint
     plasma5Packages.kdeconnect-kde
     virt-viewer
+    virtualbox
     waypipe
     wdisplays
     wl-clipboard
@@ -64,40 +65,4 @@
   };
 
   programs.zathura.enable = true;
-
-  # programs.spicetify = {
-  #   enable = true;
-  #   theme = "Dreary"; #pkgs.spicetify.themes.Dreary;
-  #   colorScheme = "deeper";
-  #
-  #   enabledCustomApps = with pkgs.spicetify.apps; [
-  #     new-releases
-  #     marketplace
-  #     lyrics-plus
-  #     localFiles
-  #   ];
-  #
-  #   enabledExtensions = with pkgs.spicetify.extensions; [
-  #     shuffle # shuffle+ (special characters are sanitized out of ext names)
-  #     bookmark
-  #     groupSession
-  #     playlistIcons
-  #     goToSong
-  #     featureShuffle
-  #     songStats
-  #     showQueueDuration
-  #     copyToClipboard
-  #     history
-  #     playNext
-  #   ];
-  # };
-  #
-  # xdg.desktopEntries = {
-  #   spotify = {
-  #     name = "Spiced Spotify";
-  #     exec = "spotify";
-  #     icon = "spotify";
-  #     type = "Application";
-  #   };
-  # };
 }

@@ -6,10 +6,7 @@
 }: {
   xdg = {
     portal = {
-      config.common.default = [
-        "gtk"
-        "wlr"
-      ];
+      config.common.default = "*";
       xdgOpenUsePortal = true;
       enable = true;
       extraPortals = with pkgs; [

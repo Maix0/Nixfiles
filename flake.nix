@@ -6,7 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-2.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,13 +23,14 @@
     zshMaix.url = "github:maix-flake/zsh";
     rofiMaix.url = "github:maix-flake/rofi";
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland";
+    # https://github.com/hyprwm/Hyprland/commit/29e2e59fdbab8ed2cc23a20e3c6043d5decb5cdc
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?ref=v0.48.1";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
     hy3 = {
-      url = "github:outfoxxed/hy3";
+      url = "github:outfoxxed/hy3?ref=a1f892fa218f6def606ccb1f81ddc2e57d0551b8";
       inputs.hyprland.follows = "hyprland";
     };
     rose-pine-hyprcursor = {
@@ -115,7 +116,7 @@
         };
         modules = [
           inputs.lix-module.nixosModules.default
-            
+
           ./hostconfig/XeLaptop/hardware-configuration.nix
           ./hostconfig/XeLaptop/extra_info.nix
           ./hostconfig/XeLaptop/nixos.nix
