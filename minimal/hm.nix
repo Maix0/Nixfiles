@@ -84,6 +84,9 @@
         tokei
         unzip
         wget
+        gdb
+        lldb
+  
 
         # Useful for pandoc to latex
         (texlive.combine {

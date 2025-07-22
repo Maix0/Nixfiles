@@ -6,7 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,7 +23,7 @@
     zshMaix.url = "github:maix-flake/zsh";
     rofiMaix.url = "github:maix-flake/rofi";
 
-    hyprland.url = "git+https://github.com/maix0/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
