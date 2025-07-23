@@ -101,7 +101,12 @@ with builtins; let
       ${pkgs.ripgrep}/bin/rg -o '^'"$(${pkgs.toybox}/bin/whoami)"'\s+([0-9]+)'  --replace '$1' | \
       ${pkgs.toybox}/bin/xargs ${pkgs.procps}/bin/kill
   '';
-  startup = [{command = killDbus;} {command = "${pkgs.systemd}/bin/systemd-inhibit --what=handle-power-key /bin/sh -c 'sleep infinity'";}] ++ startupNotifications ++ cfg.startup ++ [{command = "${config.programs.waybar.package}/bin/waybar";}];
+  startup =
+    [
+      {command = killDbus;}
+      {command = "${pkgs.systemd}/bin/systemd-inhibit --what=handle-power-key /bin/sh -c 'sleep infinity'";}
+    ]
+    ++ startupNotifications ++ cfg.startup ++ [{command = "${config.programs.waybar.package}/bin/waybar";}];
 in {
   config = mkIf (cfg.enable && cfg.kind == "hyprland") {
     home.packages = with pkgs;
@@ -115,33 +120,7 @@ in {
         else []
       );
 
-    home.sessionVariables = {
-      MOZ_ENABLE_WAYLAND = "1";
-      LIBSEAT_BACKEND = "logind";
-      _JAVA_AWT_WM_NONREPARENTING = 1;
-    };
     services = {
-      hypridle = {
-        enable = true;
-        settings = {
-          general = {
-            after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-            ignore_dbus_inhibit = false;
-            lock_cmd = "hyprlock";
-          };
-          listener = [
-            {
-              timeout = 900;
-              on-timeout = "hyprlock";
-            }
-            {
-              timeout = 1200;
-              on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-              on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-            }
-          ];
-        };
-      };
       hyprpaper = mkIf (cfg.wallpaper != null) {
         enable = true;
         settings = {
@@ -153,125 +132,6 @@ in {
             ",${cfg.wallpaper}"
           ];
         };
-      };
-      mako = mkIf cfg.notifications.enable {
-        inherit (cfg.notifications) font;
-        defaultTimeout = builtins.toString cfg.notifications.defaultTimeout;
-        enable = true;
-        margin = "20,20,5,5";
-      };
-    };
-
-    programs = {
-      hyprlock = {
-        enable = true;
-        settings = {
-          general = {
-            disable_loading_bar = false;
-            grace = 60;
-            hide_cursor = true;
-            no_fade_in = false;
-          };
-
-          background = [
-            {
-              path = "screenshot";
-              blur_passes = 3;
-              blur_size = 8;
-            }
-          ];
-
-          input-field = [
-            {
-              size = "200, 50";
-              position = "0, -80";
-              monitor = "";
-              dots_center = true;
-              fade_on_empty = false;
-              font_color = "rgb(202, 211, 245)";
-              inner_color = "rgb(91, 96, 120)";
-              outer_color = "rgb(24, 25, 38)";
-              outline_thickness = 5;
-              placeholder_text = "\'<span foreground=\"##cad3f5\">Password...</span>'";
-              shadow_passes = 2;
-            }
-          ];
-        };
-      };
-      waybar = {
-        enable = true;
-        style = builtins.readFile ./waybar.css;
-        package = pkgs.waybar.override {swaySupport = false;};
-        settings = [
-          {
-            layer = "top";
-            position = "top";
-            modules-left = [
-              "bluetooth"
-              "network#wifi"
-              "hyprland/workspaces"
-            ];
-            modules-center = ["hyprland/window"];
-            modules-right = [
-              "backlight"
-              "pulseaudio"
-              "cpu"
-              "memory"
-              "disk#home"
-              "battery"
-              "clock"
-              "tray"
-            ];
-            "hyprland/workspaces" = let
-              workspaces = attrsToList cfg.workspaces.definitions;
-              indexed_workspace =
-                imap (idx: w: {
-                  inherit idx;
-                  inherit (w) value name;
-                })
-                workspaces;
-            in {
-              numeric-first = true;
-              persistent-workspaces = {
-                #"*" = map (w: w.name) (filter (w: w.value.persistent) indexed_workspace);
-              };
-              format = "{icon}";
-              format-icons = listToAttrs (map (w: {
-                  name = toString w.idx;
-                  value = w.name;
-                })
-                indexed_workspace);
-            };
-            "network#wifi" = {
-              interface = "wlp1s0";
-              format-wifi = "{essid} ({signalStrength}%) ";
-            };
-            cpu = {
-              format = "󰘚 {load}";
-            };
-            memory = {
-              format = " {used:.0f}G/{total:.0f}G";
-            };
-            "hyprland/window" = {
-              max-length = 50;
-            };
-            "disk#home" = {
-              path = "/home";
-              format = " {free}";
-            };
-            "disk#root" = {
-              path = "/";
-              format = " {percentage_free}%";
-            };
-            "battery" = {
-              format = "{capacity}% {icon}";
-              format-icons = ["" "" "" "" ""];
-            };
-            "clock" = {
-              format-alt = "{:%a, %d. %b  %H:%M}";
-            };
-          }
-        ];
       };
     };
 
