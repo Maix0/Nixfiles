@@ -1,5 +1,5 @@
 {lib, ...}: {
-  import = [./terminal];
+  imports = [./terminal];
 
   terminal = {
     enable = true;

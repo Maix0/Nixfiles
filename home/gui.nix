@@ -1,17 +1,20 @@
 {
-  config,
-  lib,
   pkgs,
   myPkgs,
   ...
 }: {
-  imports = [
-    ./wm
-  ];
-
+  gtk = {
+    enable = true;
+    font = {
+      name = "DejaVu Sans";
+    };
+    theme = {
+      package = pkgs.gnome-themes-extra;
+      name = "Adwaita-dark";
+    };
+  };
   home.packages = with pkgs; [
     # Browsers
-    firefox
     myPkgs.zen-browser
 
     # IM
@@ -51,18 +54,4 @@
     wl-mirror
     xdg-utils
   ];
-
-  home.sessionVariables = {
-    ANDROID_HOME = "${config.home.sessionVariables.XDG_DATA_HOME}/android";
-    BROWSER = "zen";
-    CLUTTER_BACKEND = "wayland";
-    GDK_BACKEND = "wayland,x11";
-    MOZ_ENABLE_WAYLAND = "1";
-    NIXOS_OZONE_WL = 1;
-    QT_QPA_PLATFORM = "wayland";
-    SDL_VIDEODRIVER = "wayland";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-  };
-
-  programs.zathura.enable = true;
 }

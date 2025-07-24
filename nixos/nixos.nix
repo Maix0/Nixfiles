@@ -24,9 +24,6 @@
     fwupd.enable = true;
     openssh.enable = true;
     tailscale.enable = true;
-    tzupdate.enable = true;
-    localtimed.enable = true;
-    geoclue2.enable = true;
   };
 
   virtualisation.podman = {

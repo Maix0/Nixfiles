@@ -1,5 +1,5 @@
 {...}: {
-  import = [
+  imports = [
     ./boot.nix
     ./cachix.nix
     ./greet.nix
@@ -11,4 +11,6 @@
     ./services.nix
     ./steam.nix
   ];
+
+  system.stateVersion = "25.11";
 }

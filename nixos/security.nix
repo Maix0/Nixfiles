@@ -11,7 +11,6 @@
       enable = true;
     };
   };
-  security.pam.services.login.fprintAuth = true;
   systemd = {
     user.services = {
       polkit-gnome-authentication-agent-1 = {
@@ -37,12 +36,15 @@
     pam.services.swaylock.text = ''
       auth include login
     '';
-    pam.services.hyprlock.text = ''
-      auth sufficient pam_fprintd.so
-    '';
-    pam.services.bitwarden.text = ''
-      auth sufficient pam_fprintd.so
-    '';
+    pam.services = {
+      login.fprintAuth = true;
+      hyprlock.text = ''
+        auth sufficient pam_fprintd.so
+      '';
+      bitwarden.text = ''
+        auth sufficient pam_fprintd.so
+      '';
+    };
   };
   environment.systemPackages = [
     (pkgs.writeTextFile {

@@ -1,5 +1,5 @@
 {...}: {
-  mako = {
+  services.mako = {
     settings = {
       defaultTimeout = builtins.toString 7000;
       enable = true;

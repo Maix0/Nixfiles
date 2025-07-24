@@ -6,7 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.url = "github:nix-community/nix-index-database";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     aseprite.url = "github:maix-flake/aseprite";
@@ -23,7 +23,7 @@
     zshMaix.url = "github:maix-flake/zsh";
     rofiMaix.url = "github:maix-flake/rofi";
 
-    hyprland.url = "git+https://github.com/maix0/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
@@ -54,8 +54,6 @@
       zshMaix = inputs.zshMaix.packages."${system}".default;
       rose-pine-hyprcursor = inputs.rose-pine-hyprcursor.packages.${system}.default;
     };
-
-    extraInfo = import ./extra_info.nix;
   in {
     packages.x86_64-linux = pkgList "x86_64-linux";
     packages.aarch64-linux = pkgList "aarch64-linux";
@@ -70,15 +68,16 @@
           myPkgs = pkgList system;
         };
         modules = [
+          inputs.nix-index-database.nixosModules.nix-index
           inputs.lix-module.nixosModules.default
-          ./rework/nixos
-          ({pkgs, ...}: {
+          ./nixos
+          {
             nixpkgs.overlays = [
               inputs.hyprland.overlays.hyprland-packages
               inputs.hyprland.overlays.hyprland-extras
               inputs.hyprland-plugins.overlays.hyprland-plugins
             ];
-          })
+          }
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -89,14 +88,9 @@
                 flake = self;
                 myPkgs = pkgList system;
               };
-              users.maix = {
-                config,
-                lib,
-                pkgs,
-                ...
-              }: {
+              users.maix = {...}: {
                 imports = [
-                  ./rework/home
+                  ./home
                 ];
               };
             };

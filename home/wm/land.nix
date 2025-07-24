@@ -84,10 +84,10 @@ in {
         "Super, z, workspace, 8"
 
         "Super, Return, exec, ${config.terminal.command}"
-        "Super, Escape, exec, ${rofiPackages}/bin/rofi-powermenu"
+        "Super, Escape, exec, ${rofiPackages.powermenu}/bin/rofi-powermenu"
         "Super, c, hy3:changegroup, untab"
         "Super, w, hy3:changegroup, tab"
-        "Super, d, exec, ${rofiPackages}/bin/rofi-launcher"
+        "Super, d, exec, ${rofiPackages.launcher}/bin/rofi-launcher"
 
         "Super, f, togglefloating"
         "Super Shift, f, fullscreen"
@@ -147,14 +147,24 @@ in {
             ${pkgs.toybox}/bin/xargs ${pkgs.procps}/bin/kill
         '';
       in [
-        "${killDbus}"
         "${config.programs.waybar.package}/bin/waybar"
+        "${killDbus}"
         "${pkgs.mako}/bin/mako"
+        "${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd"
+        "${pkgs.polkit}/bin/polkit-agent-helper-1"
+        "[workspace 2 silent] zen"
+        "[workspace 8 silent] signal-desktop"
+        "[workspace 8 silent] vesktop"
+        "systemctl start --user polkit-gnome-authentication-agent-1"
       ];
       device = map tabletConfig [
         "huion-huion-tablet_gs1331-pen"
         "huion-huion-tablet_gs1331-stylus"
         "huion-huion-tablet_gs1331"
+      ];
+      windowrule = [
+        "workspace 8, class:vesktop"
+        "noinitialfocus, class:vesktop"
       ];
       input.tablet = builtins.removeAttrs (tabletConfig "global tablets") ["name"];
     };

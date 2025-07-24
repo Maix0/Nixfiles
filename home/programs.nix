@@ -17,9 +17,9 @@
     htop
     ipmitool
     jq
-    kabalist_cli
     ltrace
     man-pages
+    man-pages-posix
     myPkgs.nvimMaix
     myPkgs.zshMaix
     nix-init

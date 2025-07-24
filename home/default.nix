@@ -1,5 +1,5 @@
 {...}: {
-  import = [
+  imports = [
     ./direnv.nix
     ./env.nix
     ./git.nix
@@ -13,4 +13,6 @@
     ./wm/mako.nix
     ./wm/waybar.nix
   ];
+
+  home.stateVersion = "25.11";
 }

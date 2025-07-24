@@ -1,8 +1,4 @@
 {
-  inputs,
-  flake,
-  extraInfo,
-}: {
   pkgs,
   lib,
   config,
@@ -13,10 +9,6 @@
     type = lib.types.lines;
     default = "";
   };
-
-  imports = [
-    extraInfo
-  ];
 
   config = {
     home = {
@@ -41,9 +33,6 @@
           atexit.register(write_history)
         '';
       };
-
-      packages = with pkgs; [
-      ];
     };
 
     services.syncthing.enable = true;
