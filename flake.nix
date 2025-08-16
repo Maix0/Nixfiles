@@ -5,10 +5,10 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #lix-module = {
+    #  url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -16,7 +16,10 @@
     };
 
     nix-index-database.url = "github:nix-community/nix-index-database";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     aseprite.url = "github:maix-flake/aseprite";
     nvimMaix.url = "github:maix-flake/nvim";
@@ -50,9 +53,9 @@
       buildRofi = inputs.rofiMaix.lib."${system}";
       hy3 = inputs.hy3.packages."${system}".default;
       nvimMaix = inputs.nvimMaix.packages."${system}".default;
-      zen-browser = inputs.zen-browser.packages."${system}".default;
       zshMaix = inputs.zshMaix.packages."${system}".default;
       rose-pine-hyprcursor = inputs.rose-pine-hyprcursor.packages.${system}.default;
+      bitwarden-desktop = inputs.nixpkgs.legacyPackages.${system}.callPackage ./packages/bitwarden-desktop {};
     };
   in {
     packages.x86_64-linux = pkgList "x86_64-linux";
@@ -65,11 +68,13 @@
         system = "x86_64-linux";
         specialArgs = {
           flake = self;
+          inherit system;
           myPkgs = pkgList system;
+          zen-browser = inputs.zen-browser;
         };
         modules = [
           inputs.nix-index-database.nixosModules.nix-index
-          inputs.lix-module.nixosModules.default
+          #inputs.lix-module.nixosModules.default
           ./nixos
           {
             nixpkgs.overlays = [
@@ -86,7 +91,9 @@
               useUserPackages = true;
               extraSpecialArgs = {
                 flake = self;
+                inherit system;
                 myPkgs = pkgList system;
+                zen-browser = inputs.zen-browser;
               };
               users.maix = {...}: {
                 imports = [

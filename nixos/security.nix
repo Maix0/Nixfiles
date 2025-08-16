@@ -27,9 +27,6 @@
         };
       };
     };
-    extraConfig = ''
-      DefaultTimeoutStopSec=10s
-    '';
   };
   security = {
     rtkit.enable = true;
@@ -39,7 +36,7 @@
     pam.services = {
       login.fprintAuth = true;
       hyprlock.text = ''
-        auth sufficient pam_fprintd.so
+        auth include login
       '';
       bitwarden.text = ''
         auth sufficient pam_fprintd.so

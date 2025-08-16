@@ -5,12 +5,13 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
-    config.boot.kernelPackages.perf
-    myPkgs.zshMaix
     acpi
     bottom
+    config.boot.kernelPackages.perf
     fastmod
     htop
+    myPkgs.zshMaix
+    patchelf
     podman
     podman-compose
     podman-tui
@@ -32,8 +33,8 @@
   };
   networking.networkmanager.enable = true;
   nix = {
-    buildMachines = [
-      {
+    buildMachines = let
+      loServer = {
         system = "x86_64-linux";
         supportedFeatures = [
           "benchmark"
@@ -45,7 +46,9 @@
         sshKey = "/root/.ssh/id_buildremotekey";
         maxJobs = 8;
         hostName = "maix.me";
-      }
+      };
+    in [
+      #loServer
     ];
     distributedBuilds = true;
     settings = {

@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./browser.nix
     ./direnv.nix
     ./env.nix
     ./git.nix
@@ -11,6 +12,7 @@
     ./wm/land.nix
     ./wm/lock.nix
     ./wm/mako.nix
+    ./wm/paper.nix
     ./wm/waybar.nix
   ];
 

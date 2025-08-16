@@ -14,9 +14,6 @@
     };
   };
   home.packages = with pkgs; [
-    # Browsers
-    myPkgs.zen-browser
-
     # IM
     vesktop
     signal-desktop-bin
@@ -35,8 +32,6 @@
     hunspellDicts.fr-any
     hyphen
     libreoffice
-
-    bitwarden-desktop
 
     # Misc
     eog
