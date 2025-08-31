@@ -40,7 +40,6 @@
     krita
     myPkgs.aseprite
     mypaint
-    plasma5Packages.kdeconnect-kde
     virt-viewer
     virtualbox
     waypipe

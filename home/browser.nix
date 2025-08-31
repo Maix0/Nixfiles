@@ -10,7 +10,7 @@
 
   home.packages = [
     pkgs.firefoxpwa
-    myPkgs.bitwarden-desktop
+    pkgs.bitwarden-desktop
   ];
   programs.zen-browser = {
     enable = true;

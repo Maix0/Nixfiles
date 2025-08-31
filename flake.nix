@@ -32,7 +32,7 @@
       inputs.hyprland.follows = "hyprland";
     };
     hy3 = {
-      url = "github:outfoxxed/hy3";
+      url = "github:outfoxxed/hy3?rev=cdcbc57f7e4925bbf8d1589bbb454e660df2b88e";
       inputs.hyprland.follows = "hyprland";
     };
     rose-pine-hyprcursor = {
@@ -55,7 +55,6 @@
       nvimMaix = inputs.nvimMaix.packages."${system}".default;
       zshMaix = inputs.zshMaix.packages."${system}".default;
       rose-pine-hyprcursor = inputs.rose-pine-hyprcursor.packages.${system}.default;
-      bitwarden-desktop = inputs.nixpkgs.legacyPackages.${system}.callPackage ./packages/bitwarden-desktop {};
     };
   in {
     packages.x86_64-linux = pkgList "x86_64-linux";

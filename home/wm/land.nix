@@ -150,11 +150,11 @@ in {
         "${config.programs.waybar.package}/bin/waybar"
         "${killDbus}"
         "${pkgs.mako}/bin/mako"
-        "${pkgs.plasma5Packages.kdeconnect-kde}/libexec/kdeconnectd"
         "${pkgs.polkit}/bin/polkit-agent-helper-1"
         "[workspace 2 silent] zen"
         "[workspace 8 silent] signal-desktop"
         "[workspace 8 silent] vesktop"
+        "[workspace 2 silent] bitwarden"
         "systemctl start --user polkit-gnome-authentication-agent-1"
       ];
       device = map tabletConfig [
