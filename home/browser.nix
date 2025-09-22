@@ -11,12 +11,14 @@
   home.packages = [
     pkgs.firefoxpwa
     pkgs.bitwarden-desktop
+    pkgs.fx-cast-bridge
   ];
   programs.zen-browser = {
     enable = true;
     nativeMessagingHosts = [
       pkgs.bitwarden-desktop
       pkgs.firefoxpwa
+      pkgs.fx-cast-bridge
     ];
     policies = {
       DisableAppUpdate = true;

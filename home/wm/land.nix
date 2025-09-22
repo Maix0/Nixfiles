@@ -17,7 +17,7 @@
         style = 2;
         theme = 2;
       };
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi;
       lockPackage = pkgs.writeShellScriptBin "lock" "${pkgs.hyprlock}/bin/hyprlock --immediate";
       exitPackage = pkgs.writeShellScriptBin "exit" "${pkgs.hyprland}/bin/hyprctl exit";
     };

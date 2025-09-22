@@ -5,11 +5,12 @@
 }: {
   xdg = {
     portal = {
-      config.common.default = "*";
-      xdgOpenUsePortal = true;
+      config.common = {
+        default = "hyprland;gtk";
+      };
+      #xdgOpenUsePortal = true;
       enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
       ];
     };
@@ -19,10 +20,6 @@
     rofi
     polkit_gnome
     polkit
-
-    xdg-desktop-portal-wlr
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-gnome
     myPkgs.rose-pine-hyprcursor
   ];
 

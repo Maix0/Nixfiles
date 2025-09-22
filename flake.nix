@@ -25,19 +25,21 @@
     nvimMaix.url = "github:maix-flake/nvim";
     zshMaix.url = "github:maix-flake/zsh";
     rofiMaix.url = "github:maix-flake/rofi";
+    #rofiMaix.url = "path:/home/maix/projects/flakes/rofi";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
       inputs.hyprland.follows = "hyprland";
     };
     hy3 = {
-      url = "github:outfoxxed/hy3?rev=cdcbc57f7e4925bbf8d1589bbb454e660df2b88e";
+      url = "github:outfoxxed/hy3";
       inputs.hyprland.follows = "hyprland";
     };
     rose-pine-hyprcursor = {
       url = "github:ndom91/rose-pine-hyprcursor";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
       inputs.hyprlang.follows = "hyprland/hyprlang";
     };
   };
