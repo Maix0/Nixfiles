@@ -65,4 +65,5 @@
       options = "--delete-older-than 7d";
     };
   };
+  programs.quark-goldleaf.enable = true;
 }

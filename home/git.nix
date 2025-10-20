@@ -25,10 +25,14 @@
       core = {
         excludesfile = "${pkgs.writeText "gitignore" config.programs.git.excludes}";
       };
+      gpg.format = "ssh";
+      user.signingkey = "/home/maix/.ssh/id_ed25519.pub";
+      commit.gpgsign = true;
     };
     aliases = {
       ri = "rebase -i";
       amend = "commit --amend";
+      lg = "log --graph --pretty=format:'%C(red)%h%Creset %C(yellow)%an%Creset %C(white)%s%Creset%C(red)%d %C(green)(%ad)%Creset' --date=relative";
     };
   };
 }

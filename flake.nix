@@ -82,6 +82,22 @@
               inputs.hyprland.overlays.hyprland-packages
               inputs.hyprland.overlays.hyprland-extras
               inputs.hyprland-plugins.overlays.hyprland-plugins
+              (final: prev: {
+                quark-goldleaf = prev.quark-goldleaf.overrideAttrs (d-final: d-prev: rec {
+                  pname = "quark-goldleaf";
+                  version = "1.1.1";
+
+                  src = final.fetchFromGitHub {
+                    owner = "XorTroll";
+                    repo = "Goldleaf";
+                    rev = version;
+                    hash = "sha256-MU+7rj0SMhWezBV/MQ6yiD3u8mNeWlsowFBo+Mi6hYI=";
+                  };
+                  patches = prev.lib.lists.take 2 d-prev.patches;
+
+                  sourceRoot = "${src.name}/Quark";
+                });
+              })
             ];
           }
           home-manager.nixosModules.home-manager
