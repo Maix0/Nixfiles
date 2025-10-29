@@ -36,6 +36,8 @@
     unzip
     wget
     zk
+    obsidian
+    rnote
 
     # Useful for pandoc to latex
     (texlive.combine {

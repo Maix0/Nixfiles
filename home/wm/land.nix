@@ -32,7 +32,8 @@ in {
     };
   in {
     plugins = [
-      myPkgs.hy3
+      #myPkgs.hy3
+      pkgs.hyprlandPlugins.hyprscrolling
     ];
     enable = true;
     settings = {
@@ -44,20 +45,23 @@ in {
         ", XF86MonBrightnessDown, exec, /usr/bin/env light -U 5"
         ", XF86MonBrightnessUp, exec, /usr/bin/env light -A 5"
 
-        "Super Shift Ctrl, Down, moveactive, 0 10 "
-        "Super Shift Ctrl, Left, moveactive, -10 0"
-        "Super Shift Ctrl, Right, moveactive, 10 0"
-        "Super Shift Ctrl, Up, moveactive, 0 -10"
+        "Super Shift Ctrl, Down, moveactive, 0 100 "
+        "Super Shift Ctrl, Left, moveactive, -100 0"
+        "Super Shift Ctrl, Right, moveactive, 100 0"
+        "Super Shift Ctrl, Up, moveactive, 0 -100"
 
-        "Super Shift, Down, hy3:movewindow, d"
-        "Super Shift, Left, hy3:movewindow, l"
-        "Super Shift, Right, hy3:movewindow, r"
-        "Super Shift, Up, hy3:movewindow, u"
+        "Super Shift, Down, layoutmsg, movewindowto d"
+        "Super Shift, Left, layoutmsg, movewindowto l"
+        "Super Shift, Right, layoutmsg, movewindowto r"
+        "Super Shift, Up, layoutmsg, movewindowto u"
 
-        "Super, Down, hy3:movefocus, d"
-        "Super, Left, hy3:movefocus, l"
-        "Super, Right, hy3:movefocus, r"
-        "Super, Up, hy3:movefocus, u"
+        "Super Control, Right, layoutmsg, colresize -0.2"
+        "Super Control, Left, layoutmsg, colresize +0.2"
+
+        "Super, Down, layoutmsg, focus d"
+        "Super, Left, layoutmsg, focus l"
+        "Super, Right, layoutmsg, focus r"
+        "Super, Up, layoutmsg, focus u"
 
         "Super Shift, e, exit, "
         "Super Shift, q, killactive"
@@ -85,8 +89,9 @@ in {
 
         "Super, Return, exec, ${config.terminal.command}"
         "Super, Escape, exec, ${rofiPackages.powermenu}/bin/rofi-powermenu"
-        "Super, c, hy3:changegroup, untab"
-        "Super, w, hy3:changegroup, tab"
+        # "Super, c, hy3:changegroup, untab"
+        # "Super, w, hy3:changegroup, tab"
+        "Super, c, layoutmsg, togglefit"
         "Super, d, exec, ${rofiPackages.launcher}/bin/rofi-launcher"
 
         "Super, f, togglefloating"
@@ -97,7 +102,7 @@ in {
         ",switch:off:Lid Switch, exec, sleep 0.1 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on"
       ];
       bindn = [
-        ", mouse:272, hy3:focustab, mouse"
+        #", mouse:272, hy3:focustab, mouse"
       ];
 
       input = {
@@ -107,21 +112,26 @@ in {
         };
       };
       general = {
-        layout = "hy3";
+        layout = "scrolling";
         gaps_out = 0;
         gaps_in = 0;
       };
-      plugin.hy3 = {
-        tabs = {
-          height = 20;
-          padding = 5;
-          rounding = 3;
-          text_center = true;
-          text_font = "Hack Mono";
-          text_height = 10;
-          text_padding = 5;
-        };
+      plugin.hyprscrolling = {
+        column_width = 0.8;
+        fullscreen_on_one_column = true;
+        focus_fit_method = 1;
       };
+      #plugin.hy3 = {
+      #  tabs = {
+      #    height = 20;
+      #    padding = 5;
+      #    rounding = 3;
+      #    text_center = true;
+      #    text_font = "Hack Mono";
+      #    text_height = 10;
+      #    text_padding = 5;
+      #  };
+      #};
       workspace = [
         "1, default:true,  persistent:true "
         "2, default:false, persistent:true "

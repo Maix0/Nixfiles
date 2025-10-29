@@ -12,9 +12,9 @@
     htop
     myPkgs.zshMaix
     patchelf
-    podman
-    podman-compose
-    podman-tui
+    # podman
+    # podman-compose
+    # podman-tui
     ripgrep
     tree
     virt-manager
@@ -28,8 +28,11 @@
   };
 
   virtualisation.podman = {
-    enable = true;
+    enable = false;
     dockerCompat = true;
+  };
+  virtualisation.docker = {
+    enable = true;
   };
   networking.networkmanager.enable = true;
   nix = {
