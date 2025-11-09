@@ -63,10 +63,6 @@
 
       trusted-users = ["@wheel" "maix"];
     };
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 7d";
-    };
   };
   programs.quark-goldleaf.enable = false; # TODO: reenable in the future
   programs.nh = {

@@ -23,7 +23,14 @@
 
     aseprite.url = "github:maix-flake/aseprite";
     nvimMaix.url = "github:maix-flake/nvim";
-    zshMaix.url = "github:maix-flake/zsh";
+    zshMaix = {
+      url = "github:maix-flake/zsh";
+      # this is to force the same version of the packages
+      # for example having `alias cat='${pkgs.bat}/bin/bat -p'`
+      # meant that my `bat` was version 0.26, but my cat was bat 0.25
+      # this caused issues.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     rofiMaix.url = "github:maix-flake/rofi";
     #rofiMaix.url = "path:/home/maix/projects/flakes/rofi";
 
