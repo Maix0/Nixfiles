@@ -13,7 +13,7 @@
       diff.algorithm = "histogram";
       gpg.format = "ssh";
       init.defaultBranch = "master";
-      aliases = {
+      alias = {
         ri = "rebase -i";
         amend = "commit --amend";
         lg = "log --graph --pretty=format:'%C(red)%h%Creset %C(yellow)%an%Creset %C(white)%s%Creset%C(red)%d %C(green)(%ad)%Creset' --date=relative";
