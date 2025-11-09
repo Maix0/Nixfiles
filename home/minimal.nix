@@ -42,12 +42,7 @@
       zoxide.enable = true;
       ssh = {
         enable = true;
-        matchBlocks = {
-          LoServer = {
-            hostname = "risoul.familleboyer.net";
-            port = 22;
-          };
-        };
+        enableDefaultConfig = true;
       };
     };
   };

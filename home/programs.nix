@@ -4,8 +4,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    bat
-    bat-extras.prettybat
     bitwarden-cli
     bottom
     comma

@@ -75,7 +75,7 @@
       nerd-fonts.hack
       hack-font
       dejavu_fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       noto-fonts
     ];
     fontconfig = {

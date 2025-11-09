@@ -7,7 +7,7 @@
   environment.systemPackages = with pkgs; [
     acpi
     bottom
-    config.boot.kernelPackages.perf
+    perf
     fastmod
     htop
     myPkgs.zshMaix
@@ -68,5 +68,11 @@
       options = "--delete-older-than 7d";
     };
   };
-  programs.quark-goldleaf.enable = true;
+  programs.quark-goldleaf.enable = false; # TODO: reenable in the future
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/maix/Nixfiles"; # sets NH_OS_FLAKE variable for you
+  };
 }

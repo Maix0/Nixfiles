@@ -42,6 +42,7 @@
       inputs.nixpkgs.follows = "hyprland/nixpkgs";
       inputs.hyprlang.follows = "hyprland/hyprlang";
     };
+    nh.url = "github:nix-community/nh";
   };
 
   outputs = {
@@ -82,6 +83,7 @@
               inputs.hyprland.overlays.hyprland-packages
               inputs.hyprland.overlays.hyprland-extras
               inputs.hyprland-plugins.overlays.hyprland-plugins
+              inputs.nh.overlays.default
               (final: prev: {
                 quark-goldleaf = prev.quark-goldleaf.overrideAttrs (d-final: d-prev: rec {
                   pname = "quark-goldleaf";

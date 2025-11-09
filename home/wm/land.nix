@@ -45,18 +45,16 @@ in {
         ", XF86MonBrightnessDown, exec, /usr/bin/env light -U 5"
         ", XF86MonBrightnessUp, exec, /usr/bin/env light -A 5"
 
-        "Super Shift Ctrl, Down, moveactive, 0 100 "
-        "Super Shift Ctrl, Left, moveactive, -100 0"
-        "Super Shift Ctrl, Right, moveactive, 100 0"
-        "Super Shift Ctrl, Up, moveactive, 0 -100"
+        "Super Ctrl, Down, moveactive, 0 100 "
+        "Super Ctrl, Left, moveactive, -100 0"
+        "Super Ctrl, Right, moveactive, 100 0"
+        "Super Ctrl, Up, moveactive, 0 -100"
 
-        "Super Shift, Down, layoutmsg, movewindowto d"
-        "Super Shift, Left, layoutmsg, movewindowto l"
-        "Super Shift, Right, layoutmsg, movewindowto r"
-        "Super Shift, Up, layoutmsg, movewindowto u"
+        "Super Shift, Left, layoutmsg, swapcol l"
+        "Super Shift, Right, layoutmsg, swapcol r"
 
-        "Super Control, Right, layoutmsg, colresize -0.2"
-        "Super Control, Left, layoutmsg, colresize +0.2"
+        "Super Shift, Up , layoutmsg, colresize +0.2"
+        "Super Shift, Down, layoutmsg, colresize -0.2"
 
         "Super, Down, layoutmsg, focus d"
         "Super, Left, layoutmsg, focus l"
