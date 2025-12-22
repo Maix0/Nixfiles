@@ -7,17 +7,16 @@
   environment.systemPackages = with pkgs; [
     acpi
     bottom
-    perf
     fastmod
     htop
     myPkgs.zshMaix
     patchelf
-    # podman
-    # podman-compose
-    # podman-tui
+    perf
     ripgrep
     tree
     virt-manager
+    virtualbox
+    vagrant
   ];
 
   services = {
@@ -27,13 +26,26 @@
     tailscale.enable = true;
   };
 
-  virtualisation.podman = {
-    enable = false;
-    dockerCompat = true;
+  virtualisation = {
+    podman = {
+      enable = false;
+      dockerCompat = true;
+    };
+    docker = {
+      enable = true;
+    };
+    #libvirtd = {
+    #  enable = true;
+    #  qemu = {
+    #    package = pkgs.qemu_kvm;
+    #  };
+    #};
+    virtualbox.host = {
+      enable = true;
+    };
   };
-  virtualisation.docker = {
-    enable = true;
-  };
+  boot.extraModulePackages = [config.virtualisation.virtualbox.host.package];
+  services.udev.packages = [ pkgs.virtualbox ];
   networking.networkmanager.enable = true;
   nix = {
     buildMachines = let

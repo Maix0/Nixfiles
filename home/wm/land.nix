@@ -143,7 +143,8 @@ in {
       ];
       monitor = [
         "desc:HAT Kamvas 13 L56051794302, preferred, auto, 1, mirror, eDP-1"
-        ",prefered,auto,2"
+        "desc:Lenovo Group Limited P27h-30 V30CVCL9,prefered,0x0,1.0"
+        "desc:BOE NE135A1M-NY1,prefered,0x1440,2"
       ];
 
       exec-once = let
@@ -171,8 +172,8 @@ in {
         "huion-huion-tablet_gs1331"
       ];
       windowrule = [
-        "workspace 8, class:vesktop"
-        "noinitialfocus, class:vesktop"
+        #"workspace 8, class:vesktop"
+        #"noinitialfocus, class:vesktop"
       ];
       input.tablet = builtins.removeAttrs (tabletConfig "global tablets") ["name"];
     };

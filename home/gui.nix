@@ -41,7 +41,6 @@
     myPkgs.aseprite
     mypaint
     virt-viewer
-    virtualbox
     waypipe
     wdisplays
     wl-clipboard

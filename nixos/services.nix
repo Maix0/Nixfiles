@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   services = {
     pipewire = {
       enable = true;
@@ -11,6 +11,16 @@
     avahi = {
       nssmdns4 = true;
       enable = true;
+      openFirewall = true;
+    };
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        cups-filters
+        cups-browsed
+        gutenprint
+        gutenprintBin
+      ];
     };
   };
 }

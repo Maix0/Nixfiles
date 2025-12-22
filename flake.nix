@@ -50,6 +50,12 @@
       inputs.hyprlang.follows = "hyprland/hyprlang";
     };
     nh.url = "github:nix-community/nh";
+
+    ida-pro.url = "git+ssh://forgejo@forgejo.familleboyer.net/maix/ida-pro.git";
+    ida-pro-runfile = {
+      url = "path:///opt/ida-pro/ida-pro_92_x64linux.run";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -65,6 +71,7 @@
       nvimMaix = inputs.nvimMaix.packages."${system}".default;
       zshMaix = inputs.zshMaix.packages."${system}".default;
       rose-pine-hyprcursor = inputs.rose-pine-hyprcursor.packages.${system}.default;
+      ida-pro-runfile = inputs.ida-pro-runfile;
     };
   in {
     packages.x86_64-linux = pkgList "x86_64-linux";
@@ -87,6 +94,7 @@
           ./nixos
           {
             nixpkgs.overlays = [
+              inputs.ida-pro.overlays.default
               inputs.hyprland.overlays.hyprland-packages
               inputs.hyprland.overlays.hyprland-extras
               inputs.hyprland-plugins.overlays.hyprland-plugins

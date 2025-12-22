@@ -36,6 +36,9 @@
     zk
     obsidian
     rnote
+    (pkgs.callPackage pkgs.ida-pro {
+      runfile = myPkgs.ida-pro-runfile;
+    })
 
     # Useful for pandoc to latex
     (texlive.combine {

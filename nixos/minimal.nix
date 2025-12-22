@@ -41,6 +41,7 @@
       "vboxusers"
       "video"
       "wheel"
+      "libvirtd"
     ];
   };
 
@@ -88,4 +89,7 @@
   };
 
   security.polkit.enable = true;
+  powerManagement.enable = true;
+  services.tlp.enable = true;
+  #services.power-profiles-daemon.enable = true;
 }
