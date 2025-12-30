@@ -8,6 +8,7 @@
     ./minimal.nix
     ./programs.nix
     ./terminal.nix
+    ./gaming.nix
     ./wm/idle.nix
     ./wm/land.nix
     ./wm/lock.nix

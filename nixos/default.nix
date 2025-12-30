@@ -10,6 +10,7 @@
     ./security.nix
     ./services.nix
     ./steam.nix
+    ./waydroid.nix
   ];
 
   system.stateVersion = "25.11";

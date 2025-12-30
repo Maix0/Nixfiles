@@ -15,11 +15,13 @@
     ripgrep
     tree
     virt-manager
-    virtualbox
     vagrant
+
+    piper
   ];
 
   services = {
+    ratbagd.enable = true;
     privoxy.enable = true;
     fwupd.enable = true;
     openssh.enable = true;
@@ -34,18 +36,16 @@
     docker = {
       enable = true;
     };
-    #libvirtd = {
-    #  enable = true;
-    #  qemu = {
-    #    package = pkgs.qemu_kvm;
-    #  };
-    #};
-    virtualbox.host = {
+    libvirtd = {
       enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm; # only emulates host arch, smaller download
+        swtpm.enable = true; # allows for creating emulated TPM
+      };
     };
   };
-  boot.extraModulePackages = [config.virtualisation.virtualbox.host.package];
-  services.udev.packages = [ pkgs.virtualbox ];
+  boot.extraModulePackages = [];
+  services.udev.packages = [];
   networking.networkmanager.enable = true;
   nix = {
     buildMachines = let
