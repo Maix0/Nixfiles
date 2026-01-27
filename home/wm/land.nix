@@ -141,10 +141,33 @@ in {
         "8, default:false, persistent:true "
         "9, default:false, persistent:false"
       ];
-      monitor = [
-        "desc:HAT Kamvas 13 L56051794302, preferred, auto, 1, mirror, eDP-1"
-        "desc:Lenovo Group Limited P27h-30 V30CVCL9,prefered,0x0,1.0"
-        "desc:BOE NE135A1M-NY1,prefered,0x1440,2"
+
+      monitorv2 = [
+        {
+          output = "desc:HAT Kamvas 13 L56051794302";
+          mode = "preferred";
+          position = "auto";
+          scale = "1";
+          mirror = "eDP-1";
+        }
+        {
+          output = "desc:Lenovo Group Limited P27h-30 V30CVCL9";
+          mode = "preferred";
+          position = "0x0";
+          scale = "1";
+        }
+        {
+          output = "desc:HP Inc. OMEN by HP 27 CNK908129J";
+          mode = "preferred";
+          position = "0x0";
+          scale = "1";
+        }
+        {
+          output = "desc:BOE NE135A1M-NY1";
+          mode = "preferred";
+          position = "0x1440";
+          scale = "2";
+        }
       ];
 
       exec-once = let
@@ -172,8 +195,18 @@ in {
         "huion-huion-tablet_gs1331"
       ];
       windowrule = [
-        #"workspace 8, class:vesktop"
-        #"noinitialfocus, class:vesktop"
+        {
+          name = "vesktop-workspace";
+          "match:class" = "vesktop";
+          workspace = 8;
+          no_initial_focus = true;
+        }
+        {
+          name = "zen-workspace";
+          "match:class" = "zen-twilight";
+          workspace = 2;
+          no_initial_focus = true;
+        }
       ];
       input.tablet = builtins.removeAttrs (tabletConfig "global tablets") ["name"];
     };
