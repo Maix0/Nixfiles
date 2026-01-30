@@ -37,13 +37,45 @@
     hyprland.url = "git+https://github.com/hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
-      inputs.nixpkgs.follows = "hyprland/nixpkgs";
-      inputs.hyprland.follows = "hyprland";
+      inputs = {
+        nixpkgs.follows = "hyprland/nixpkgs";
+        hyprland.follows = "hyprland";
+      };
     };
-    hy3 = {
-      url = "github:outfoxxed/hy3";
-      inputs.hyprland.follows = "hyprland";
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs = {
+        aquamarine.follows = "hyprland/aquamarine";
+        hyprgraphics.follows = "hyprland/hyprgraphics";
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+        hyprwire.follows = "hyprland/hyprwire";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
     };
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs = {
+        hyprgraphics.follows = "hyprland/hyprgraphics";
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprutils.follows = "hyprland/hyprutils";
+        hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
+    };
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs = {
+        hyprutils.follows = "hyprland/hyprutils";
+        hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
+    };
+
     rose-pine-hyprcursor = {
       url = "github:ndom91/rose-pine-hyprcursor";
       inputs.nixpkgs.follows = "hyprland/nixpkgs";
@@ -72,6 +104,17 @@
       zshMaix = inputs.zshMaix.packages."${system}".default;
       rose-pine-hyprcursor = inputs.rose-pine-hyprcursor.packages.${system}.default;
       ida-pro-runfile = inputs.ida-pro-runfile;
+      hyprland = inputs.hyprland.packages.${system}.default;
+      xdg-desktop-portal-hyprland = inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
+      hyprlandPlugins = inputs.hyprland-plugins.packages.${system};
+      hyprlock = inputs.hyprlock.packages.${system}.default;
+      hyprpaper = inputs.hyprpaper.packages.${system}.default;
+      hyprpicker = inputs.hyprpicker.${system}.default;
+      hyprshot = inputs.nixpkgs.legacyPackages.${system}.hyprshot.override {
+        withFreeze = true;
+        hyprland = inputs.hyprland.packages.${system}.default;
+        hyprpicker = inputs.hyprpicker.packages.${system}.default;
+      };
     };
   in {
     packages.x86_64-linux = pkgList "x86_64-linux";
@@ -95,10 +138,19 @@
           {
             nixpkgs.overlays = [
               inputs.ida-pro.overlays.default
-              inputs.hyprland.overlays.hyprland-packages
-              inputs.hyprland.overlays.hyprland-extras
-              inputs.hyprland-plugins.overlays.hyprland-plugins
               inputs.nh.overlays.default
+              (final: prev: let
+                myPkgs = pkgList system;
+              in {
+                inherit
+                  (myPkgs)
+                  hyprland
+                  hyprpaper
+                  hyprshot
+                  hyprlock
+                  xdg-desktop-portal-hyprland
+                  ;
+              })
               (final: prev: {
                 quark-goldleaf = prev.quark-goldleaf.overrideAttrs (d-final: d-prev: rec {
                   pname = "quark-goldleaf";

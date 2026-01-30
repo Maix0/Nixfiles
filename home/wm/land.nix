@@ -31,9 +31,9 @@ in {
       active_area_position = "23.3, 0";
     };
   in {
+    package = pkgs.hyprland;
     plugins = [
-      #myPkgs.hy3
-      pkgs.hyprlandPlugins.hyprscrolling
+      myPkgs.hyprlandPlugins.hyprscrolling
     ];
     enable = true;
     settings = {

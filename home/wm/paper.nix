@@ -1,4 +1,4 @@
-{...}: {
+{myPkgs, ...}: {
   services.hyprpaper = {
     settings = {
       preload = ["${./background.png}"];

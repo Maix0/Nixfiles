@@ -10,8 +10,8 @@
       };
       #xdgOpenUsePortal = true;
       enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
       ];
     };
   };
@@ -21,11 +21,11 @@
     polkit_gnome
     polkit
     myPkgs.rose-pine-hyprcursor
+    android-tools
   ];
 
   programs = {
     noisetorch.enable = true;
-    adb.enable = true;
     dconf.enable = true;
   };
 }

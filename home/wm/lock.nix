@@ -1,4 +1,4 @@
-{...}: {
+{myPkgs, ...}: {
   programs = {
     hyprlock = {
       enable = true;
