@@ -142,7 +142,14 @@ in {
         "9, default:false, persistent:false"
       ];
 
-      monitorv2 = [
+      monitorv2 = let
+        mkTopMonitor = output: {
+          inherit output;
+          mode = "preferred";
+          position = "0x0";
+          scale = "1";
+        };
+      in [
         {
           output = "desc:HAT Kamvas 13 L56051794302";
           mode = "preferred";
@@ -150,18 +157,8 @@ in {
           scale = "1";
           mirror = "eDP-1";
         }
-        {
-          output = "desc:Lenovo Group Limited P27h-30 V30CVCL9";
-          mode = "preferred";
-          position = "0x0";
-          scale = "1";
-        }
-        {
-          output = "desc:HP Inc. OMEN by HP 27 CNK908129J";
-          mode = "preferred";
-          position = "0x0";
-          scale = "1";
-        }
+        (mkTopMonitor "desc:Lenovo Group Limited P27h-30")
+        (mkTopMonitor "desc:HP Inc. OMEN by HP 27 CNK908129J")
         {
           output = "desc:BOE NE135A1M-NY1";
           mode = "preferred";

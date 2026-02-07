@@ -2,7 +2,12 @@
   services.hyprpaper = {
     settings = {
       preload = ["${./background.png}"];
-      wallpaper = [", ${./background.png}"];
+      wallpaper = [
+        {
+          monitor = "";
+          path = "${./background.png}";
+        }
+      ];
       ipc = true;
       splash = true;
     };
