@@ -33,7 +33,7 @@ in {
   in {
     package = pkgs.hyprland;
     plugins = [
-      myPkgs.hyprlandPlugins.hyprscrolling
+      # myPkgs.hyprlandPlugins.hyprscrolling # now included by default in hyprland
     ];
     enable = true;
     settings = {
@@ -114,7 +114,7 @@ in {
         gaps_out = 0;
         gaps_in = 0;
       };
-      plugin.hyprscrolling = {
+      scrolling = {
         column_width = 0.8;
         fullscreen_on_one_column = true;
         focus_fit_method = 1;
@@ -200,7 +200,7 @@ in {
         }
         {
           name = "zen-workspace";
-          "match:class" = "zen-twilight";
+          "match:initial_class" = "zen-twilight";
           workspace = 2;
           no_initial_focus = true;
         }
