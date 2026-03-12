@@ -25,7 +25,9 @@
     privoxy.enable = true;
     fwupd.enable = true;
     openssh.enable = true;
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+    };
   };
 
   virtualisation = {

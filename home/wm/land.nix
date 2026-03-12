@@ -42,8 +42,8 @@ in {
         ", XF86AudioLowerVolume, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'"
         ", XF86AudioMute, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
         ", XF86AudioRaiseVolume, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'"
-        ", XF86MonBrightnessDown, exec, /usr/bin/env light -U 5"
-        ", XF86MonBrightnessUp, exec, /usr/bin/env light -A 5"
+        ", XF86MonBrightnessUp, exec, /usr/bin/env brightnessctl s 5%+"
+        ", XF86MonBrightnessDown, exec, /usr/bin/env brightnessctl s 5%-"
 
         "Super Ctrl, Down, moveactive, 0 100 "
         "Super Ctrl, Left, moveactive, -100 0"

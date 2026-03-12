@@ -54,7 +54,6 @@
       enable = true;
       libraries = [];
     };
-    light.enable = true;
   };
 
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -91,5 +90,9 @@
   security.polkit.enable = true;
   powerManagement.enable = true;
   services.power-profiles-daemon.enable = true;
-  #services.tlp.enable = true;
+  environment.defaultPackages = [
+    pkgs.brightnessctl
+  ];
+
+  services.resolved.enable = true;
 }

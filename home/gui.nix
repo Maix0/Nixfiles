@@ -16,7 +16,7 @@
   home.packages = with pkgs; [
     # IM
     vesktop
-    signal-desktop-bin
+    signal-desktop
 
     # Mail
     thunderbird

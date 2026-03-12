@@ -36,6 +36,7 @@
     zk
     obsidian
     rnote
+    strace
     (pkgs.callPackage pkgs.ida-pro {
       runfile = myPkgs.ida-pro-runfile;
     })

@@ -38,7 +38,7 @@
     };
   };
 
-  programs.foot.settings.colors = {
+  programs.foot.settings.colors-dark = {
     "16" = "ff9e64";
     "17" = "db4b4b";
   };
