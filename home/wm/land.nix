@@ -180,7 +180,7 @@ in {
         "${killDbus}"
         "${pkgs.mako}/bin/mako"
         "${pkgs.polkit}/bin/polkit-agent-helper-1"
-        "[workspace 2 silent] zen"
+        "[workspace 2 silent] zen-twilight"
         "[workspace 8 silent] signal-desktop"
         "[workspace 8 silent] vesktop"
         "[workspace 2 silent] bitwarden"
@@ -196,12 +196,6 @@ in {
           name = "vesktop-workspace";
           "match:class" = "vesktop";
           workspace = 8;
-          no_initial_focus = true;
-        }
-        {
-          name = "zen-workspace";
-          "match:initial_class" = "zen-twilight";
-          workspace = 2;
           no_initial_focus = true;
         }
       ];
