@@ -1,6 +1,14 @@
-{myPkgs, ...}: {
-  programs = {
-    hyprlock = {
+{
+  inputs,
+  lib,
+  ...
+}: let
+  moduleName = "hyprlock";
+in {
+  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
+
+  flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
+    programs.hyprlock = {
       enable = true;
       settings = {
         general = {
