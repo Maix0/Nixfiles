@@ -13,14 +13,15 @@
       diff.algorithm = "histogram";
       gpg.format = "ssh";
       init.defaultBranch = "master";
+      push.autoSetupRemote = true;
       alias = {
         ri = "rebase -i";
         amend = "commit --amend";
         lg = "log --graph --pretty=format:'%C(red)%h%Creset %C(yellow)%an%Creset %C(white)%s%Creset%C(red)%d %C(green)(%ad)%Creset' --date=relative";
       };
       user = {
-        name = "Maieul BOYER";
-        email = "maieul.dev@familleboyer.net";
+        name = "Maix0";
+        email = "39835848+Maix0@users.noreply.github.com";
         signingkey = "/home/maix/.ssh/id_ed25519.pub";
       };
     };
