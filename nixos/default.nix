@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ./minimal.nix
     ./nixos.nix
+    ./postgres.nix
     ./security.nix
     ./services.nix
     ./steam.nix
