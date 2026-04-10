@@ -3,10 +3,8 @@
   lib,
   ...
 }: let
-  moduleName = "mako";
+  moduleName = "gui-mako";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
-
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
     services.mako = {
       enable = true;

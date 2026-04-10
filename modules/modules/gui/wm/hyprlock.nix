@@ -3,9 +3,13 @@
   lib,
   ...
 }: let
-  moduleName = "hyprlock";
+  moduleName = "gui-hyprlock";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
+  flake.modules.nixos.${moduleName} = {pkgs, ...}: {
+    security.pam.services.hyprlock.text = ''
+      auth include login
+    '';
+  };
 
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
     programs.hyprlock = {

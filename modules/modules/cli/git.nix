@@ -3,10 +3,8 @@
   lib,
   ...
 }: let
-  moduleName = "git";
+  moduleName = "cli-git";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
-
   flake.modules.homeManager.${moduleName} = {
     pkgs,
     config,
@@ -17,7 +15,6 @@ in {
       package = pkgs.gitFull;
       settings = {
         commit.gpgsign = true;
-        core.excludesfile = "${pkgs.writeText "gitignore" config.programs.git.excludes}";
         diff.algorithm = "histogram";
         gpg.format = "ssh";
         init.defaultBranch = "master";

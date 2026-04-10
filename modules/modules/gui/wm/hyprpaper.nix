@@ -3,10 +3,8 @@
   lib,
   ...
 }: let
-  moduleName = "hyprpaper";
+  moduleName = "gui-hyprpaper";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
-
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
     services.hyprpaper = {
       settings = {

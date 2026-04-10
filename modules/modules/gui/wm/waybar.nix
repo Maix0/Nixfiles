@@ -3,10 +3,8 @@
   lib,
   ...
 }: let
-  moduleName = "waybar";
+  moduleName = "gui-waybar";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
-
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
     programs.waybar = {
       enable = true;

@@ -3,10 +3,8 @@
   lib,
   ...
 }: let
-  moduleName = "lutris";
+  moduleName = "gaming-lutris";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
-
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
     programs.lutris = {
       enable = true;

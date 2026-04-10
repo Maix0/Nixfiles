@@ -3,10 +3,8 @@
   lib,
   ...
 }: let
-  moduleName = "direnv";
+  moduleName = "cli-direnv";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
-
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
     programs.direnv = {
       enable = true;

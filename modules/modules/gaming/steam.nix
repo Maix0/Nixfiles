@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  moduleName = "steam";
+  moduleName = "gaming-steam";
 in {
   flake.modules.nixos.${moduleName} = {pkgs, ...}: {
     nixpkgs.config.allowUnfree = true;
@@ -26,6 +26,4 @@ in {
       };
     };
   };
-
-  #flake.modules.homeManager.${moduleName} = {pkgs, ...}: {};
 }

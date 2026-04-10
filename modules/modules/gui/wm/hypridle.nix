@@ -3,29 +3,33 @@
   lib,
   ...
 }: let
-  moduleName = "hypridle";
+  moduleName = "gui-hypridle";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
-
-  flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
-    services = {
+  flake.modules.homeManager.${moduleName} = {
+    pkgs,
+    system,
+    ...
+  }: {
+    services = let
+      inherit (inputs.hyprland.packages.${system}) hyprland;
+    in {
       hypridle = {
         enable = true;
         settings = {
           general = {
-            after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+            after_sleep_cmd = "${hyprland}/bin/hyprctl dispatch dpms on";
             ignore_dbus_inhibit = false;
-            lock_cmd = "hyprlock";
+            lock_cmd = "${lib.getExe pkgs.hyprlock}";
           };
           listener = [
             {
               timeout = 900;
-              on-timeout = "hyprlock";
+              on-timeout = "${lib.getExe pkgs.hyprlock}";
             }
             {
               timeout = 1200;
-              on-timeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-              on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+              on-timeout = "${hyprland}/bin/hyprctl dispatch dpms off";
+              on-resume = "${hyprland}/bin/hyprctl dispatch dpms on";
             }
           ];
         };

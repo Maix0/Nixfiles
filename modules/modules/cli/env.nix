@@ -3,10 +3,8 @@
   lib,
   ...
 }: let
-  moduleName = "env";
+  moduleName = "cli-env";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
-
   flake.modules.homeManager.${moduleName} = {
     pkgs,
     config,

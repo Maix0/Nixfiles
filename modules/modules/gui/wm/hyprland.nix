@@ -3,14 +3,29 @@
   lib,
   ...
 }: let
-  moduleName = "hyprland";
+  moduleName = "gui-hyprland";
 in {
-  #flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
+  flake.modules.nixos.${moduleName} = {pkgs, ...}: {
+    imports = with inputs.self.modules.nixos; [
+      gui-hyprlock
+    ];
+  };
 
-  flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
-    imports = with inputs.self.modules.homeManager; [hypridle hyprlock hyprpaper mako waybar];
+  flake.modules.homeManager.${moduleName} = {
+    pkgs,
+    system,
+    ...
+  }: {
+    imports = with inputs.self.modules.homeManager; [
+      gui-hypridle
+      gui-hyprlock
+      gui-hyprpaper
+      gui-mako
+      gui-waybar
+    ];
 
     wayland.windowManager.hyprland = let
+      inherit (inputs.hyprland.packages.${system}) hyprland;
       tabletConfig = name: {
         inherit name;
         output = "eDP-1";
@@ -18,7 +33,7 @@ in {
         active_area_position = "23.3, 0";
       };
     in {
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      package = hyprland;
       plugins = [];
       enable = true;
       settings = {
@@ -48,7 +63,7 @@ in {
 
           "Super Shift, e, exit, "
           "Super Shift, q, killactive"
-          "Super Shift, r, exec, ${pkgs.hyprland}/bin/hyprctl reload"
+          "Super Shift, r, exec, ${hyprland}/bin/hyprctl reload"
 
           "Super Shift, 1, movetoworkspacesilent, 1"
           "Super Shift, 2, movetoworkspacesilent, 2"
@@ -70,7 +85,7 @@ in {
           "Super, x, workspace, 9"
           "Super, z, workspace, 8"
 
-          "Super, Return, exec, ${lib.getExe pkgs.foot}/bin/foot"
+          "Super, Return, exec, ${lib.getExe pkgs.foot}"
           #"Super, Escape, exec, ${rofiPackages.powermenu}/bin/rofi-powermenu"
           "Super, c, layoutmsg, togglefit"
           "Super, d, exec, ${lib.getExe pkgs.hyprlauncher}"
@@ -79,8 +94,8 @@ in {
           "Super Shift, f, fullscreen"
         ];
         bindl = [
-          ",switch:on:Lid Switch, exec, sleep 0.1 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms off"
-          ",switch:off:Lid Switch, exec, sleep 0.1 && ${pkgs.hyprland}/bin/hyprctl dispatch dpms on"
+          ",switch:on:Lid Switch, exec, sleep 0.1 && ${hyprland}/bin/hyprctl dispatch dpms off"
+          ",switch:off:Lid Switch, exec, sleep 0.1 && ${hyprland}/bin/hyprctl dispatch dpms on"
         ];
         bindn = [
           #", mouse:272, hy3:focustab, mouse"

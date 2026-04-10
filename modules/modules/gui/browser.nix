@@ -3,10 +3,8 @@
   lib,
   ...
 }: let
-  moduleName = "browser";
+  moduleName = "gui-browser";
 in {
-  flake.modules.nixos.${moduleName} = {pkgs, ...}: {};
-
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
     imports = [
       inputs.zen-browser.homeModules.twilight

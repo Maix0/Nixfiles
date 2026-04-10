@@ -5,20 +5,40 @@
 }: {
   flake.homeConfiguration = inputs.self.lib.mkHomeManager "x86_64-linux" "maix";
   flake.modules = lib.mkMerge [
-    (inputs.self.lib.mkUser "maix" true)
+    (inputs.self.lib.mkUser "maix" ({system, ...}: {
+      admin = true;
+      uid = 1000;
+      shell = inputs.zsh.packages.${system}.zsh;
+      extraGroups = [
+        "adbusers"
+        "audio"
+        "dialout"
+        "docker"
+        "lp"
+        "plugdev"
+        "podman"
+        "scanner"
+        "vboxusers"
+        "video"
+        "libvirtd"
+      ];
+    }))
     (inputs.self.lib.mkHome "maix")
     {
-      nixos.maix = {
+      nixos.user-maix = {
         programs.nh.flake = "/home/maix/Nixfiles";
       };
-      homeManager.ethan = {
+      homeManager.hm-maix = {
         config,
         pkgs,
         ...
       }: {
         imports = with inputs.self.modules.homeManager; [
-          home-gui
-          hyprland
+          minimal
+          gaming
+          dev
+          gui
+          cli
         ];
         home.packages = with pkgs; [];
         programs.git.settings = {
