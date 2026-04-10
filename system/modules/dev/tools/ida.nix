@@ -10,7 +10,7 @@ in {
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
     assertions = [
       {
-        assertion = true;
+        assertion = false;
         message = "ida module not yet ported!";
       }
     ];

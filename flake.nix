@@ -28,7 +28,15 @@
       url = "github:maix-flake/zsh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} (top @ {...}: {
+      imports =
+        [inputs.flake-parts.flakeModules.modules]
+        ++ (inputs.import-tree [./system ./nvim ./packages]).imports;
+      systems = ["x86_64-linux" "aarch64-linux"];
+    });
 }
