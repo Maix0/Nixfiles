@@ -1,0 +1,58 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = '''
+[](fg:#1e1e1e)[   $directory $git_branch$git_status$git_state](white bg:#1e1e1e)[](fg:#1e1e1e)$fill[](fg:#1e1e1e)[$cmd_duration $time ](bg:#1e1e1e)[](fg:#1e1e1e)
+$character'''
+
+[directory]
+home_symbol = " ~"
+style = "bold fg:blue bg:#1e1e1e"
+format = "[$path]($style)[$read_only]($read_only_style)"
+truncate_to_repo = false
+truncation_length = 2
+fish_style_pwd_dir_length = 3
+
+[character]
+success_symbol = '[❯](fg:#00ff00)'
+error_symbol = "[❯](fg:#ff0000)"
+
+[fill]
+symbol = "·"
+style = "fg:#404040"
+
+[cmd_duration]
+min_time = 50
+format = '[  $duration ](fg:yellow bg:#1e1e1e)[](white bg:#1e1e1e)'
+show_milliseconds = false
+
+[time]
+disabled = false
+style = "fg:blue bg:#1e1e1e"
+format = '[$time ]($style)'
+time_format = '%T'
+
+[git_state]
+disabled = false
+style = "bold yellow bg:#1e1e1e"
+format = '[$state($progress_current/$progress_total)]($style)'
+
+[git_status]
+disabled = false
+ahead = '[⇡${count}](yellow bg:#1e1e1e)'
+diverged = '[[⇡${ahead_count}](yellow)(⇣${behind_count})[green]](bg:#1e1e1e)'
+behind = '[⇣${count}](green bg:#1e1e1e)'
+
+staged = '+${count} '
+modified = '!${count} '
+deleted = '-${count} '
+format = '[$staged$untracked](fg:yellow bg:#1e1e1e)[$deleted](bold fg:red bg:#1e1e1e)[$ahead_behind]($style)(bg:#1e1e1e fg:white)'
+
+[git_branch]
+style = "fg:green bg:#1e1e1e"
+symbol = ""
+format = "([](fg:white bg:#1e1e1e)[ $symbol $branch(:$remote_branch)]($style) )"
+disabled = false
