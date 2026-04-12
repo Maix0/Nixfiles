@@ -20,7 +20,7 @@
         lib.optionals
         (builtins.hasAttr "hm-${name}" inputs.self.modules.nixos)
         [inputs.self.modules.nixos."hm-${name}"];
-      users.users."${name}" = {
+      users.users."${name}" = ({
         isNormalUser = true;
         home = "/home/${name}";
         extraGroups =
@@ -30,11 +30,11 @@
           ])
           ++ extraGroups;
         shell =
-          if !(builtins.isNull shell)
+          if shell != null
           then shell
           else pkgs.zsh;
         inherit uid;
-      };
+      });
       programs.zsh.enable = lib.mkDefault shell == null;
     };
   in {

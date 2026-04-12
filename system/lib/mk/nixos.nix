@@ -13,7 +13,7 @@
           inputs.self.modules.nixos."host-${name}"
           {
             nixpkgs = {
-              config.allowUnfree = true;
+              config.allowUnfree = lib.mkDefault true;
               hostPlatform = lib.mkDefault system;
             };
             networking.hostName = lib.mkDefault "${name}";

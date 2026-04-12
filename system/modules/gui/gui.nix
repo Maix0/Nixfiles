@@ -80,6 +80,7 @@ in {
       font.name = "DejaVu Sans";
       
     };
+    nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [
       # IM
       vesktop
@@ -98,7 +99,7 @@ in {
       eog
       fzf
       krita
-      inputs.aseprite.packages.${system}.default
+      inputs.self.packages.${system}.aseprite
       mypaint
       virt-viewer
       waypipe

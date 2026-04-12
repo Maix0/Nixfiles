@@ -42,7 +42,7 @@ in {
           regular7 = "a9b1d6";
           urls = "73daca";
         };
-        main.font = "font=Hack Nerd Font Mono:size=10";
+        main.font = "Hack Nerd Font Mono:size=10";
       };
     };
   };

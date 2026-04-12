@@ -175,16 +175,24 @@
         text = zshrc_data;
         destination = "/.zshrc";
       };
-    in
-      pkgs.writeShellApplication {
+
+      rawShellApp = pkgs.writeShellApplication {
         name = "zsh";
         runtimeInputs = with pkgs; [fzf direnv zoxide starship];
         text = ''
           ZDOTDIR="${zsh_config_file}/" LANG=C.UTF-8 exec ${pkgs.zsh}/bin/zsh "$@"
         '';
-        derivationArgs = {
-          passthru.shellPath = "/bin/zsh";
-        };
+      };
+    in
+      pkgs.stdenvNoCC.mkDerivation {
+        name = "zsh";
+        src = rawShellApp;
+        passthru.shellPath = "/bin/login-zsh";
+        installPhase = ''
+          mkdir -p $out/bin
+          ln -s $src/bin/zsh $out/bin/login-zsh
+          ln -s $src/bin/zsh $out/bin/zsh
+        '';
       };
 
     apps.${packageName} = {

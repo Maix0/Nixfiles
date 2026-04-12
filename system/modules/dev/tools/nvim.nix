@@ -13,7 +13,7 @@ in {
     ...
   }: {
     home.packages = [
-      inputs.nvim.packages.${system}.default
+      inputs.self.packages.${system}.nvim
     ];
   };
 }

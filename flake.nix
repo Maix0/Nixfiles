@@ -22,13 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    aseprite.url = "github:maix-flake/aseprite";
-    nvim.url = "github:maix-flake/nvim";
-    zsh = {
-      url = "github:maix-flake/zsh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixvim.url = "github:nix-community/nixvim";
   };
 

@@ -8,7 +8,7 @@
     (inputs.self.lib.mkUser "maix" ({system, ...}: {
       admin = true;
       uid = 1000;
-      shell = inputs.zsh.packages.${system}.zsh;
+      shell = null;
       extraGroups = [
         "adbusers"
         "audio"
@@ -25,12 +25,18 @@
     }))
     (inputs.self.lib.mkHome "maix")
     {
-      nixos.user-maix = {
+      nixos.user-maix = {system, ...}: {
         programs.nh.flake = "/home/maix/Nixfiles";
+        users.users.maix.ignoreShellProgramCheck = true;
+        users.users.maix.shell = lib.mkForce inputs.self.packages.${system}.zsh;
+        environment.shells = [
+          "${inputs.self.packages.${system}.zsh}/bin/zsh"
+        ];
       };
       homeManager.hm-maix = {
         config,
         pkgs,
+        system,
         ...
       }: {
         imports = with inputs.self.modules.homeManager; [
@@ -40,7 +46,9 @@
           gui
           cli
         ];
-        home.packages = with pkgs; [];
+        home.packages = with pkgs; [
+          inputs.self.packages.${system}.zsh
+        ];
         programs.git.settings = {
           user = {
             name = "Maix0";

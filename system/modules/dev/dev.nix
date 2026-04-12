@@ -21,7 +21,7 @@ in {
       dev-man
       dev-probe-rs
       dev-nvim
-      dev-ida
+      #dev-ida
     ];
   };
 }
