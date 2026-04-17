@@ -12,13 +12,15 @@
     mkVim = m:
       inputs'.nixvim.legacyPackages.makeNixvimWithModule {
         module = {...}: {
-          imports = m inputs.self.modules.nixvim;
+          imports = builtins.attrValues (m inputs.self.modules.nixvim);
         };
       };
+    removeAttrs' = names: attr: builtins.removeAttrs attr names;
   in {
     packages = {
-      nvimFull = mkVim (m: (builtins.attrValues m));
+      nvimFull = mkVim (m: m);
       nvim = self'.packages.nvimFull;
+      nvimNoClipboard = mkVim (removeAttrs' ["clipboard"]);
     };
     apps = {
       nvimFull = {
