@@ -20,6 +20,7 @@ in {
       gui-hypridle
       gui-hyprlock
       gui-hyprpaper
+      gui-hyprlauncher
       gui-mako
       gui-waybar
     ];
