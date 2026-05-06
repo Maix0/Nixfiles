@@ -43,7 +43,7 @@ in {
           {name = "nvim_lsp";}
           {name = "path";}
           {name = "buffer";}
-          {name = "calc";}
+          # {name = "calc";} # FIXME: this has an unfree license as of 2026-05-05 ?!
         ];
       };
 
