@@ -8,10 +8,12 @@
   config.flake.lib.mkHomeManager = system: name: {
     "hc-${name}" = inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = inputs.nixpkgs.legacyPackages.${system};
-      modules = [
-        inputs.self.modules.homeManager."hm-${name}"
-        {nixpkgs.config.allowUnfree = true;}
-      ];
+      modules =
+        [
+          inputs.self.modules.homeManager."hm-${name}"
+          {nixpkgs.config.allowUnfree = true;}
+        ]
+        ++ (inputs.self.lib.optionalModule "private-hm-${name}" inputs.self.modules.homeManager);
     };
   };
 }

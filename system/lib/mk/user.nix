@@ -17,10 +17,8 @@
       extraGroups ? [],
     }: {
       imports =
-        lib.optionals
-        (builtins.hasAttr "hm-${name}" inputs.self.modules.nixos)
-        [inputs.self.modules.nixos."hm-${name}"];
-      users.users."${name}" = ({
+        inputs.self.lib.optionalModule "hm-${name}" inputs.self.modules.nixos;
+      users.users."${name}" = {
         isNormalUser = true;
         home = "/home/${name}";
         extraGroups =
@@ -34,7 +32,7 @@
           then shell
           else pkgs.zsh;
         inherit uid;
-      });
+      };
       programs.zsh.enable = lib.mkDefault shell == null;
     };
   in {

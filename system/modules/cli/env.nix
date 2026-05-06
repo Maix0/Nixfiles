@@ -37,7 +37,7 @@ in {
       PSQL_HISTORY = "${XDG_DATA_HOME}/psql_history";
       PYTHONSTARTUP = "${XDG_CONFIG_HOME}/python/pythonrc";
 
-      QT_QPA_PLATFORM = "wayland,xcb";
+      QT_QPA_PLATFORM = "wayland";
       RUSTUP_HOME = "${XDG_DATA_HOME}/rustup";
 
       SDL_VIDEODRIVER = "wayland";

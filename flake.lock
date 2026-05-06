@@ -592,6 +592,28 @@
         "type": "github"
       }
     },
+    "privateConfig": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "import-tree": [
+          "import-tree"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./stubPrivate",
+        "type": "path"
+      },
+      "original": {
+        "path": "./stubPrivate",
+        "type": "path"
+      },
+      "parent": []
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -600,6 +622,7 @@
         "import-tree": "import-tree",
         "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim",
+        "privateConfig": "privateConfig",
         "rose-pine-hyprcursor": "rose-pine-hyprcursor",
         "zen-browser": "zen-browser"
       }

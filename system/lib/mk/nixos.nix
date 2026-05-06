@@ -19,11 +19,8 @@
             networking.hostName = lib.mkDefault "${name}";
           }
         ]
-        ++ (
-          lib.optionals
-          (builtins.hasAttr "host-${name}-hw" inputs.self.modules.nixos)
-          [inputs.self.modules.nixos."host-${name}-hw"]
-        );
+        ++ (inputs.self.lib.optionalModule "host-${name}-hw" inputs.self.modules.nixos)
+        ++ (inputs.self.lib.optionalModule "private-host-${name}" inputs.self.modules.nixos);
     };
   };
 }

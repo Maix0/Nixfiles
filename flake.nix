@@ -23,12 +23,31 @@
     };
 
     nixvim.url = "github:nix-community/nixvim";
+
+    privateConfig = {
+      url = "path:./stubPrivate";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} (top @ {...}: {
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} (top @ {...}: let
+      inputsModules = {lib, ...}: {flake.inputs.public = lib.filterAttrs (n: _: n != "self") inputs;};
+      privateModules = {lib, ...}: {
+        flake.modules = inputs.privateConfig.modules;
+
+        perSystem = {system, ...}: {
+          apps = inputs.privateConfig.apps.${system};
+          packages = inputs.privateConfig.packages.${system};
+        };
+      };
+    in {
       imports =
-        [inputs.flake-parts.flakeModules.modules]
+        [inputs.flake-parts.flakeModules.modules inputsModules privateModules]
         ++ (inputs.import-tree [./system ./nvim ./packages]).imports;
       systems = ["x86_64-linux" "aarch64-linux"];
     });

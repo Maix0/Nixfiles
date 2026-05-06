@@ -9,10 +9,12 @@
     nixos."user-${username}" = {
       imports = [inputs.home-manager.nixosModules.home-manager];
       home-manager.users."${username}" = {
-        imports = [
-          inputs.self.modules.homeManager."hm-${username}"
-          inputs.self.modules.homeManager.lib-system
-        ];
+        imports =
+          [
+            inputs.self.modules.homeManager."hm-${username}"
+            inputs.self.modules.homeManager.lib-system
+          ]
+          ++ (inputs.self.lib.optionalModule "private-hm-${username}" inputs.self.modules.homeManager);
       };
       home-manager.backupFileExtension = "backup";
     };
