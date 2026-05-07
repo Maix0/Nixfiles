@@ -40,9 +40,9 @@ in {
       settings = {
         bind = [
           ", Print, exec, ${lib.getExe pkgs.hyprshot} -m region --clipboard-only"
-          ", XF86AudioLowerVolume, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '-10%'"
-          ", XF86AudioMute, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"
-          ", XF86AudioRaiseVolume, exec, ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ '+10%'"
+          ", XF86AudioLowerVolume, exec, ${lib.getExe' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ '-10%'"
+          ", XF86AudioMute, exec, ${lib.getExe' pkgs.pulseaudio "pactl"} set-sink-mute @DEFAULT_SINK@ toggle"
+          ", XF86AudioRaiseVolume, exec, ${lib.getExe' pkgs.pulseaudio "pactl"} set-sink-volume @DEFAULT_SINK@ '+10%'"
           ", XF86MonBrightnessUp, exec, /usr/bin/env brightnessctl s 5%+"
           ", XF86MonBrightnessDown, exec, /usr/bin/env brightnessctl s 5%-"
 
@@ -64,7 +64,7 @@ in {
 
           "Super Shift, e, exit, "
           "Super Shift, q, killactive"
-          "Super Shift, r, exec, ${hyprland}/bin/hyprctl reload"
+          "Super Shift, r, exec, ${lib.getExe' hyprland "hyprctl"} reload"
 
           "Super Shift, 1, movetoworkspacesilent, 1"
           "Super Shift, 2, movetoworkspacesilent, 2"
@@ -87,7 +87,7 @@ in {
           "Super, z, workspace, 8"
 
           "Super, Return, exec, ${lib.getExe pkgs.foot}"
-          #"Super, Escape, exec, ${rofiPackages.powermenu}/bin/rofi-powermenu"
+          "Super, Escape, exec, ${lib.getExe inputs.self.packages.${system}.hyprpowerctl}"
           "Super, c, layoutmsg, togglefit"
           "Super, d, exec, ${lib.getExe pkgs.hyprlauncher}"
 
@@ -95,8 +95,8 @@ in {
           "Super Shift, f, fullscreen"
         ];
         bindl = [
-          ",switch:on:Lid Switch, exec, sleep 0.1 && ${hyprland}/bin/hyprctl dispatch dpms off"
-          ",switch:off:Lid Switch, exec, sleep 0.1 && ${hyprland}/bin/hyprctl dispatch dpms on"
+          ",switch:on:Lid Switch, exec, sleep 0.1 && ${lib.getExe' hyprland "hyprctl"} dispatch dpms off"
+          ",switch:off:Lid Switch, exec, sleep 0.1 && ${lib.getExe' hyprland "hyprctl"} dispatch dpms on"
         ];
         bindn = [
           #", mouse:272, hy3:focustab, mouse"
