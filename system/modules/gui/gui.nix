@@ -78,7 +78,12 @@ in {
     gtk = {
       enable = true;
       font.name = "DejaVu Sans";
-      
+      colorScheme = "dark";
+      theme = {
+        name = "Adwaita";
+        package = pkgs.gnome-themes-extra;
+      };
+      gtk4.theme = null;
     };
     nixpkgs.config.allowUnfree = true;
     home.packages = with pkgs; [

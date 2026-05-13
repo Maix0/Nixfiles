@@ -22,6 +22,7 @@ in {
       dev-probe-rs
       dev-nvim
       dev-ida
+      dev-kicad
     ];
   };
 }
