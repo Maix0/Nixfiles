@@ -30,7 +30,7 @@
         users.users.maix.ignoreShellProgramCheck = true;
         users.users.maix.shell = lib.mkForce inputs.self.packages.${system}.zsh;
         environment.shells = [
-          "${inputs.self.packages.${system}.zsh}/bin/zsh"
+          (lib.getExe inputs.self.packages.${system}.zsh)
         ];
       };
       homeManager.hm-maix = {
@@ -46,7 +46,7 @@
           gui
           cli
         ];
-        home.packages = with pkgs; [
+        home.packages = [
           inputs.self.packages.${system}.zsh
         ];
         programs.git.settings = {

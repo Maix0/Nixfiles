@@ -90,6 +90,7 @@
           cp ${./aseprite.desktop} $out/share/applications/
           cp ${./aseprite.xml} $out/share/mime/packages/
         '';
+        meta.mainProgram = "aseprite";
       };
 
     apps.${packageName} = {

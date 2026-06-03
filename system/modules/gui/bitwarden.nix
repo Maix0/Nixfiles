@@ -24,6 +24,12 @@ in {
   };
 
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
-    home.packages = with pkgs; [bitwarden-desktop bitwarden-cli];
+    nixpkgs.config.permittedInsecurePackages = [
+      "electron-39.8.10"
+    ];
+    home.packages = with pkgs; [
+      bitwarden-desktop
+      bitwarden-cli
+    ];
   };
 }

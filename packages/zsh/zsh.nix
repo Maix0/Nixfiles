@@ -193,6 +193,7 @@
           ln -s $src/bin/zsh $out/bin/login-zsh
           ln -s $src/bin/zsh $out/bin/zsh
         '';
+        meta.mainProgram = "zsh";
       };
 
     apps.${packageName} = {
