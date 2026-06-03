@@ -23,6 +23,11 @@
     };
 
     nixvim.url = "github:nix-community/nixvim";
+  
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     privateConfig = {
       url = "path:./stubPrivate";

@@ -10,6 +10,10 @@ in {
       auth sufficient pam_fprintd.so
     '';
 
+    nixpkgs.config.permittedInsecurePackages = [
+      "electron-39.8.10"
+    ];
+
     environment.systemPackages = [
       (pkgs.stdenvNoCC.mkDerivation {
         name = "bitwarden-polkit";

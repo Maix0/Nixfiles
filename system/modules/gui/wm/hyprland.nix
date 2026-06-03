@@ -17,12 +17,12 @@ in {
     ...
   }: {
     imports = with inputs.self.modules.homeManager; [
-      gui-hypridle
-      gui-hyprlock
-      gui-hyprpaper
+      # gui-hypridle
+      # gui-hyprlock
+      # gui-hyprpaper
       gui-hyprlauncher
-      gui-mako
-      gui-waybar
+      # gui-mako
+      gui-noctalia
     ];
 
     wayland.windowManager.hyprland = let
@@ -157,17 +157,18 @@ in {
 
         exec-once = let
           killDbus = pkgs.writeShellScript "kill-dbus-session" ''
-            ${pkgs.procps}/bin/ps aux | \
+            ${lib.getExe' pkgs.procps "ps"} aux | \
               ${lib.getExe pkgs.ripgrep} dbus | \
               ${lib.getExe pkgs.ripgrep} -v '/bin/rg' | \
-              ${lib.getExe pkgs.ripgrep} -o '^'"$(${pkgs.toybox}/bin/whoami)"'\s+([0-9]+)'  --replace '$1' | \
-              ${pkgs.toybox}/bin/xargs ${pkgs.procps}/bin/kill
+              ${lib.getExe pkgs.ripgrep} -o '^'"$(${lib.getExe' pkgs.toybox "whoami"})"'\s+([0-9]+)'  --replace '$1' | \
+              ${lib.getExe' pkgs.toybox "xargs"} ${lib.getExe' pkgs.procps "kill"}
           '';
         in [
-          "${lib.getExe pkgs.waybar}"
+          # "${lib.getExe pkgs.waybar}"
+          # "${lib.getExe pkgs.mako}"
           "${killDbus}"
-          "${lib.getExe pkgs.mako}"
-          "${pkgs.polkit}/bin/polkit-agent-helper-1"
+          "noctalia-shell"
+          "${lib.getExe' pkgs.polkit "polkit-agent-helper-1"}"
           "[workspace 2 silent] zen-twilight"
           "[workspace 8 silent] signal-desktop"
           "[workspace 8 silent] vesktop"
