@@ -13,6 +13,8 @@ in {
         dejavu_fonts
         noto-fonts-color-emoji
         noto-fonts
+        material-symbols
+        inter
       ];
       fontconfig = {
         defaultFonts = {

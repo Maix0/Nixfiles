@@ -11,7 +11,6 @@ in {
     ];
 
     home.packages = [
-      pkgs.firefoxpwa
       pkgs.bitwarden-desktop
       pkgs.fx-cast-bridge
     ];
@@ -19,7 +18,6 @@ in {
       enable = true;
       nativeMessagingHosts = [
         pkgs.bitwarden-desktop
-        pkgs.firefoxpwa
         pkgs.fx-cast-bridge
       ];
       policies = {
