@@ -25,6 +25,7 @@ in {
       pathsToLink = ["/share/zsh"];
     };
     environment.defaultPackages = [pkgs.brightnessctl];
+    services.upower.enable = true;
   };
 
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
