@@ -87,7 +87,8 @@ in {
           "Super, z, workspace, 8"
 
           "Super, Return, exec, ${lib.getExe pkgs.foot}"
-          "Super, Escape, exec, ${lib.getExe inputs.self.packages.${system}.hyprpowerctl}"
+          "Super, Escape, exec, noctalia-shell ipc call sessionMenu toggle"
+          "Super, Space, exec, noctalia-shell ipc call lockScreen lock"
           "Super, c, layoutmsg, togglefit"
           "Super, d, exec, ${lib.getExe pkgs.hyprlauncher}"
 

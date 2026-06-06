@@ -177,7 +177,7 @@
     "boxRadiusRatio": 1,
     "screenRadiusRatio": 1,
     "animationSpeed": 1,
-    "animationDisabled": false,
+    "animationDisabled": true,
     "compactLockScreen": false,
     "lockScreenAnimations": false,
     "lockOnSuspend": true,
@@ -484,8 +484,8 @@
     "position": "center",
     "showHeader": true,
     "showKeybinds": true,
-    "largeButtonsStyle": true,
-    "largeButtonsLayout": "single-row",
+    "largeButtonsStyle": false,
+    "largeButtonsLayout": "grid",
     "powerOptions": [
       {
         "action": "lock",
@@ -647,7 +647,7 @@
     "notifyUpdates": true
   },
   "idle": {
-    "enabled": false,
+    "enabled": true,
     "screenOffTimeout": 600,
     "lockTimeout": 660,
     "suspendTimeout": 1800,
