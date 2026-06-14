@@ -49,6 +49,7 @@
         home.packages = [
           inputs.self.packages.${system}.zsh
         ];
+        programs.fastfetch.enable = true;
         programs.git.settings = {
           user = {
             name = "Maix0";
