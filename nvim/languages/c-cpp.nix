@@ -60,5 +60,20 @@ in {
         ]);
       lsp.servers.clangd.enable = true;
     };
+    extraConfigLuaPost = ''
+      function avrClangd()
+        vim.lsp.enable("clangd", false)
+        local avr_gcc = vim.fn.exepath("avr-gcc")
+        if avr_gcc == "" then
+          vim.notify("No avr-gcc found", vim.log.levels.ERROR)
+        else
+          vim.notify("avr-gcc found at "..avr_gcc, vim.log.levels.INFO)
+        end
+
+        vim.lsp.config("clangd", { cmd = { "clangd", "--query-driver=" .. avr_gcc }})
+
+        vim.lsp.enable("clangd")
+      end
+    '';
   };
 }
