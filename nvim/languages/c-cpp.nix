@@ -1,13 +1,10 @@
-{
-  inputs,
-  lib,
-  ...
-}: let
+{inputs, ...}: let
   moduleName = "c-cpp";
 in {
   flake.modules.nixvim.${moduleName} = {
     pkgs,
     config,
+    lib,
     ...
   }: {
     filetype.extension = {
@@ -61,6 +58,7 @@ in {
       lsp.servers.clangd.enable = true;
     };
     extraConfigLuaPost = ''
+
       function avrClangd()
         vim.lsp.enable("clangd", false)
         local avr_gcc = vim.fn.exepath("avr-gcc")
@@ -74,6 +72,32 @@ in {
 
         vim.lsp.enable("clangd")
       end
+
+      vim.api.nvim_create_user_command(
+        "AvrClangd",
+        avrClangd,
+        { desc = "Switch to clangd with avr-gcc query driver" }
+      )
+      project_hooks = {
+        ["/home/maix/school/megasplonk/SplonkOS"] = avrClangd,
+      }
     '';
+
+    autoCmd = [
+      {
+        event = ["VimEnter"];
+        callback = lib.nixvim.mkRaw ''
+          function()
+            local file = vim.api.nvim_buf_get_name(0)
+            local root = file ~= "" and vim.fs.root(file, { ".git", "flake.nix" })
+
+            local hook = project_hooks[root]
+            if hook then
+              hook()
+            end
+          end
+        '';
+      }
+    ];
   };
 }
