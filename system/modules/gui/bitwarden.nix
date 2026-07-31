@@ -10,10 +10,6 @@ in {
       auth sufficient pam_fprintd.so
     '';
 
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-39.8.10"
-    ];
-
     environment.systemPackages = [
       (pkgs.stdenvNoCC.mkDerivation {
         name = "bitwarden-polkit";
@@ -21,16 +17,13 @@ in {
         dontUnpack = true;
         installPhase = ''
           mkdir -pv $out/share/polkit-1/
-          cp -rv $src/share/polkit-1/actions/ $out/share/polkit-1/
+            cp -rv $src/share/polkit-1/actions/ $out/share/polkit-1/
         '';
       })
     ];
   };
 
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-39.8.10"
-    ];
     home.packages = with pkgs; [
       bitwarden-desktop
       bitwarden-cli

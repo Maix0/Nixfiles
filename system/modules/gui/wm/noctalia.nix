@@ -10,7 +10,7 @@ in {
     system,
     ...
   }: let
-    wallpaper_image = ./files/background.png;
+    wallpaper_image = ./files/background-sindragosa.png;
     avatar_image = ./files/avatar.png;
   in {
     imports = [

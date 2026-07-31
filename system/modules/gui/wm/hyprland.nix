@@ -109,14 +109,43 @@ in {
             ${lib.getExe' pkgs.toybox "xargs"} ${lib.getExe' pkgs.procps "kill"}
         '';
       in [
-        "${killDbus}"
+        #"${killDbus}"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && "
         "noctalia"
-        "${lib.getExe' pkgs.polkit "polkit-agent-helper-1"}"
-        "zen-twilight"
-        "signal-desktop"
-        "sleep 60 && vesktop"
-        "bitwarden"
         "systemctl start --user polkit-gnome-authentication-agent-1"
+        "${lib.getExe' pkgs.polkit "polkit-agent-helper-1"}"
+        {
+          _args = [
+            "zen-twilight"
+            {
+              workspace = 2;
+            }
+          ];
+        }
+        {
+          _args = [
+            "signal-desktop"
+            {
+              workspace = 8;
+            }
+          ];
+        }
+        {
+          _args = [
+            "vesktop"
+            {
+              workspace = 8;
+            }
+          ];
+        }
+        {
+          _args = [
+            "bitwarden"
+            {
+              workspace = 2;
+            }
+          ];
+        }
       ];
     in {
       package = hyprland;
@@ -230,8 +259,8 @@ in {
           mkTopMonitor = output: {
             inherit output;
             mode = "preferred";
-            position = "0x0";
-            scale = "1";
+            position = "auto-center-top";
+            scale = "auto";
           };
         in [
           {
@@ -241,18 +270,16 @@ in {
             scale = 1;
             mirror = "eDP-1";
           }
-          (mkTopMonitor "desc:Lenovo Group Limited P27h-30")
-          (mkTopMonitor "desc:HP Inc. OMEN by HP 27 CNK908129J")
           {
             output = "desc:BOE NE135A1M-NY1";
             mode = "preferred";
-            position = "0x1440";
+            position = "0x0";
             scale = 2;
           }
           {
             output = "";
             mode = "preferred";
-            position = "auto";
+            position = "auto-center-up";
             scale = 1;
           }
         ];
@@ -267,7 +294,12 @@ in {
             "hyprland.start"
             (lib.generators.mkLuaInline ''
               function()
-                ${builtins.concatStringsSep "\n" (builtins.map (x: "hl.exec_cmd(${toLua x})") exec-once)}
+                ${builtins.concatStringsSep "\n" (builtins.map (x: "hl.exec_cmd(${
+                  if (builtins.isAttrs x) && (builtins.hasAttr "_args" x)
+                  then builtins.concatStringsSep ", " (builtins.map toLua x._args)
+                  else toLua x
+                })")
+                exec-once)}
               end
             '')
           ];

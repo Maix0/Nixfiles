@@ -10,14 +10,14 @@ in {
       dev-postgres
       dev-probe-rs
       dev-virt
-      dev-virtualbox
+      # dev-virtualbox
     ];
   };
 
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
     imports = with inputs.self.modules.homeManager; [
       dev-tools
-      dev-ghidra
+      # dev-ghidra
       dev-man
       dev-probe-rs
       dev-nvim

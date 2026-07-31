@@ -6,9 +6,6 @@
   moduleName = "gui-browser";
 in {
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-39.8.10"
-    ];
     imports = [
       inputs.zen-browser.homeModules.twilight
     ];
