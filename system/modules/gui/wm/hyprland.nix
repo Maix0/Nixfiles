@@ -4,6 +4,7 @@ in {
   flake.modules.nixos.${moduleName} = {pkgs, ...}: {
     imports = with inputs.self.modules.nixos; [
       # gui-hyprlock
+      gui-noctalia
     ];
   };
 

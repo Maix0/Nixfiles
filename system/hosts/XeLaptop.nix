@@ -16,6 +16,8 @@ in {
       gui
       cli
     ];
+
+    maix.greeter.tui.enable = true;
     hardware = {
       bluetooth.enable = true;
       cpu.amd.updateMicrocode = true;

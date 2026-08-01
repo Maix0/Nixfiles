@@ -5,14 +5,60 @@
 }: let
   moduleName = "gui-noctalia";
 in {
+  flake.modules.nixos.${moduleName} = {
+    pkgs,
+    system,
+    config,
+    ...
+  }: let
+    cfg = config.maix.greeter.noctalia;
+  in {
+    options.maix.greeter.noctalia = {
+      enable = lib.mkEnableOption "Enable noctalia-greeter";
+      assertions = [
+        {
+          message = "Only a single maix.greeter can be enabled at the same time !";
+          assertion =
+            (
+              builtins.foldl' (acc: v:
+                acc
+                + (
+                  if v
+                  then 1
+                  else 0
+                ))
+              0 (builtins.attrValues (builtins.mapAttrs (n: o:
+                if builtins.hasAttr "enable" o
+                then o.enable
+                else false)
+              config.maix.greeter))
+            )
+            == 1;
+        }
+      ];
+    };
+    config = lib.mkIf cfg.enable {
+      #programs.noctalia-greeter = {
+      #enable = true;
+      # Optional: extra flags after `--` on noctalia-greeter-session
+      #greeter-args = "";
+      # Full declarative greeter.toml (overwritten each activation). See examples/greeter.toml.
+      #settings = {
+      #  cursor = {
+      #    theme = "Bibata-Modern-Ice";
+      #    size = 24;
+      #    path = "${pkgs.bibata-cursors}/share/icons";
+      #  };
+      #};
+      #};
+    };
+  };
+
   flake.modules.homeManager.${moduleName} = {
     pkgs,
     system,
     ...
-  }: let
-    wallpaper_image = ./files/background-sindragosa.png;
-    avatar_image = ./files/avatar.png;
-  in {
+  }: {
     imports = [
       inputs.noctalia.homeModules.default
     ];
@@ -106,7 +152,7 @@ in {
           position = "top_right";
         };
         shell = {
-          avatar_path = avatar_image;
+          avatar_path = ./files/avatar.png;
           font_family = "Inter Display";
           animation.speed = 2;
         };
@@ -114,7 +160,19 @@ in {
         theme = {
           builtin = "dracula";
         };
-        wallpaper.default.path = wallpaper_image;
+        wallpaper = {
+          fill_mode = "crop";
+          enabled = true;
+          transition = ["fade" "wipe" "disc" "stripes" "zoom" "honeycomb"];
+          directory = ./files/background/.;
+
+          automation = {
+            enabled = true;
+            order = "random";
+            interval_seconds = 1800;
+            recursive = true;
+          };
+        };
 
         widget = builtins.mapAttrs (_name: value: value // {capsule = true;}) {
           active_window = {
