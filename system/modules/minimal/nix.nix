@@ -18,11 +18,11 @@ in {
           ];
           sshUser = "root";
           sshKey = "/root/.ssh/id_buildremotekey";
-          maxJobs = 8;
+          maxJobs = 24;
           hostName = "maix.me";
         };
       in [
-        #loServer
+        loServer
       ];
       distributedBuilds = true;
       settings = {

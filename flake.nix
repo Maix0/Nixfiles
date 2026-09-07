@@ -23,11 +23,12 @@
     };
 
     nixvim.url = "github:nix-community/nixvim";
-  
+
     noctalia = {
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    unifi-desktop-nix.url = "github:KristijanZic/unifi-desktop-nix";
 
     privateConfig = {
       url = "path:./stubPrivate";

@@ -21,6 +21,7 @@
         "vboxusers"
         "video"
         "libvirtd"
+        "qemu-libvirtd"
       ];
     }))
     (inputs.self.lib.mkHome "maix")

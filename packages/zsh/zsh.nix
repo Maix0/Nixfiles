@@ -144,6 +144,8 @@
         alias -- 'ls'='${lib.getExe pkgs.eza} --icons -a'
         alias -- 'll'='${lib.getExe pkgs.eza} --icons -a -l'
         alias -- 'cdtemp'='cd "$(mktemp -d)"'
+        # one day i wont lose my prompt and this wont be necessary
+        alias -- 'reshell'='exec $SHELL' 
 
 
         preexec() {

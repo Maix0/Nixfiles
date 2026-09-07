@@ -10,7 +10,8 @@ in {
       dev-postgres
       dev-probe-rs
       dev-virt
-      # dev-virtualbox
+      dev-virtualbox
+      # dev-wifi
     ];
   };
 
