@@ -26,7 +26,7 @@ in {
       ];
       distributedBuilds = true;
       settings = {
-        experimental-features = "nix-command flakes";
+        experimental-features = ["nix-command" "flakes"];
         builders-use-substitutes = true;
         auto-optimise-store = true;
         keep-outputs = true;

@@ -1,7 +1,7 @@
 {
   description = "Config";
   inputs = {
-    import-tree.url = "github:vic/import-tree";
+    import-tree.url = "github:denful/import-tree";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     nixpkgs.url = "nixpkgs/nixos-unstable";
@@ -41,7 +41,7 @@
   };
 
   outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} (top @ {...}: let
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} (let
       inputsModules = {lib, ...}: {flake.inputs.public = lib.filterAttrs (n: _: n != "self") inputs;};
       privateModules = {lib, ...}: {
         flake.modules = inputs.privateConfig.modules;
@@ -52,9 +52,12 @@
         };
       };
     in {
-      imports =
-        [inputs.flake-parts.flakeModules.modules inputsModules privateModules]
-        ++ (inputs.import-tree [./system ./nvim ./packages]).imports;
+      imports = [
+        inputs.flake-parts.flakeModules.modules
+        inputsModules
+        privateModules
+        (inputs.import-tree [./system ./nvim ./packages])
+      ];
       systems = ["x86_64-linux" "aarch64-linux"];
     });
 }
