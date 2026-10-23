@@ -12,6 +12,7 @@ in {
       dev-virt
       dev-virtualbox
       # dev-wifi
+      dev-sigrok
     ];
   };
 
