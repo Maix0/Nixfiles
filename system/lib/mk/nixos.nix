@@ -9,6 +9,7 @@
     ${name} = inputs.nixpkgs.lib.nixosSystem {
       modules =
         [
+          inputs.agenix.nixosModules.default
           inputs.self.modules.nixos."lib-system"
           inputs.self.modules.nixos."host-${name}"
           {

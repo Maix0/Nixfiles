@@ -60,12 +60,16 @@ in {
     ...
   }: {
     imports = [
-      inputs.noctalia.homeModules.default
+        #inputs.noctalia.homeModules.default
     ];
 
     programs.noctalia = {
       enable = true;
       settings = {
+        #calendar.account.personal = {
+        #path = "/home/maix/.calendar";
+        #type = "vdir";
+        #};
         bar.default = {
           background_opacity = 0.15;
           center = ["active_window"];
@@ -128,22 +132,69 @@ in {
         };
         location.address = "Paris";
         lockscreen_widgets = {
-          enabled = false;
+          enabled = true;
           schema_version = 2;
-          widget_order = ["lockscreen-login-box@eDP-1"];
+          widget_order = ["lockscreen-login-box@eDP-1" "lockscreen-widget-clock" "lockscreen-widget-weather" "lockscreen-widget-audio"];
           grid = {
             cell_size = 16;
             major_interval = 4;
             visible = true;
           };
-          widget."lockscreen-login-box@eDP-1" = {
-            box_height = 0.0;
-            box_width = 0.0;
-            cx = 720.0;
-            cy = 837.0;
-            output = "eDP-1";
-            rotation = 0.0;
-            type = "login_box";
+          widget = {
+            "lockscreen-login-box@eDP-1" = {
+              box_height = 0.0;
+              box_width = 0.0;
+              cx = 720.0;
+              cy = 837.0;
+              output = "eDP-1";
+              rotation = 0.0;
+              type = "login_box";
+            };
+
+            lockscreen-widget-clock = {
+              box_height = 96.0;
+              box_width = 192.0;
+              cx = 720.0;
+              cy = 192.0;
+              output = "eDP-1";
+              placement_height = 960.0;
+              placement_width = 1440.0;
+              rotation = 0.0;
+              type = "clock";
+            };
+
+            lockscreen-widget-weather = {
+              box_height = 176.0;
+              box_width = 192.0;
+              cx = 720.0;
+              cy = 352.0;
+              output = "eDP-1";
+              placement_height = 960.0;
+              placement_width = 1440.0;
+              rotation = 0.0;
+              type = "weather";
+              settings.show_forecast = true;
+            };
+
+            desktop_widgets.widget.lockscreen-widget-audio = {
+              box_height = 144.0;
+              box_width = 1408.0;
+              cx = 720.0;
+              cy = 862.0;
+              output = "eDP-1";
+              placement_height = 960.0;
+              placement_width = 1440.0;
+              rotation = 0.0;
+              type = "audio_visualizer";
+              settings = {
+                background = false;
+                bands = 56.0;
+                centered = false;
+                high_color = "primary";
+                mirrored = true;
+                show_when_idle = true;
+              };
+            };
           };
         };
 
@@ -159,6 +210,8 @@ in {
 
         theme = {
           builtin = "dracula";
+          community_palette = "Oxocarbon";
+          mode = "dark";
         };
         wallpaper = {
           fill_mode = "crop";
@@ -180,6 +233,7 @@ in {
             max_length = 360;
             min_length = 00;
             capsule_padding = 10.0;
+            interactive = false;
           };
           clock = {
             format = "{:%d/%m/%y} - {:%H:%M:%S}";
@@ -190,7 +244,7 @@ in {
           date = {};
           power_profile = {};
           workspaces = {
-            display = "name";
+            label_source = "name";
             capsule = false;
           };
         };

@@ -13,6 +13,7 @@
           [
             inputs.self.modules.homeManager."hm-${username}"
             inputs.self.modules.homeManager.lib-system
+            inputs.agenix.homeManagerModules.default
           ]
           ++ (inputs.self.lib.optionalModule "private-hm-${username}" inputs.self.modules.homeManager);
       };

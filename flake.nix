@@ -31,6 +31,10 @@
     };
     #unifi-desktop-nix.url = "github:KristijanZic/unifi-desktop-nix";
 
+    agenix = {
+      url = "github:ryantm/agenix";
+    };
+
     privateConfig = {
       url = "path:./stubPrivate";
       inputs = {
