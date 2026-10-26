@@ -60,37 +60,33 @@ in {
     ...
   }: {
     imports = [
-        #inputs.noctalia.homeModules.default
+      #inputs.noctalia.homeModules.default
     ];
 
     programs.noctalia = {
       enable = true;
       settings = {
-        #calendar.account.personal = {
-        #path = "/home/maix/.calendar";
-        #type = "vdir";
-        #};
         bar.default = {
           background_opacity = 0.15;
           center = ["active_window"];
-          end = ["battery" "brightness" "clock" "tray" "control-center"];
+          end = ["battery" "brightness" "clock" "tray"];
           margin_edge = 0;
           margin_ends = 0;
           radius = 0;
           shadow = false;
-          start = ["launcher" "network" "bluetooth" "workspaces"];
+          start = ["network" "bluetooth" "workspaces"];
         };
 
         desktop_widgets = {
           schema_version = 2;
-          widget_order = ["desktop-widget-audio"];
+          widget_order = ["audio"];
           grid = {
             cell_size = 16;
             major_interval = 4;
             visible = true;
           };
 
-          widget.desktop-widget-audio = {
+          widget.audio = {
             box_height = 144.0;
             box_width = 1408.0;
             cx = 720.0;
@@ -99,11 +95,11 @@ in {
             rotation = 0.0;
             type = "audio_visualizer";
             settings = {
-              aspect_ratio = 6.0;
               background = false;
               bands = 56.0;
               centered = false;
-              high_color = "primary";
+              color_1 = "primary";
+              color_2 = "primary";
               mirrored = true;
               show_when_idle = true;
             };
@@ -134,14 +130,14 @@ in {
         lockscreen_widgets = {
           enabled = true;
           schema_version = 2;
-          widget_order = ["lockscreen-login-box@eDP-1" "lockscreen-widget-clock" "lockscreen-widget-weather" "lockscreen-widget-audio"];
+          widget_order = ["login-box" "clock" "weather" "audio"];
           grid = {
             cell_size = 16;
             major_interval = 4;
             visible = true;
           };
           widget = {
-            "lockscreen-login-box@eDP-1" = {
+            login-box = {
               box_height = 0.0;
               box_width = 0.0;
               cx = 720.0;
@@ -151,7 +147,7 @@ in {
               type = "login_box";
             };
 
-            lockscreen-widget-clock = {
+            clock = {
               box_height = 96.0;
               box_width = 192.0;
               cx = 720.0;
@@ -163,7 +159,7 @@ in {
               type = "clock";
             };
 
-            lockscreen-widget-weather = {
+            weather = {
               box_height = 176.0;
               box_width = 192.0;
               cx = 720.0;
@@ -176,7 +172,7 @@ in {
               settings.show_forecast = true;
             };
 
-            desktop_widgets.widget.lockscreen-widget-audio = {
+            audio = {
               box_height = 144.0;
               box_width = 1408.0;
               cx = 720.0;
@@ -190,7 +186,8 @@ in {
                 background = false;
                 bands = 56.0;
                 centered = false;
-                high_color = "primary";
+                color_1 = "primary";
+                color_2 = "primary";
                 mirrored = true;
                 show_when_idle = true;
               };
@@ -206,10 +203,64 @@ in {
           avatar_path = ./files/avatar.png;
           font_family = "Inter Display";
           animation.speed = 2;
+
+          launcher = {
+            category_icons_only = true;
+            layout = "simple";
+          };
+          session.actions = [
+            {
+              action = "lock";
+              countdown_seconds = 0.0;
+              enabled = true;
+              shortcut = "1";
+              variant = "default";
+            }
+
+            {
+              action = "logout";
+              countdown_seconds = 0.0;
+              enabled = true;
+              shortcut = "2";
+              variant = "default";
+            }
+
+            {
+              action = "lock_and_suspend";
+              countdown_seconds = 0.0;
+              enabled = true;
+              shortcut = "3";
+              variant = "default";
+            }
+            {
+              action = "command";
+              command = "${lib.getExe' pkgs.systemd "systemctl"} soft-reboot";
+              countdown_seconds = 0.0;
+              enabled = true;
+              glyph = "reboot";
+              label = "Soft Reboot";
+              shortcut = "s";
+              variant = "default";
+            }
+            {
+              action = "reboot";
+              countdown_seconds = 0.0;
+              enabled = true;
+              shortcut = "4";
+              variant = "default";
+            }
+            {
+              action = "shutdown";
+              countdown_seconds = 0.0;
+              enabled = true;
+              shortcut = "5";
+              variant = "destructive";
+            }
+          ];
         };
 
         theme = {
-          builtin = "dracula";
+          builtin = "Tokyo-Night";
           community_palette = "Oxocarbon";
           mode = "dark";
         };
@@ -246,6 +297,21 @@ in {
           workspaces = {
             label_source = "name";
             capsule = false;
+          };
+        };
+        calendar = {
+          enabled = true;
+
+          account.personal = {
+            name = "Personal";
+            path = "/home/maix/.calendar";
+            type = "vdir";
+          };
+          account.holydays = {
+            color = "error";
+            name = "Holydays";
+            server_url = "https://etalab.github.io/jours-feries-france-data/ics/jours_feries_metropole.ics";
+            type = "ics";
           };
         };
       };
