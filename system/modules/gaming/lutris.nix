@@ -6,6 +6,9 @@
   moduleName = "gaming-lutris";
 in {
   flake.modules.homeManager.${moduleName} = {pkgs, ...}: {
+    nixpkgs.config.problems.handlers = {
+      "gtk+".broken = "warn"; # or "ignore"
+    };
     programs.lutris = {
       enable = true;
       extraPackages = with pkgs; [mangohud winetricks gamescope gamemode umu-launcher];

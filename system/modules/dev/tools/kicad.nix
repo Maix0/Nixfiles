@@ -6,6 +6,6 @@
   moduleName = "dev-kicad";
 in {
   flake.modules.homeManager.${moduleName} = {pkgs, system, ...}: {
-    home.packages = [inputs.self.packages.${system}.kicad];
+    home.packages = [pkgs.kicad];
   };
 }

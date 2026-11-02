@@ -208,6 +208,10 @@ in {
                 workspace = "${toString idx}";
                 follow = false;
               })
+              (mkRawBind "SUPER+CTRL+${key}" "hl.dsp.workspace.move" {
+                workspace = "${toString idx}";
+                monitor = "current";
+              })
               (mkRawBind "SUPER+${key}" "hl.dsp.focus" {workspace = "${toString idx}";})
             ])
             workspaces))

@@ -7,23 +7,7 @@
 in {
   flake.modules.nixos.${moduleName} = {pkgs, ...}: {
     nix = {
-      buildMachines = let
-        loServer = {
-          system = "x86_64-linux";
-          supportedFeatures = [
-            "benchmark"
-            "big-parallel"
-            "kvm"
-            "nixos-test"
-          ];
-          sshUser = "root";
-          sshKey = "/root/.ssh/id_buildremotekey";
-          maxJobs = 24;
-          hostName = "maix.me";
-        };
-      in [
-        loServer
-      ];
+      package = pkgs.lixPackageSets.stable.lix;
       distributedBuilds = true;
       settings = {
         experimental-features = ["nix-command" "flakes"];

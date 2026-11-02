@@ -104,7 +104,7 @@ in {
       eog
       fzf
       krita
-      inputs.self.packages.${system}.aseprite
+      aseprite
       mypaint
       virt-viewer
       waypipe
