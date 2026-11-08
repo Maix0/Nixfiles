@@ -1,6 +1,7 @@
 {
   description = "Config";
   inputs = {
+    nixpkgs-stable.url = "nixpkgs/release-26.05";
     import-tree.url = "github:denful/import-tree";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
