@@ -628,7 +628,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-7X/wodM9PmOv9X0Yf1ugecPygNT8+E+8FNEKOElkx1c=",
+        "narHash": "sha256-qZqzbzXOw67Rn8gYnFwXbB9D0IguJU/tVjoH8TumFkc=",
         "path": "./stubPrivate",
         "type": "path"
       },
