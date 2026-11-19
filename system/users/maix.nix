@@ -53,13 +53,6 @@
         programs = {
           fastfetch.enable = true;
           home-manager.enable = true;
-          git.settings = {
-            user = {
-              name = "Maix0";
-              email = "39835848+Maix0@users.noreply.github.com";
-              signingkey = "/home/maix/.ssh/id_ed25519.pub";
-            };
-          };
           vdirsyncer.enable = true;
         };
         home.stateVersion = "23.11";
